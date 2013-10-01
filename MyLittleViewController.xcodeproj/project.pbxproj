@@ -16,6 +16,13 @@
 		49C5622117FB75AD00B6873C /* libMyLittleViewController.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 49C5620917FB75AD00B6873C /* libMyLittleViewController.a */; };
 		49C5622717FB75AD00B6873C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 49C5622517FB75AD00B6873C /* InfoPlist.strings */; };
 		49C5622917FB75AD00B6873C /* MyLittleViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C5622817FB75AD00B6873C /* MyLittleViewControllerTests.m */; };
+		49C5623717FB799F00B6873C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49C5620C17FB75AD00B6873C /* Foundation.framework */; };
+		49C5623917FB799F00B6873C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49C5623817FB799F00B6873C /* CoreGraphics.framework */; };
+		49C5623A17FB799F00B6873C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49C5621D17FB75AD00B6873C /* UIKit.framework */; };
+		49C5624017FB799F00B6873C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 49C5623E17FB799F00B6873C /* InfoPlist.strings */; };
+		49C5624217FB799F00B6873C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C5624117FB799F00B6873C /* main.m */; };
+		49C5624617FB79A000B6873C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C5624517FB79A000B6873C /* AppDelegate.m */; };
+		49C5624817FB79A000B6873C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49C5624717FB79A000B6873C /* Images.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -25,6 +32,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 49C5620817FB75AD00B6873C;
 			remoteInfo = MyLittleViewController;
+		};
+		49C5626117FB79CF00B6873C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 49C5620117FB75AD00B6873C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 49C5623517FB799F00B6873C;
+			remoteInfo = MyLittleViewControllerTestBundle;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -53,6 +67,15 @@
 		49C5622417FB75AD00B6873C /* MyLittleViewControllerTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MyLittleViewControllerTests-Info.plist"; sourceTree = "<group>"; };
 		49C5622617FB75AD00B6873C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		49C5622817FB75AD00B6873C /* MyLittleViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyLittleViewControllerTests.m; sourceTree = "<group>"; };
+		49C5623617FB799F00B6873C /* MyLittleViewControllerTestBundle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyLittleViewControllerTestBundle.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		49C5623817FB799F00B6873C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		49C5623D17FB799F00B6873C /* MyLittleViewControllerTestBundle-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MyLittleViewControllerTestBundle-Info.plist"; sourceTree = "<group>"; };
+		49C5623F17FB799F00B6873C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		49C5624117FB799F00B6873C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		49C5624317FB79A000B6873C /* MyLittleViewControllerTestBundle-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MyLittleViewControllerTestBundle-Prefix.pch"; sourceTree = "<group>"; };
+		49C5624417FB79A000B6873C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		49C5624517FB79A000B6873C /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		49C5624717FB79A000B6873C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +98,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		49C5623317FB799F00B6873C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				49C5623917FB799F00B6873C /* CoreGraphics.framework in Frameworks */,
+				49C5623A17FB799F00B6873C /* UIKit.framework in Frameworks */,
+				49C5623717FB799F00B6873C /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -83,6 +116,7 @@
 			children = (
 				49C5620E17FB75AD00B6873C /* MyLittleViewController */,
 				49C5622217FB75AD00B6873C /* MyLittleViewControllerTests */,
+				49C5623B17FB799F00B6873C /* MyLittleViewControllerTestBundle */,
 				49C5620B17FB75AD00B6873C /* Frameworks */,
 				49C5620A17FB75AD00B6873C /* Products */,
 			);
@@ -93,6 +127,7 @@
 			children = (
 				49C5620917FB75AD00B6873C /* libMyLittleViewController.a */,
 				49C5621917FB75AD00B6873C /* MyLittleViewControllerTests.xctest */,
+				49C5623617FB799F00B6873C /* MyLittleViewControllerTestBundle.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -103,6 +138,7 @@
 				49C5620C17FB75AD00B6873C /* Foundation.framework */,
 				49C5621A17FB75AD00B6873C /* XCTest.framework */,
 				49C5621D17FB75AD00B6873C /* UIKit.framework */,
+				49C5623817FB799F00B6873C /* CoreGraphics.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -143,6 +179,28 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		49C5623B17FB799F00B6873C /* MyLittleViewControllerTestBundle */ = {
+			isa = PBXGroup;
+			children = (
+				49C5624417FB79A000B6873C /* AppDelegate.h */,
+				49C5624517FB79A000B6873C /* AppDelegate.m */,
+				49C5624717FB79A000B6873C /* Images.xcassets */,
+				49C5623C17FB799F00B6873C /* Supporting Files */,
+			);
+			path = MyLittleViewControllerTestBundle;
+			sourceTree = "<group>";
+		};
+		49C5623C17FB799F00B6873C /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				49C5623D17FB799F00B6873C /* MyLittleViewControllerTestBundle-Info.plist */,
+				49C5623E17FB799F00B6873C /* InfoPlist.strings */,
+				49C5624117FB799F00B6873C /* main.m */,
+				49C5624317FB79A000B6873C /* MyLittleViewControllerTestBundle-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -174,12 +232,30 @@
 			buildRules = (
 			);
 			dependencies = (
+				49C5626217FB79CF00B6873C /* PBXTargetDependency */,
 				49C5622017FB75AD00B6873C /* PBXTargetDependency */,
 			);
 			name = MyLittleViewControllerTests;
 			productName = MyLittleViewControllerTests;
 			productReference = 49C5621917FB75AD00B6873C /* MyLittleViewControllerTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		49C5623517FB799F00B6873C /* MyLittleViewControllerTestBundle */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 49C5625F17FB79A000B6873C /* Build configuration list for PBXNativeTarget "MyLittleViewControllerTestBundle" */;
+			buildPhases = (
+				49C5623217FB799F00B6873C /* Sources */,
+				49C5623317FB799F00B6873C /* Frameworks */,
+				49C5623417FB799F00B6873C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MyLittleViewControllerTestBundle;
+			productName = MyLittleViewControllerTestBundle;
+			productReference = 49C5623617FB799F00B6873C /* MyLittleViewControllerTestBundle.app */;
+			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
@@ -189,6 +265,11 @@
 			attributes = {
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = Instructure;
+				TargetAttributes = {
+					49C5621817FB75AD00B6873C = {
+						TestTargetID = 49C5623517FB799F00B6873C;
+					};
+				};
 			};
 			buildConfigurationList = 49C5620417FB75AD00B6873C /* Build configuration list for PBXProject "MyLittleViewController" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -204,6 +285,7 @@
 			targets = (
 				49C5620817FB75AD00B6873C /* MyLittleViewController */,
 				49C5621817FB75AD00B6873C /* MyLittleViewControllerTests */,
+				49C5623517FB799F00B6873C /* MyLittleViewControllerTestBundle */,
 			);
 		};
 /* End PBXProject section */
@@ -214,6 +296,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				49C5622717FB75AD00B6873C /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		49C5623417FB799F00B6873C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				49C5624017FB799F00B6873C /* InfoPlist.strings in Resources */,
+				49C5624817FB79A000B6873C /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -236,6 +327,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		49C5623217FB799F00B6873C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				49C5624617FB79A000B6873C /* AppDelegate.m in Sources */,
+				49C5624217FB799F00B6873C /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -244,6 +344,11 @@
 			target = 49C5620817FB75AD00B6873C /* MyLittleViewController */;
 			targetProxy = 49C5621F17FB75AD00B6873C /* PBXContainerItemProxy */;
 		};
+		49C5626217FB79CF00B6873C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 49C5623517FB799F00B6873C /* MyLittleViewControllerTestBundle */;
+			targetProxy = 49C5626117FB79CF00B6873C /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -251,6 +356,14 @@
 			isa = PBXVariantGroup;
 			children = (
 				49C5622617FB75AD00B6873C /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		49C5623E17FB799F00B6873C /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				49C5623F17FB799F00B6873C /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -356,6 +469,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/MyLittleViewControllerTestBundle.app/MyLittleViewControllerTestBundle";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -369,6 +483,7 @@
 				);
 				INFOPLIST_FILE = "MyLittleViewControllerTests/MyLittleViewControllerTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Debug;
@@ -377,6 +492,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/MyLittleViewControllerTestBundle.app/MyLittleViewControllerTestBundle";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -386,7 +502,52 @@
 				GCC_PREFIX_HEADER = "MyLittleViewController/MyLittleViewController-Prefix.pch";
 				INFOPLIST_FILE = "MyLittleViewControllerTests/MyLittleViewControllerTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+		49C5625B17FB79A000B6873C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MyLittleViewControllerTestBundle/MyLittleViewControllerTestBundle-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "MyLittleViewControllerTestBundle/MyLittleViewControllerTestBundle-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		49C5625C17FB79A000B6873C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MyLittleViewControllerTestBundle/MyLittleViewControllerTestBundle-Prefix.pch";
+				INFOPLIST_FILE = "MyLittleViewControllerTestBundle/MyLittleViewControllerTestBundle-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
 		};
@@ -409,12 +570,22 @@
 				49C5622E17FB75AD00B6873C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		49C5622F17FB75AD00B6873C /* Build configuration list for PBXNativeTarget "MyLittleViewControllerTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				49C5623017FB75AD00B6873C /* Debug */,
 				49C5623117FB75AD00B6873C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		49C5625F17FB79A000B6873C /* Build configuration list for PBXNativeTarget "MyLittleViewControllerTestBundle" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				49C5625B17FB79A000B6873C /* Debug */,
+				49C5625C17FB79A000B6873C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 		};
