@@ -7,15 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		499151E717FC83DC0014F259 /* MyLittleViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 499151E617FC83DC0014F259 /* MyLittleViewControllerTests.m */; };
+		4991C07C17FC5C420059DDA3 /* MLVCArrayGroupedCollectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4991C07B17FC5C420059DDA3 /* MLVCArrayGroupedCollectionController.m */; };
+		4991C07F17FC702E0059DDA3 /* MLVCArrayGroupedCollectionControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4991C07E17FC702E0059DDA3 /* MLVCArrayGroupedCollectionControllerTests.m */; };
 		49C5620D17FB75AD00B6873C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49C5620C17FB75AD00B6873C /* Foundation.framework */; };
 		49C5621217FB75AD00B6873C /* MyLittleViewController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 49C5621117FB75AD00B6873C /* MyLittleViewController.h */; };
-		49C5621417FB75AD00B6873C /* MyLittleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C5621317FB75AD00B6873C /* MyLittleViewController.m */; };
 		49C5621B17FB75AD00B6873C /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49C5621A17FB75AD00B6873C /* XCTest.framework */; };
 		49C5621C17FB75AD00B6873C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49C5620C17FB75AD00B6873C /* Foundation.framework */; };
 		49C5621E17FB75AD00B6873C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49C5621D17FB75AD00B6873C /* UIKit.framework */; };
 		49C5622117FB75AD00B6873C /* libMyLittleViewController.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 49C5620917FB75AD00B6873C /* libMyLittleViewController.a */; };
 		49C5622717FB75AD00B6873C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 49C5622517FB75AD00B6873C /* InfoPlist.strings */; };
-		49C5622917FB75AD00B6873C /* MyLittleViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C5622817FB75AD00B6873C /* MyLittleViewControllerTests.m */; };
 		49C5623717FB799F00B6873C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49C5620C17FB75AD00B6873C /* Foundation.framework */; };
 		49C5623917FB799F00B6873C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49C5623817FB799F00B6873C /* CoreGraphics.framework */; };
 		49C5623A17FB799F00B6873C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49C5621D17FB75AD00B6873C /* UIKit.framework */; };
@@ -56,17 +57,20 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		499151E617FC83DC0014F259 /* MyLittleViewControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyLittleViewControllerTests.m; sourceTree = "<group>"; };
+		4991C07917FC5B590059DDA3 /* MLVCGroupedCollectionController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MLVCGroupedCollectionController.h; sourceTree = "<group>"; };
+		4991C07A17FC5C420059DDA3 /* MLVCArrayGroupedCollectionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLVCArrayGroupedCollectionController.h; sourceTree = "<group>"; };
+		4991C07B17FC5C420059DDA3 /* MLVCArrayGroupedCollectionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLVCArrayGroupedCollectionController.m; sourceTree = "<group>"; };
+		4991C07E17FC702E0059DDA3 /* MLVCArrayGroupedCollectionControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLVCArrayGroupedCollectionControllerTests.m; sourceTree = "<group>"; };
 		49C5620917FB75AD00B6873C /* libMyLittleViewController.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMyLittleViewController.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		49C5620C17FB75AD00B6873C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		49C5621017FB75AD00B6873C /* MyLittleViewController-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MyLittleViewController-Prefix.pch"; sourceTree = "<group>"; };
 		49C5621117FB75AD00B6873C /* MyLittleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyLittleViewController.h; sourceTree = "<group>"; };
-		49C5621317FB75AD00B6873C /* MyLittleViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyLittleViewController.m; sourceTree = "<group>"; };
 		49C5621917FB75AD00B6873C /* MyLittleViewControllerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyLittleViewControllerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		49C5621A17FB75AD00B6873C /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		49C5621D17FB75AD00B6873C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		49C5622417FB75AD00B6873C /* MyLittleViewControllerTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MyLittleViewControllerTests-Info.plist"; sourceTree = "<group>"; };
 		49C5622617FB75AD00B6873C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		49C5622817FB75AD00B6873C /* MyLittleViewControllerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyLittleViewControllerTests.m; sourceTree = "<group>"; };
 		49C5623617FB799F00B6873C /* MyLittleViewControllerTestBundle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyLittleViewControllerTestBundle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		49C5623817FB799F00B6873C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		49C5623D17FB799F00B6873C /* MyLittleViewControllerTestBundle-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MyLittleViewControllerTestBundle-Info.plist"; sourceTree = "<group>"; };
@@ -111,6 +115,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4991C07717FC5B1E0059DDA3 /* Collections */ = {
+			isa = PBXGroup;
+			children = (
+				4991C07917FC5B590059DDA3 /* MLVCGroupedCollectionController.h */,
+				4991C07A17FC5C420059DDA3 /* MLVCArrayGroupedCollectionController.h */,
+				4991C07B17FC5C420059DDA3 /* MLVCArrayGroupedCollectionController.m */,
+			);
+			name = Collections;
+			sourceTree = "<group>";
+		};
 		49C5620017FB75AD00B6873C = {
 			isa = PBXGroup;
 			children = (
@@ -146,8 +160,8 @@
 		49C5620E17FB75AD00B6873C /* MyLittleViewController */ = {
 			isa = PBXGroup;
 			children = (
+				4991C07717FC5B1E0059DDA3 /* Collections */,
 				49C5621117FB75AD00B6873C /* MyLittleViewController.h */,
-				49C5621317FB75AD00B6873C /* MyLittleViewController.m */,
 				49C5620F17FB75AD00B6873C /* Supporting Files */,
 			);
 			path = MyLittleViewController;
@@ -164,8 +178,9 @@
 		49C5622217FB75AD00B6873C /* MyLittleViewControllerTests */ = {
 			isa = PBXGroup;
 			children = (
-				49C5622817FB75AD00B6873C /* MyLittleViewControllerTests.m */,
 				49C5622317FB75AD00B6873C /* Supporting Files */,
+				499151E617FC83DC0014F259 /* MyLittleViewControllerTests.m */,
+				4991C07E17FC702E0059DDA3 /* MLVCArrayGroupedCollectionControllerTests.m */,
 			);
 			path = MyLittleViewControllerTests;
 			sourceTree = "<group>";
@@ -263,6 +278,7 @@
 		49C5620117FB75AD00B6873C /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = MLVC;
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = Instructure;
 				TargetAttributes = {
@@ -315,7 +331,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				49C5621417FB75AD00B6873C /* MyLittleViewController.m in Sources */,
+				4991C07C17FC5C420059DDA3 /* MLVCArrayGroupedCollectionController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -323,7 +339,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				49C5622917FB75AD00B6873C /* MyLittleViewControllerTests.m in Sources */,
+				499151E717FC83DC0014F259 /* MyLittleViewControllerTests.m in Sources */,
+				4991C07F17FC702E0059DDA3 /* MLVCArrayGroupedCollectionControllerTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -588,6 +605,7 @@
 				49C5625C17FB79A000B6873C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

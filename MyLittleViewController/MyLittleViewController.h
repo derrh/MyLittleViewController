@@ -6,8 +6,8 @@
 //  Copyright (c) 2013 Instructure. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 
-@interface MyLittleViewController : NSObject
+// --- collections ---
+#pragma mark - collections
 
-@end
+#import "MLVCGroupedCollectionController.h"
