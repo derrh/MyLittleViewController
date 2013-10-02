@@ -7,6 +7,7 @@
 //
 
 #import <XCTest/XCTest.h>
+#import <Kiwi/Kiwi.h>
 #import "MLVCArrayGroupedCollectionController.h"
 
 @interface MLVCArrayGroupedCollectionControllerTests : XCTestCase
@@ -27,5 +28,6 @@
     XCTAssertEqualObjects(sortDescriptors, controller.sortDescriptors, @"sortDescriptors property does not match sort descriptors from construction");
     XCTAssertEqualObjects(testBlock, controller.groupTitleBlock, @"groupTitle block does not match value passed in during construction");
 }
+
 
 @end
