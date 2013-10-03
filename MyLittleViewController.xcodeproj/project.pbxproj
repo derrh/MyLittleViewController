@@ -10,8 +10,7 @@
 		15DDA16FA57E4D9B9E22BD6F /* libPods-MyLittleViewControllerTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D89A5635DCDA4138AD8A8FEC /* libPods-MyLittleViewControllerTests.a */; };
 		491AB16617FCA39C006F8E71 /* MLVCArrayGroupedCollectionControllerSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 491AB16517FCA39C006F8E71 /* MLVCArrayGroupedCollectionControllerSpec.m */; };
 		499151E717FC83DC0014F259 /* MyLittleViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 499151E617FC83DC0014F259 /* MyLittleViewControllerTests.m */; };
-		4991C07C17FC5C420059DDA3 /* MLVCArrayGroupedCollectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4991C07B17FC5C420059DDA3 /* MLVCArrayGroupedCollectionController.m */; };
-		4991C07F17FC702E0059DDA3 /* MLVCArrayGroupedCollectionControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4991C07E17FC702E0059DDA3 /* MLVCArrayGroupedCollectionControllerTests.m */; };
+		4991C07C17FC5C420059DDA3 /* MLVCCollectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4991C07B17FC5C420059DDA3 /* MLVCCollectionController.m */; };
 		49C5620D17FB75AD00B6873C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49C5620C17FB75AD00B6873C /* Foundation.framework */; };
 		49C5621217FB75AD00B6873C /* MyLittleViewController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 49C5621117FB75AD00B6873C /* MyLittleViewController.h */; };
 		49C5621B17FB75AD00B6873C /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49C5621A17FB75AD00B6873C /* XCTest.framework */; };
@@ -61,10 +60,8 @@
 /* Begin PBXFileReference section */
 		491AB16517FCA39C006F8E71 /* MLVCArrayGroupedCollectionControllerSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLVCArrayGroupedCollectionControllerSpec.m; sourceTree = "<group>"; };
 		499151E617FC83DC0014F259 /* MyLittleViewControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyLittleViewControllerTests.m; sourceTree = "<group>"; };
-		4991C07917FC5B590059DDA3 /* MLVCGroupedCollectionController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MLVCGroupedCollectionController.h; sourceTree = "<group>"; };
-		4991C07A17FC5C420059DDA3 /* MLVCArrayGroupedCollectionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLVCArrayGroupedCollectionController.h; sourceTree = "<group>"; };
-		4991C07B17FC5C420059DDA3 /* MLVCArrayGroupedCollectionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLVCArrayGroupedCollectionController.m; sourceTree = "<group>"; };
-		4991C07E17FC702E0059DDA3 /* MLVCArrayGroupedCollectionControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLVCArrayGroupedCollectionControllerTests.m; sourceTree = "<group>"; };
+		4991C07917FC5B590059DDA3 /* MLVCCollectionController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MLVCCollectionController.h; sourceTree = "<group>"; };
+		4991C07B17FC5C420059DDA3 /* MLVCCollectionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLVCCollectionController.m; sourceTree = "<group>"; };
 		49C5620917FB75AD00B6873C /* libMyLittleViewController.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMyLittleViewController.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		49C5620C17FB75AD00B6873C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		49C5621017FB75AD00B6873C /* MyLittleViewController-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MyLittleViewController-Prefix.pch"; sourceTree = "<group>"; };
@@ -124,9 +121,8 @@
 		4991C07717FC5B1E0059DDA3 /* Collections */ = {
 			isa = PBXGroup;
 			children = (
-				4991C07917FC5B590059DDA3 /* MLVCGroupedCollectionController.h */,
-				4991C07A17FC5C420059DDA3 /* MLVCArrayGroupedCollectionController.h */,
-				4991C07B17FC5C420059DDA3 /* MLVCArrayGroupedCollectionController.m */,
+				4991C07917FC5B590059DDA3 /* MLVCCollectionController.h */,
+				4991C07B17FC5C420059DDA3 /* MLVCCollectionController.m */,
 			);
 			name = Collections;
 			sourceTree = "<group>";
@@ -188,7 +184,6 @@
 			children = (
 				49C5622317FB75AD00B6873C /* Supporting Files */,
 				499151E617FC83DC0014F259 /* MyLittleViewControllerTests.m */,
-				4991C07E17FC702E0059DDA3 /* MLVCArrayGroupedCollectionControllerTests.m */,
 				491AB16517FCA39C006F8E71 /* MLVCArrayGroupedCollectionControllerSpec.m */,
 			);
 			path = MyLittleViewControllerTests;
@@ -375,7 +370,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4991C07C17FC5C420059DDA3 /* MLVCArrayGroupedCollectionController.m in Sources */,
+				4991C07C17FC5C420059DDA3 /* MLVCCollectionController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -385,7 +380,6 @@
 			files = (
 				499151E717FC83DC0014F259 /* MyLittleViewControllerTests.m in Sources */,
 				491AB16617FCA39C006F8E71 /* MLVCArrayGroupedCollectionControllerSpec.m in Sources */,
-				4991C07F17FC702E0059DDA3 /* MLVCArrayGroupedCollectionControllerTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
