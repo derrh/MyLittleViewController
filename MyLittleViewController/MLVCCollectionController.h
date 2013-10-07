@@ -51,6 +51,11 @@
 
 
 /**
+ The delegate is notified of all changes to the controller.
+ */
+@property (nonatomic, assign) id<MLVCCollectionControllerDelegate> delegate;
+
+/**
  @name Querying
  */
 #pragma mark - Querying
@@ -63,10 +68,6 @@
  */
 - (id)objectAtIndexPath:(NSIndexPath *)indexPath;
 
-/**
- The complete array of objects ordered by group
- */
-@property (nonatomic, readonly) NSArray *arrangedObjects;
 
 /**
  The array of `id<MLVCCollectionControllerGroup>` objects which describe each group
@@ -86,6 +87,16 @@
 /**
  @name Modifying Content
  */
+
+
+/**
+ Inserts the objects at the proper rows of the proper groups.
+ 
+ If the group doesn't exist a new group will be added to accomodate
+ the newly inserted objects.
+ 
+ @param objects a list of objects to be managed by the controller
+ */
 - (void)insertObjects:(NSArray *)objects;
 
 @end
@@ -96,9 +107,8 @@
  These objects are maintained by the controller and can be accessed via the `groups` property or using subscripts, i.e. myGroupedCollectionController[group0]
  */
 @interface MLVCCollectionControllerGroup : NSObject
-
-@property (nonatomic, readonly) id group;
-@property (nonatomic, readonly) NSString *groupTitle;
+@property (nonatomic, readonly) id id;
+@property (nonatomic, readonly) NSString *title;
 @property (nonatomic, readonly) NSArray *objects;
 
 /**
@@ -109,5 +119,8 @@
 
 
 @protocol MLVCCollectionControllerDelegate <NSObject>
-
+- (void)controllerDidChangeContent:(MLVCCollectionController *)controller;
+- (void)controllerWillChangeContent:(MLVCCollectionController *)controller;
+- (void)controller:(MLVCCollectionController *)controller didInsertGroup:(MLVCCollectionControllerGroup *)group atIndex:(NSUInteger)index;
+- (void)controller:(MLVCCollectionController *)controller didInsertObject:(id)object atIndexPath:(NSIndexPath *)path;
 @end

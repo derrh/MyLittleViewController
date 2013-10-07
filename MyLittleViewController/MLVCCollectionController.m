@@ -7,13 +7,11 @@
 //
 
 #import "MLVCCollectionController.h"
+#import <UIKit/UIKit.h>
 
 @interface MLVCCollectionControllerGroup ()
-@property (nonatomic, readwrite) id group;
-@property (nonatomic, readwrite) NSString *groupTitle;
-@property (nonatomic) NSRange groupRange;
-@property (nonatomic) NSUInteger groupIndex;
-@property (nonatomic) NSArray *arrangedObjects;
+- (id)initWithID:(id)groupID title:(NSString *)title;
+@property (nonatomic) NSMutableArray *groupedObjects;
 @end
 
 @interface MLVCCollectionController ()
@@ -24,8 +22,7 @@
 
 @implementation MLVCCollectionController {
     NSMutableArray *_groups;
-    NSMutableArray *_arrangedObjects;
-    NSMutableDictionary *_groupsByGroupObject;
+    NSMutableDictionary *_groupsByGroupID;
 }
 
 - (id)init
@@ -33,8 +30,7 @@
     self = [super init];
     if (self) {
         _groups = [NSMutableArray array];
-        _arrangedObjects = [NSMutableArray array];
-        _groupsByGroupObject = [NSMutableDictionary dictionary];
+        _groupsByGroupID = [NSMutableDictionary dictionary];
     }
     return self;
 }
@@ -61,7 +57,7 @@
 
 - (id)objectAtIndexPath:(NSIndexPath *)indexPath
 {
-    return self[[indexPath indexAtPosition:0]][[indexPath indexAtPosition:1]];
+    return self[indexPath.section][indexPath.row];
 }
 
 - (id)objectAtIndexedSubscript:(NSUInteger)groupIndex
@@ -69,55 +65,32 @@
     return self.groups[groupIndex];
 }
 
-- (MLVCCollectionControllerGroup *)groupForObject:(id)object {
-    id groupObject = self.groupByBlock(object);
-    return _groupsByGroupObject[groupObject];
-}
-
 #pragma mark - inserting and removing
 
-- (MLVCCollectionControllerGroup *)addGroupForObject:(id)object
+- (MLVCCollectionControllerGroup *)insertGroupForObject:(id)object
 {
-    MLVCCollectionControllerGroup *group = [MLVCCollectionControllerGroup new];
-    group.group = self.groupByBlock(object);
-    group.groupTitle = self.groupTitleBlock(object);
-    group.groupRange = NSMakeRange([_arrangedObjects count], 0);
-    group.groupIndex = [_groups count];
-    group.arrangedObjects = self.arrangedObjects;
-    [_groups addObject:group];
-    _groupsByGroupObject[group.group] = group;
+    MLVCCollectionControllerGroup *group = [[MLVCCollectionControllerGroup alloc] initWithID:self.groupByBlock(object) title:self.groupTitleBlock(object)];
+    _groupsByGroupID[group.id] = group;
     
-#warning delegate callback
-//    [self.delegate collectionViewModel:self didInsertSectionAtIndex:section.sectionIndex];
+    NSUInteger index = [_groups indexOfObject:group inSortedRange:NSMakeRange(0, [_groups count]) options:NSBinarySearchingInsertionIndex usingComparator:^NSComparisonResult(id obj1, id obj2) {
+        return [[obj1 id] compare:[obj2 id]];
+    }];
+    [_groups insertObject:group atIndex:index];
+
+    [self.delegate controller:self didInsertGroup:group atIndex:index];
     return group;
 }
 
-- (NSIndexPath *)insertObject:(id)object
+- (void)insertObject:(id)object
 {
-    MLVCCollectionControllerGroup *group = [self groupForObject:object];
-    if (!group) {
-        group = [self addGroupForObject:object];
+    MLVCCollectionControllerGroup *group = _groupsByGroupID[_groupByBlock(object)];
+    if (group == nil) {
+        group = [self insertGroupForObject:object];
     }
-    
-    NSInteger index = [self indexOfObject:object inGroup:group options:NSBinarySearchingInsertionIndex];
-    NSRange range = group.groupRange;
-    
-    // 1. insert object into arrangedObjects at the correct index
-    [_arrangedObjects insertObject:object atIndex:index];
-    
-    // 2. update the range of the current section
-    group.groupRange = NSMakeRange(range.location, range.length + 1);
-    
-    // 3. update ranges' locations for all sections after current section
-    for (NSInteger groupIndex = group.groupIndex + 1; groupIndex < [_groups count]; ++groupIndex) {
-        MLVCCollectionControllerGroup *section = _groups[groupIndex];
-        NSRange range = section.groupRange;
-        ++range.location;
-        group.groupRange = range;
-    }
-    
-    NSUInteger path[2] = {group.groupIndex, index - range.location};
-    return [NSIndexPath indexPathWithIndexes:path length:2];
+    NSUInteger objectIndex = [group.objects indexOfObject:object inSortedRange:NSMakeRange(0, group.objects.count) options:NSBinarySearchingInsertionIndex usingComparator:self.comparator];
+    [group.groupedObjects insertObject:object atIndex:objectIndex];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:objectIndex inSection:[_groups indexOfObject:group]];
+    [self.delegate controller:self didInsertObject:object atIndexPath:indexPath];
 }
 
 - (void)insertObjects:(NSArray *)objects
@@ -127,19 +100,13 @@
         objects = [objects sortedArrayUsingDescriptors:self.sortDescriptors];
     }
     
-#warning delegate callback
-//    [self.delegate collectionViewModelDidBeginUpdates:self];
+    [self.delegate controllerWillChangeContent:self];
     
-    NSMutableArray *indexPaths = [NSMutableArray array];
     for (id object in objects) {
-        NSIndexPath *newIndexPath = [self insertObject:object];
-        [indexPaths addObject:newIndexPath];
+        [self insertObject:object];
     }
     
-#warning  delegate callbacks
-//    [self.delegate collectionViewModel:self didInsertItemsAtIndexPaths:indexPaths];
-//    
-//    [self.delegate collectionViewModelDidEndUpdates:self];
+    [self.delegate controllerDidChangeContent:self];
 }
 
 - (NSComparator)comparator
@@ -162,33 +129,36 @@
     };
 }
 
-- (NSInteger)indexOfObject:(id)object inGroup:(MLVCCollectionControllerGroup *)group options:(NSBinarySearchingOptions)options
-{
-    NSRange range = group.groupRange;
-    NSInteger index = NSNotFound;
-    if (self.sortDescriptors) {
-        index = [_arrangedObjects indexOfObject:object inSortedRange:range options:options usingComparator:[self comparator]];
-    } else {
-        index = NSMaxRange(group.groupRange);
-    }
-    return index;
-}
-
 @end
 
 
 @implementation MLVCCollectionControllerGroup
 
-- (NSArray *)objects
+- (id)initWithID:(id)groupID title:(NSString *)title
 {
-    return [self.arrangedObjects subarrayWithRange:self.groupRange];
+    self = [super init];
+    if (self) {
+        self.groupedObjects = [NSMutableArray array];
+        _id = groupID;
+        _title = title;
+    }
+    return self;
+}
+
+- (NSArray *)objects {
+    return self.groupedObjects;
 }
 
 /**
  Subscript access
  */
 - (id)objectAtIndexedSubscript:(NSUInteger)itemIndex {
-    return self.arrangedObjects[self.groupRange.location + itemIndex];
+    return self.groupedObjects[itemIndex];
+}
+
+- (NSString *)debugDescription
+{
+    return [NSString stringWithFormat:@"%@ \"%@\" [[\n%@\n]]", self.id, self.title, self.groupedObjects];
 }
 
 @end

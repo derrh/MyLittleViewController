@@ -6,8 +6,8 @@
 //  Copyright (c) 2013 Instructure. All rights reserved.
 //
 
+#import "MLVCCollectionController.h"
+#import "MLVCTableViewController.h"
+#import "MLVCCollectionViewModel.h"
+#import "MLVCTableViewCellAdapter.h"
 
-// --- collections ---
-#pragma mark - collections
-
-#import "MLVCGroupedCollectionController.h"
