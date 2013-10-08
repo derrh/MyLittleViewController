@@ -8,10 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		15DDA16FA57E4D9B9E22BD6F /* libPods-MyLittleViewControllerTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D89A5635DCDA4138AD8A8FEC /* libPods-MyLittleViewControllerTests.a */; };
-		491AB16617FCA39C006F8E71 /* MLVCArrayGroupedCollectionControllerSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 491AB16517FCA39C006F8E71 /* MLVCArrayGroupedCollectionControllerSpec.m */; };
+		491AB16617FCA39C006F8E71 /* MLVCCollectionControllerSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 491AB16517FCA39C006F8E71 /* MLVCCollectionControllerSpec.m */; };
+		4921D70F18045AA100BCF1C9 /* Pastry.m in Sources */ = {isa = PBXBuildFile; fileRef = 4921D70E18045AA100BCF1C9 /* Pastry.m */; };
+		4921D71218045BD900BCF1C9 /* PastriesViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4921D71118045BD900BCF1C9 /* PastriesViewModel.m */; };
+		4921D7151804638200BCF1C9 /* MLVCCollectionViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4921D7141804638200BCF1C9 /* MLVCCollectionViewModel.m */; };
+		4921D71B1804702600BCF1C9 /* Pastry+TableViewAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4921D71A1804702600BCF1C9 /* Pastry+TableViewAdapter.m */; };
+		4921D71C1804702600BCF1C9 /* Pastry+TableViewAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4921D71A1804702600BCF1C9 /* Pastry+TableViewAdapter.m */; };
 		4926A48917FF69F7000CDBCD /* MLVCTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4926A48817FF69F7000CDBCD /* MLVCTableViewController.m */; };
 		4926A49117FF8327000CDBCD /* MLVCTableViewControllerSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 4926A49017FF8327000CDBCD /* MLVCTableViewControllerSpec.m */; };
-		499151E717FC83DC0014F259 /* MyLittleViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 499151E617FC83DC0014F259 /* MyLittleViewControllerTests.m */; };
 		4991C07C17FC5C420059DDA3 /* MLVCCollectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4991C07B17FC5C420059DDA3 /* MLVCCollectionController.m */; };
 		49C5620D17FB75AD00B6873C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49C5620C17FB75AD00B6873C /* Foundation.framework */; };
 		49C5621217FB75AD00B6873C /* MyLittleViewController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 49C5621117FB75AD00B6873C /* MyLittleViewController.h */; };
@@ -60,13 +64,19 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		491AB16517FCA39C006F8E71 /* MLVCArrayGroupedCollectionControllerSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLVCArrayGroupedCollectionControllerSpec.m; sourceTree = "<group>"; };
+		491AB16517FCA39C006F8E71 /* MLVCCollectionControllerSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLVCCollectionControllerSpec.m; sourceTree = "<group>"; };
+		4921D70D18045AA100BCF1C9 /* Pastry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Pastry.h; sourceTree = "<group>"; };
+		4921D70E18045AA100BCF1C9 /* Pastry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Pastry.m; sourceTree = "<group>"; };
+		4921D71018045BD900BCF1C9 /* PastriesViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PastriesViewModel.h; sourceTree = "<group>"; };
+		4921D71118045BD900BCF1C9 /* PastriesViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PastriesViewModel.m; sourceTree = "<group>"; };
+		4921D7131804638200BCF1C9 /* MLVCCollectionViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLVCCollectionViewModel.h; sourceTree = "<group>"; };
+		4921D7141804638200BCF1C9 /* MLVCCollectionViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLVCCollectionViewModel.m; sourceTree = "<group>"; };
+		4921D7191804702600BCF1C9 /* Pastry+TableViewAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Pastry+TableViewAdapter.h"; sourceTree = "<group>"; };
+		4921D71A1804702600BCF1C9 /* Pastry+TableViewAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Pastry+TableViewAdapter.m"; sourceTree = "<group>"; };
 		4926A48717FF69F7000CDBCD /* MLVCTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLVCTableViewController.h; sourceTree = "<group>"; };
 		4926A48817FF69F7000CDBCD /* MLVCTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLVCTableViewController.m; sourceTree = "<group>"; };
-		4926A48B17FF6AE7000CDBCD /* MLVCCollectionViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MLVCCollectionViewModel.h; sourceTree = "<group>"; };
 		4926A48F17FF7344000CDBCD /* MLVCTableViewCellAdapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MLVCTableViewCellAdapter.h; sourceTree = "<group>"; };
 		4926A49017FF8327000CDBCD /* MLVCTableViewControllerSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLVCTableViewControllerSpec.m; sourceTree = "<group>"; };
-		499151E617FC83DC0014F259 /* MyLittleViewControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyLittleViewControllerTests.m; sourceTree = "<group>"; };
 		4991C07917FC5B590059DDA3 /* MLVCCollectionController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MLVCCollectionController.h; sourceTree = "<group>"; };
 		4991C07B17FC5C420059DDA3 /* MLVCCollectionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLVCCollectionController.m; sourceTree = "<group>"; };
 		49C5620917FB75AD00B6873C /* libMyLittleViewController.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMyLittleViewController.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -140,16 +150,23 @@
 			children = (
 				4991C07917FC5B590059DDA3 /* MLVCCollectionController.h */,
 				4991C07B17FC5C420059DDA3 /* MLVCCollectionController.m */,
-				4926A48B17FF6AE7000CDBCD /* MLVCCollectionViewModel.h */,
+				4921D7131804638200BCF1C9 /* MLVCCollectionViewModel.h */,
+				4921D7141804638200BCF1C9 /* MLVCCollectionViewModel.m */,
 			);
 			name = Collections;
 			sourceTree = "<group>";
 		};
-		4926A49217FF84C0000CDBCD /* Sweet confection */ = {
+		4926A49217FF84C0000CDBCD /* Sweet Confection */ = {
 			isa = PBXGroup;
 			children = (
+				4921D70D18045AA100BCF1C9 /* Pastry.h */,
+				4921D70E18045AA100BCF1C9 /* Pastry.m */,
+				4921D71018045BD900BCF1C9 /* PastriesViewModel.h */,
+				4921D71118045BD900BCF1C9 /* PastriesViewModel.m */,
+				4921D7191804702600BCF1C9 /* Pastry+TableViewAdapter.h */,
+				4921D71A1804702600BCF1C9 /* Pastry+TableViewAdapter.m */,
 			);
-			name = "Sweet confection";
+			name = "Sweet Confection";
 			sourceTree = "<group>";
 		};
 		49C5620017FB75AD00B6873C = {
@@ -208,10 +225,9 @@
 		49C5622217FB75AD00B6873C /* MyLittleViewControllerTests */ = {
 			isa = PBXGroup;
 			children = (
-				4926A49217FF84C0000CDBCD /* Sweet confection */,
+				4926A49217FF84C0000CDBCD /* Sweet Confection */,
 				49C5622317FB75AD00B6873C /* Supporting Files */,
-				499151E617FC83DC0014F259 /* MyLittleViewControllerTests.m */,
-				491AB16517FCA39C006F8E71 /* MLVCArrayGroupedCollectionControllerSpec.m */,
+				491AB16517FCA39C006F8E71 /* MLVCCollectionControllerSpec.m */,
 				4926A49017FF8327000CDBCD /* MLVCTableViewControllerSpec.m */,
 			);
 			path = MyLittleViewControllerTests;
@@ -400,6 +416,8 @@
 			files = (
 				4991C07C17FC5C420059DDA3 /* MLVCCollectionController.m in Sources */,
 				4926A48917FF69F7000CDBCD /* MLVCTableViewController.m in Sources */,
+				4921D71B1804702600BCF1C9 /* Pastry+TableViewAdapter.m in Sources */,
+				4921D7151804638200BCF1C9 /* MLVCCollectionViewModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -407,9 +425,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4921D71218045BD900BCF1C9 /* PastriesViewModel.m in Sources */,
 				4926A49117FF8327000CDBCD /* MLVCTableViewControllerSpec.m in Sources */,
-				499151E717FC83DC0014F259 /* MyLittleViewControllerTests.m in Sources */,
-				491AB16617FCA39C006F8E71 /* MLVCArrayGroupedCollectionControllerSpec.m in Sources */,
+				4921D70F18045AA100BCF1C9 /* Pastry.m in Sources */,
+				491AB16617FCA39C006F8E71 /* MLVCCollectionControllerSpec.m in Sources */,
+				4921D71C1804702600BCF1C9 /* Pastry+TableViewAdapter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

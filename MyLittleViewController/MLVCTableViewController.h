@@ -10,5 +10,5 @@
 #import "MLVCCollectionViewModel.h"
 
 @interface MLVCTableViewController : UITableViewController
-@property (nonatomic) id<MLVCCollectionViewModel> viewModel;
+@property (nonatomic) MLVCCollectionViewModel *viewModel;
 @end

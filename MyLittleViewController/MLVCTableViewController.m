@@ -20,7 +20,7 @@
     [super viewDidLoad];
 }
 
-- (void)setViewModel:(id<MLVCCollectionViewModel>)viewModel
+- (void)setViewModel:(MLVCCollectionViewModel *)viewModel
 {
     if (_viewModel == viewModel) {
         return;
@@ -35,6 +35,12 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return [self.viewModel.collectionController.groups count];
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    MLVCCollectionControllerGroup *group = self.viewModel.collectionController[section];
+    return group.title;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

@@ -9,39 +9,7 @@
 #import "Kiwi.h"
 #import "MLVCCollectionController.h"
 #import <UIKit/UIKit.h>
-
-typedef NS_ENUM(NSUInteger, PastryType) {
-    PastryTypeRaspberry,
-    PastryTypeLemon,
-    PastryTypeChocolate,
-    PastryTypeGlazed,
-};
-
-@interface Pastry : NSObject
-+ (instancetype)pastryNamed:(NSString *)name calories:(NSInteger)calories type:(PastryType)type;
-@property (nonatomic) NSString *name;
-@property (nonatomic) NSInteger calories;
-@property (nonatomic) PastryType pastryType;
-@end
-
-id (^ const pastryTypeBlock)(id) = ^(Pastry *pastry) {
-    return @(pastry.pastryType);
-};
-NSString *(^ const pastryTypeNameBlock)(id) = ^(Pastry *pastry) {
-    switch (pastry.pastryType) {
-        case PastryTypeRaspberry:
-            return @"Raspberry";
-        case PastryTypeChocolate:
-            return @"Chocolate";
-        case PastryTypeLemon:
-            return @"Lemon";
-        case PastryTypeGlazed:
-            return @"Glazed";
-    }
-    return @"";
-};
-
-
+#import "Pastry.h"
 
 SPEC_BEGIN(MLVCCollectionControllerSpec)
 
@@ -153,30 +121,3 @@ describe(@"MLVCCollectionController", ^{
 });
 
 SPEC_END
-
-
-@implementation Pastry
-+ (instancetype)pastryNamed:(NSString *)name calories:(NSInteger)calories type:(PastryType)type {
-    Pastry *me = [self new];
-    me.name = name;
-    me.calories = calories;
-    me.pastryType = type;
-    return me;
-}
-
-- (BOOL)isEqual:(id)object
-{
-    return [object isMemberOfClass:[Pastry class]] && [self.name isEqualToString:[object name]] && self.pastryType == [object pastryType] && self.calories == [object calories];
-}
-
-- (NSUInteger)hash
-{
-    return self.name.hash + 31 * self.calories + 11 * self.pastryType;
-}
-
-- (NSString *)debugDescription
-{
-    return [NSString stringWithFormat:@"pastry (%u) = %@ \"%@\"", self.pastryType, pastryTypeNameBlock(self), self.name];
-}
-
-@end

@@ -2,14 +2,13 @@
 //  MLVCCollectionViewModel.h
 //  MyLittleViewController
 //
-//  Created by derrick on 10/4/13.
+//  Created by derrick on 10/8/13.
 //  Copyright (c) 2013 Instructure. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
+#import "MLVCCollectionController.h"
 
-@class MLVCCollectionController;
-@protocol MLVCCollectionViewModel <NSObject>
+@interface MLVCCollectionViewModel : NSObject
 @property (nonatomic) MLVCCollectionController *collectionController;
 @end
-
