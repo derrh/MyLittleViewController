@@ -97,7 +97,16 @@
 {
     // pre-sorting insures that we don't insert two items at the same index path.
     if (self.sortDescriptors) {
-        objects = [objects sortedArrayUsingDescriptors:self.sortDescriptors];
+        objects = [objects sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+            id groupID1 = self.groupByBlock(obj1);
+            id groupID2 = self.groupByBlock(obj2);
+            NSComparisonResult groupResult = [groupID1 compare:groupID2];
+            if (groupResult != NSOrderedSame) {
+                return groupResult;
+            }
+            
+            return self.comparator(obj1, obj2);
+        }];
     }
     
     [self.delegate controllerWillChangeContent:self];

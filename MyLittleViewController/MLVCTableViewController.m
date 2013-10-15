@@ -20,6 +20,13 @@
     [super viewDidLoad];
 }
 
+- (void)refreshFromRefreshControl:(UIRefreshControl *)refreshControl
+{
+    [self.viewModel refreshViewModelWithCompletionBlock:^{
+        [refreshControl endRefreshing];
+    }];
+}
+
 - (void)setViewModel:(MLVCCollectionViewModel *)viewModel
 {
     if (_viewModel == viewModel) {
@@ -28,6 +35,20 @@
     
     _viewModel = viewModel;
     _viewModel.collectionController.delegate = self;
+    
+    if ([_viewModel respondsToSelector:@selector(refreshViewModelWithCompletionBlock:)]) {
+        self.refreshControl = [[UIRefreshControl alloc] init];
+        [self.refreshControl addTarget:self action:@selector(refreshFromRefreshControl:) forControlEvents:UIControlEventValueChanged];
+    }
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    if ([self.viewModel respondsToSelector:@selector(refreshViewModelWithCompletionBlock:)]) {
+        [self.viewModel refreshViewModelWithCompletionBlock:nil];
+    }
 }
 
 #pragma mark - Table view data source
@@ -70,11 +91,13 @@
 
 - (void)controller:(MLVCCollectionController *)controller didInsertGroup:(MLVCCollectionControllerGroup *)group atIndex:(NSUInteger)index
 {
+    NSLog(@"inserting section %@", @(index));
     [self.tableView insertSections:[NSIndexSet indexSetWithIndex:index] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 - (void)controller:(MLVCCollectionController *)controller didInsertObject:(id)object atIndexPath:(NSIndexPath *)path
 {
+    NSLog(@"inserting at indexPath: %@", path);
     [self.tableView insertRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 

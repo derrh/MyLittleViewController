@@ -10,4 +10,3 @@
 #import "MLVCTableViewController.h"
 #import "MLVCCollectionViewModel.h"
 #import "MLVCTableViewCellAdapter.h"
-

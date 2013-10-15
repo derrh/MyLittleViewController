@@ -9,6 +9,13 @@
 #import <Foundation/Foundation.h>
 #import "MLVCCollectionController.h"
 
-@interface MLVCCollectionViewModel : NSObject
+@protocol MLVCCollectionViewModel <NSObject>
+@property (nonatomic, readonly) MLVCCollectionController *collectionController;
+
+@optional
+- (void)refreshViewModelWithCompletionBlock:(void (^)())block;
+@end
+
+@interface MLVCCollectionViewModel : NSObject <MLVCCollectionViewModel>
 @property (nonatomic) MLVCCollectionController *collectionController;
 @end
