@@ -150,7 +150,8 @@
                 return groupResult;
             }
             
-            return self.comparator(obj1, obj2);
+            NSComparisonResult (^comparator)(id, id) = [self comparator];
+            return comparator(obj1, obj2);
         }];
     }
     
