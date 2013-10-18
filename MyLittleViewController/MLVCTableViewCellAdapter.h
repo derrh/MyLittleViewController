@@ -10,5 +10,4 @@
 
 @protocol MLVCTableViewCellAdapter <NSObject>
 - (UITableViewCell *)cellForTableViewController:(UITableViewController *)controller forIndexPath:(NSIndexPath *)indexPath;
-- (void)cellSelectedInTableViewController:(UITableViewController *)controller atIndexPath:(NSIndexPath *)indexPath;
 @end

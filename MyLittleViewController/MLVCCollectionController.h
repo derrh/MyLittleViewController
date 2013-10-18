@@ -7,9 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <ReactiveCocoa/ReactiveCocoa.h>
 
 
-@protocol MLVCCollectionControllerDelegate;
 @protocol MLVCCollectionControllerGroup;
 
 /**
@@ -49,11 +49,17 @@
  */
 @property (nonatomic, copy, readonly) NSArray *sortDescriptors;
 
-
 /**
- The delegate is notified of all changes to the controller.
+ @name Reacting
  */
-@property (nonatomic, assign) id<MLVCCollectionControllerDelegate> delegate;
+
+@property (nonatomic, readonly) RACSignal *groupsInsertedIndexSetSignal;
+
+@property (nonatomic, readonly) RACSignal *groupsDeletedIndexSetSignal;
+
+@property (nonatomic, readonly) RACSignal *objectsInsertedIndexPathsSignal;
+
+@property (nonatomic, readonly) RACSignal *objectsDeletedIndexPathsSignal;
 
 /**
  @name Querying
@@ -115,12 +121,4 @@
  Subscript access
  */
 - (id)objectAtIndexedSubscript:(NSUInteger)itemIndex;
-@end
-
-
-@protocol MLVCCollectionControllerDelegate <NSObject>
-- (void)controllerDidChangeContent:(MLVCCollectionController *)controller;
-- (void)controllerWillChangeContent:(MLVCCollectionController *)controller;
-- (void)controller:(MLVCCollectionController *)controller didInsertGroup:(MLVCCollectionControllerGroup *)group atIndex:(NSUInteger)index;
-- (void)controller:(MLVCCollectionController *)controller didInsertObject:(id)object atIndexPath:(NSIndexPath *)path;
 @end

@@ -1,4 +1,4 @@
-
+pod 'ReactiveCocoa'
 target :MyLittleViewControllerTests, :exclusive => true do
-  pod 'Kiwi/XCTest'
+  pod 'OCMock'
 end

@@ -10,7 +10,7 @@
 #import "MLVCCollectionController.h"
 #import "MLVCTableViewCellAdapter.h"
 
-@interface MLVCTableViewController () <MLVCCollectionControllerDelegate>
+@interface MLVCTableViewController ()
 @end
 
 @implementation MLVCTableViewController
@@ -18,6 +18,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    if ([self.viewModel respondsToSelector:@selector(viewDidLoadForController:)]) {
+        [self.viewModel viewDidLoadForController:self];
+    }
 }
 
 - (void)refreshFromRefreshControl:(UIRefreshControl *)refreshControl
@@ -34,11 +37,21 @@
     }
     
     _viewModel = viewModel;
-    _viewModel.collectionController.delegate = self;
+    [self.tableView reloadData];
+    
+    [self.viewModel.collectionController.groupsInsertedIndexSetSignal subscribeNext:^(id x) {
+        [self.tableView insertSections:x withRowAnimation:UITableViewRowAnimationAutomatic];
+    }];
+    
+    [self.viewModel.collectionController.objectsInsertedIndexPathsSignal subscribeNext:^(id x) {
+        [self.tableView insertRowsAtIndexPaths:x withRowAnimation:UITableViewRowAnimationAutomatic];
+    }];
     
     if ([_viewModel respondsToSelector:@selector(refreshViewModelWithCompletionBlock:)]) {
         self.refreshControl = [[UIRefreshControl alloc] init];
         [self.refreshControl addTarget:self action:@selector(refreshFromRefreshControl:) forControlEvents:UIControlEventValueChanged];
+    } else {
+        self.refreshControl = nil;
     }
 }
 
@@ -78,32 +91,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    id<MLVCTableViewCellAdapter> cellAdapter = [self.viewModel.collectionController objectAtIndexPath:indexPath];
-    [cellAdapter cellSelectedInTableViewController:self atIndexPath:indexPath];
-}
-
-#pragma mark - MLVCCollectionControllerDelegate
-
-- (void)controllerWillChangeContent:(MLVCCollectionController *)controller
-{
-    [self.tableView beginUpdates];
-}
-
-- (void)controller:(MLVCCollectionController *)controller didInsertGroup:(MLVCCollectionControllerGroup *)group atIndex:(NSUInteger)index
-{
-    NSLog(@"inserting section %@", @(index));
-    [self.tableView insertSections:[NSIndexSet indexSetWithIndex:index] withRowAnimation:UITableViewRowAnimationAutomatic];
-}
-
-- (void)controller:(MLVCCollectionController *)controller didInsertObject:(id)object atIndexPath:(NSIndexPath *)path
-{
-    NSLog(@"inserting at indexPath: %@", path);
-    [self.tableView insertRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationAutomatic];
-}
-
-- (void)controllerDidChangeContent:(MLVCCollectionController *)controller
-{
-    [self.tableView endUpdates];
+    [self.viewModel cellSelectedAtIndexPath:indexPath inController:self];
 }
 
 @end

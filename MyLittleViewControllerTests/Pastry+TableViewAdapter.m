@@ -11,7 +11,7 @@
 @implementation Pastry (TableViewAdapter)
 - (UITableViewCell *)cellForTableViewController:(UITableViewController *)controller forIndexPath:(NSIndexPath *)indexPath
 {
-    return nil;
+    return [UITableViewCell new];
 }
 
 - (void)cellSelectedInTableViewController:(UITableViewController *)controller atIndexPath:(NSIndexPath *)indexPath

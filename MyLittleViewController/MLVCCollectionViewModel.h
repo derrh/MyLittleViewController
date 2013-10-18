@@ -11,8 +11,10 @@
 
 @protocol MLVCCollectionViewModel <NSObject>
 @property (nonatomic, readonly) MLVCCollectionController *collectionController;
+- (void)cellSelectedAtIndexPath:(NSIndexPath *)indexPath inController:(UITableViewController *)controller;
 
 @optional
+- (void)viewDidLoadForController:(UITableViewController *)controller;
 - (void)refreshViewModelWithCompletionBlock:(void (^)())block;
 @end
 

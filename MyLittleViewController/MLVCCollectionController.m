@@ -8,21 +8,31 @@
 
 #import "MLVCCollectionController.h"
 #import <UIKit/UIKit.h>
+#import <ReactiveCocoa/ReactiveCocoa.h>
+#import "NSObject+RACCollectionChanges.h"
 
 @interface MLVCCollectionControllerGroup ()
-- (id)initWithID:(id)groupID title:(NSString *)title;
+- (id)initWithID:(id)groupID title:(NSString *)title indexPathsSubject:(RACSubject *)subject;
+@property (nonatomic) NSUInteger index;
 @property (nonatomic) NSMutableArray *groupedObjects;
+
+@property (nonatomic, readonly) RACSignal *objectsInsertedIndexPathsSignal;
 @end
 
 @interface MLVCCollectionController ()
 @property (nonatomic, copy, readwrite) id (^groupByBlock)(id object);
 @property (nonatomic, copy, readwrite) NSString *(^groupTitleBlock)(id object);
 @property (nonatomic, copy, readwrite) NSArray *sortDescriptors;
+
+@property (nonatomic, readonly) RACSubject *objectsInsertedIndexPathsSubject;
+@property (nonatomic, readonly) RACSubject *objectsDeletedIndexPathsSubject;
 @end
 
 @implementation MLVCCollectionController {
     NSMutableArray *_groups;
     NSMutableDictionary *_groupsByGroupID;
+    RACSignal *_groupsInsertedIndexSetSignal, *_groupsDeletedIndexSetSignal;
+    RACSubject *_objectsInsertedIndexPathsSubject;
 }
 
 - (id)init
@@ -52,6 +62,37 @@
     return me;
 }
 
+#pragma mark - Reacting
+
+- (RACSignal *)groupsInsertedIndexSetSignal
+{
+    if (_groupsInsertedIndexSetSignal) {
+        return _groupsInsertedIndexSetSignal;
+    }
+
+    return _groupsInsertedIndexSetSignal = [self rac_filteredIndexSetsForChangeType:NSKeyValueChangeInsertion forCollectionForKeyPath:@"groups"];
+}
+
+- (RACSignal *)groupsDeletedIndexSetSignal
+{
+    if (_groupsDeletedIndexSetSignal) {
+        return _groupsDeletedIndexSetSignal;
+    }
+    
+    return _groupsDeletedIndexSetSignal = [self rac_filteredIndexSetsForChangeType:NSKeyValueChangeRemoval forCollectionForKeyPath:@"groups"];
+}
+
+- (RACSubject *)objectsInsertedIndexPathsSubject {
+    if (_objectsInsertedIndexPathsSubject) {
+        return _objectsInsertedIndexPathsSubject;
+    }
+    
+    return _objectsInsertedIndexPathsSubject = [RACSubject subject];
+}
+
+- (RACSignal *)objectsInsertedIndexPathsSignal {
+    return self.objectsInsertedIndexPathsSubject;
+}
 
 #pragma mark - Querying
 
@@ -69,15 +110,20 @@
 
 - (MLVCCollectionControllerGroup *)insertGroupForObject:(id)object
 {
-    MLVCCollectionControllerGroup *group = [[MLVCCollectionControllerGroup alloc] initWithID:self.groupByBlock(object) title:self.groupTitleBlock(object)];
+    MLVCCollectionControllerGroup *group = [[MLVCCollectionControllerGroup alloc] initWithID:self.groupByBlock(object) title:self.groupTitleBlock(object) indexPathsSubject:self.objectsInsertedIndexPathsSubject];
     _groupsByGroupID[group.id] = group;
     
-    NSUInteger index = [_groups indexOfObject:group inSortedRange:NSMakeRange(0, [_groups count]) options:NSBinarySearchingInsertionIndex usingComparator:^NSComparisonResult(id obj1, id obj2) {
+    NSMutableArray *mutable = [self mutableArrayValueForKey:@"groups"];
+    
+    NSUInteger index = [mutable indexOfObject:group inSortedRange:NSMakeRange(0, [_groups count]) options:NSBinarySearchingInsertionIndex usingComparator:^NSComparisonResult(id obj1, id obj2) {
         return [[obj1 id] compare:[obj2 id]];
     }];
-    [_groups insertObject:group atIndex:index];
-
-    [self.delegate controller:self didInsertGroup:group atIndex:index];
+    group.index = index;
+    [mutable insertObject:group atIndex:index];
+    for (NSInteger higherIndex = index + 1; higherIndex < [mutable count]; ++higherIndex) {
+        MLVCCollectionControllerGroup *laterGroup = mutable[higherIndex];
+        laterGroup.index = higherIndex;
+    }
     return group;
 }
 
@@ -87,10 +133,9 @@
     if (group == nil) {
         group = [self insertGroupForObject:object];
     }
-    NSUInteger objectIndex = [group.objects indexOfObject:object inSortedRange:NSMakeRange(0, group.objects.count) options:NSBinarySearchingInsertionIndex usingComparator:self.comparator];
-    [group.groupedObjects insertObject:object atIndex:objectIndex];
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:objectIndex inSection:[_groups indexOfObject:group]];
-    [self.delegate controller:self didInsertObject:object atIndexPath:indexPath];
+    NSMutableArray *mutable = [group mutableArrayValueForKey:@"groupedObjects"];
+    NSUInteger objectIndex = [mutable indexOfObject:object inSortedRange:NSMakeRange(0, group.objects.count) options:NSBinarySearchingInsertionIndex usingComparator:self.comparator];
+    [mutable insertObject:object atIndex:objectIndex];
 }
 
 - (void)insertObjects:(NSArray *)objects
@@ -109,13 +154,9 @@
         }];
     }
     
-    [self.delegate controllerWillChangeContent:self];
-    
     for (id object in objects) {
         [self insertObject:object];
     }
-    
-    [self.delegate controllerDidChangeContent:self];
 }
 
 - (NSComparator)comparator
@@ -141,15 +182,19 @@
 @end
 
 
-@implementation MLVCCollectionControllerGroup
+@implementation MLVCCollectionControllerGroup {
+    RACSignal *_objectsInsertedIndexPathsSignal;
+}
 
-- (id)initWithID:(id)groupID title:(NSString *)title
+- (id)initWithID:(id)groupID title:(NSString *)title indexPathsSubject:(RACSubject *)subject
 {
     self = [super init];
     if (self) {
         self.groupedObjects = [NSMutableArray array];
         _id = groupID;
         _title = title;
+        
+        [self.objectsInsertedIndexPathsSignal subscribe:subject];
     }
     return self;
 }
@@ -168,6 +213,22 @@
 - (NSString *)debugDescription
 {
     return [NSString stringWithFormat:@"%@ \"%@\" [[\n%@\n]]", self.id, self.title, self.groupedObjects];
+}
+
+- (RACSignal *)objectsInsertedIndexPathsSignal {
+    if (_objectsInsertedIndexPathsSignal) {
+        return _objectsInsertedIndexPathsSignal;
+    }
+
+    __weak MLVCCollectionControllerGroup *weakSelf = self;
+    return _objectsInsertedIndexPathsSignal = [[self rac_filteredIndexSetsForChangeType:NSKeyValueChangeInsertion forCollectionForKeyPath:@"groupedObjects"] map:^id(NSIndexSet *value) {
+        __block NSMutableArray *array = [NSMutableArray arrayWithCapacity:[value count]];
+        NSUInteger groupIndex = weakSelf.index;
+        [value enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
+            [array addObject:[NSIndexPath indexPathForRow:idx inSection:groupIndex]];
+        }];
+        return array;
+    }];
 }
 
 @end

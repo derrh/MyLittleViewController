@@ -7,15 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		009520097A754C039D68F3F2 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 26166C5676A944FBBF7B6250 /* libPods.a */; };
 		15DDA16FA57E4D9B9E22BD6F /* libPods-MyLittleViewControllerTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D89A5635DCDA4138AD8A8FEC /* libPods-MyLittleViewControllerTests.a */; };
-		491AB16617FCA39C006F8E71 /* MLVCCollectionControllerSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 491AB16517FCA39C006F8E71 /* MLVCCollectionControllerSpec.m */; };
 		4921D70F18045AA100BCF1C9 /* Pastry.m in Sources */ = {isa = PBXBuildFile; fileRef = 4921D70E18045AA100BCF1C9 /* Pastry.m */; };
 		4921D71218045BD900BCF1C9 /* PastriesViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4921D71118045BD900BCF1C9 /* PastriesViewModel.m */; };
 		4921D7151804638200BCF1C9 /* MLVCCollectionViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4921D7141804638200BCF1C9 /* MLVCCollectionViewModel.m */; };
 		4921D71C1804702600BCF1C9 /* Pastry+TableViewAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4921D71A1804702600BCF1C9 /* Pastry+TableViewAdapter.m */; };
 		4926A48917FF69F7000CDBCD /* MLVCTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4926A48817FF69F7000CDBCD /* MLVCTableViewController.m */; };
-		4926A49117FF8327000CDBCD /* MLVCTableViewControllerSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 4926A49017FF8327000CDBCD /* MLVCTableViewControllerSpec.m */; };
+		4972948318107730004635CA /* MLVCCollectionControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4972948218107730004635CA /* MLVCCollectionControllerTests.m */; };
 		4991C07C17FC5C420059DDA3 /* MLVCCollectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4991C07B17FC5C420059DDA3 /* MLVCCollectionController.m */; };
+		49A53A9C18105B7E0070AA01 /* NSObject+RACCollectionChanges.m in Sources */ = {isa = PBXBuildFile; fileRef = 49A53A9B18105B7E0070AA01 /* NSObject+RACCollectionChanges.m */; };
 		49C5620D17FB75AD00B6873C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49C5620C17FB75AD00B6873C /* Foundation.framework */; };
 		49C5621217FB75AD00B6873C /* MyLittleViewController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 49C5621117FB75AD00B6873C /* MyLittleViewController.h */; };
 		49C5621B17FB75AD00B6873C /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49C5621A17FB75AD00B6873C /* XCTest.framework */; };
@@ -30,6 +31,7 @@
 		49C5624217FB799F00B6873C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C5624117FB799F00B6873C /* main.m */; };
 		49C5624617FB79A000B6873C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C5624517FB79A000B6873C /* AppDelegate.m */; };
 		49C5624817FB79A000B6873C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49C5624717FB79A000B6873C /* Images.xcassets */; };
+		49C7224518108FA700C5C5E8 /* MLVCTableViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C7224418108FA600C5C5E8 /* MLVCTableViewControllerTests.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,7 +65,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		491AB16517FCA39C006F8E71 /* MLVCCollectionControllerSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLVCCollectionControllerSpec.m; sourceTree = "<group>"; };
+		26166C5676A944FBBF7B6250 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4921D70D18045AA100BCF1C9 /* Pastry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Pastry.h; sourceTree = "<group>"; };
 		4921D70E18045AA100BCF1C9 /* Pastry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Pastry.m; sourceTree = "<group>"; };
 		4921D71018045BD900BCF1C9 /* PastriesViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PastriesViewModel.h; sourceTree = "<group>"; };
@@ -75,9 +77,11 @@
 		4926A48717FF69F7000CDBCD /* MLVCTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLVCTableViewController.h; sourceTree = "<group>"; };
 		4926A48817FF69F7000CDBCD /* MLVCTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLVCTableViewController.m; sourceTree = "<group>"; };
 		4926A48F17FF7344000CDBCD /* MLVCTableViewCellAdapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MLVCTableViewCellAdapter.h; sourceTree = "<group>"; };
-		4926A49017FF8327000CDBCD /* MLVCTableViewControllerSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLVCTableViewControllerSpec.m; sourceTree = "<group>"; };
+		4972948218107730004635CA /* MLVCCollectionControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLVCCollectionControllerTests.m; sourceTree = "<group>"; };
 		4991C07917FC5B590059DDA3 /* MLVCCollectionController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MLVCCollectionController.h; sourceTree = "<group>"; };
 		4991C07B17FC5C420059DDA3 /* MLVCCollectionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLVCCollectionController.m; sourceTree = "<group>"; };
+		49A53A9A18105B7E0070AA01 /* NSObject+RACCollectionChanges.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+RACCollectionChanges.h"; sourceTree = "<group>"; };
+		49A53A9B18105B7E0070AA01 /* NSObject+RACCollectionChanges.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+RACCollectionChanges.m"; sourceTree = "<group>"; };
 		49C5620917FB75AD00B6873C /* libMyLittleViewController.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMyLittleViewController.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		49C5620C17FB75AD00B6873C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		49C5621017FB75AD00B6873C /* MyLittleViewController-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MyLittleViewController-Prefix.pch"; sourceTree = "<group>"; };
@@ -96,7 +100,9 @@
 		49C5624417FB79A000B6873C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		49C5624517FB79A000B6873C /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		49C5624717FB79A000B6873C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		49C7224418108FA600C5C5E8 /* MLVCTableViewControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLVCTableViewControllerTests.m; sourceTree = "<group>"; };
 		6A62193EF4094589B5B3D760 /* Pods-MyLittleViewControllerTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyLittleViewControllerTests.xcconfig"; path = "Pods/Pods-MyLittleViewControllerTests.xcconfig"; sourceTree = "<group>"; };
+		D5AAF0B8BC34436486FEA5D5 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		D89A5635DCDA4138AD8A8FEC /* libPods-MyLittleViewControllerTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MyLittleViewControllerTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -106,6 +112,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				49C5620D17FB75AD00B6873C /* Foundation.framework in Frameworks */,
+				009520097A754C039D68F3F2 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -168,6 +175,15 @@
 			name = "Sweet Confection";
 			sourceTree = "<group>";
 		};
+		49A53A59180E3DA30070AA01 /* ReactiveCocoa+MyLittleViewController */ = {
+			isa = PBXGroup;
+			children = (
+				49A53A9A18105B7E0070AA01 /* NSObject+RACCollectionChanges.h */,
+				49A53A9B18105B7E0070AA01 /* NSObject+RACCollectionChanges.m */,
+			);
+			name = "ReactiveCocoa+MyLittleViewController";
+			sourceTree = "<group>";
+		};
 		49C5620017FB75AD00B6873C = {
 			isa = PBXGroup;
 			children = (
@@ -177,6 +193,7 @@
 				49C5620B17FB75AD00B6873C /* Frameworks */,
 				49C5620A17FB75AD00B6873C /* Products */,
 				6A62193EF4094589B5B3D760 /* Pods-MyLittleViewControllerTests.xcconfig */,
+				D5AAF0B8BC34436486FEA5D5 /* Pods.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -198,6 +215,7 @@
 				49C5621D17FB75AD00B6873C /* UIKit.framework */,
 				49C5623817FB799F00B6873C /* CoreGraphics.framework */,
 				D89A5635DCDA4138AD8A8FEC /* libPods-MyLittleViewControllerTests.a */,
+				26166C5676A944FBBF7B6250 /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -205,6 +223,7 @@
 		49C5620E17FB75AD00B6873C /* MyLittleViewController */ = {
 			isa = PBXGroup;
 			children = (
+				49A53A59180E3DA30070AA01 /* ReactiveCocoa+MyLittleViewController */,
 				4926A48A17FF6A8B000CDBCD /* Collections */,
 				4926A48617FF69CE000CDBCD /* Table View Controller */,
 				49C5621117FB75AD00B6873C /* MyLittleViewController.h */,
@@ -226,8 +245,8 @@
 			children = (
 				4926A49217FF84C0000CDBCD /* Sweet Confection */,
 				49C5622317FB75AD00B6873C /* Supporting Files */,
-				491AB16517FCA39C006F8E71 /* MLVCCollectionControllerSpec.m */,
-				4926A49017FF8327000CDBCD /* MLVCTableViewControllerSpec.m */,
+				4972948218107730004635CA /* MLVCCollectionControllerTests.m */,
+				49C7224418108FA600C5C5E8 /* MLVCTableViewControllerTests.m */,
 			);
 			path = MyLittleViewControllerTests;
 			sourceTree = "<group>";
@@ -270,9 +289,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 49C5622C17FB75AD00B6873C /* Build configuration list for PBXNativeTarget "MyLittleViewController" */;
 			buildPhases = (
+				8F27ED5DC0734931A34047A0 /* Check Pods Manifest.lock */,
 				49C5620517FB75AD00B6873C /* Sources */,
 				49C5620617FB75AD00B6873C /* Frameworks */,
 				49C5620717FB75AD00B6873C /* CopyFiles */,
+				ACA2DC8BC3674BFD81BD3766 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -406,6 +427,36 @@
 			shellScript = "\"${SRCROOT}/Pods/Pods-MyLittleViewControllerTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		8F27ED5DC0734931A34047A0 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		ACA2DC8BC3674BFD81BD3766 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -414,6 +465,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4991C07C17FC5C420059DDA3 /* MLVCCollectionController.m in Sources */,
+				49A53A9C18105B7E0070AA01 /* NSObject+RACCollectionChanges.m in Sources */,
 				4926A48917FF69F7000CDBCD /* MLVCTableViewController.m in Sources */,
 				4921D7151804638200BCF1C9 /* MLVCCollectionViewModel.m in Sources */,
 			);
@@ -424,9 +476,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				4921D71218045BD900BCF1C9 /* PastriesViewModel.m in Sources */,
-				4926A49117FF8327000CDBCD /* MLVCTableViewControllerSpec.m in Sources */,
+				49C7224518108FA700C5C5E8 /* MLVCTableViewControllerTests.m in Sources */,
 				4921D70F18045AA100BCF1C9 /* Pastry.m in Sources */,
-				491AB16617FCA39C006F8E71 /* MLVCCollectionControllerSpec.m in Sources */,
+				4972948318107730004635CA /* MLVCCollectionControllerTests.m in Sources */,
 				4921D71C1804702600BCF1C9 /* Pastry+TableViewAdapter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -547,6 +599,7 @@
 		};
 		49C5622D17FB75AD00B6873C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D5AAF0B8BC34436486FEA5D5 /* Pods.xcconfig */;
 			buildSettings = {
 				DSTROOT = /tmp/MyLittleViewController.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -559,6 +612,7 @@
 		};
 		49C5622E17FB75AD00B6873C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D5AAF0B8BC34436486FEA5D5 /* Pods.xcconfig */;
 			buildSettings = {
 				DSTROOT = /tmp/MyLittleViewController.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
