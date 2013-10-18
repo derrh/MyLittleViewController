@@ -9,7 +9,7 @@
 #import "Pastry+TableViewAdapter.h"
 
 @implementation Pastry (TableViewAdapter)
-- (UITableViewCell *)cellForTableViewController:(UITableViewController *)controller forIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCell *)tableViewController:(UITableViewController *)controller cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return [UITableViewCell new];
 }

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		009520097A754C039D68F3F2 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 26166C5676A944FBBF7B6250 /* libPods.a */; };
 		15DDA16FA57E4D9B9E22BD6F /* libPods-MyLittleViewControllerTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D89A5635DCDA4138AD8A8FEC /* libPods-MyLittleViewControllerTests.a */; };
+		490BF5951811BE95000AC62D /* MLVCCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 490BF5941811BE95000AC62D /* MLVCCollectionViewController.m */; };
 		4921D70F18045AA100BCF1C9 /* Pastry.m in Sources */ = {isa = PBXBuildFile; fileRef = 4921D70E18045AA100BCF1C9 /* Pastry.m */; };
 		4921D71218045BD900BCF1C9 /* PastriesViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4921D71118045BD900BCF1C9 /* PastriesViewModel.m */; };
 		4921D7151804638200BCF1C9 /* MLVCCollectionViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4921D7141804638200BCF1C9 /* MLVCCollectionViewModel.m */; };
@@ -66,6 +67,9 @@
 
 /* Begin PBXFileReference section */
 		26166C5676A944FBBF7B6250 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		490BF5931811BE95000AC62D /* MLVCCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLVCCollectionViewController.h; sourceTree = "<group>"; };
+		490BF5941811BE95000AC62D /* MLVCCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLVCCollectionViewController.m; sourceTree = "<group>"; };
+		490BF5961811C012000AC62D /* MLVCCollectionViewCellAdapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MLVCCollectionViewCellAdapter.h; sourceTree = "<group>"; };
 		4921D70D18045AA100BCF1C9 /* Pastry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Pastry.h; sourceTree = "<group>"; };
 		4921D70E18045AA100BCF1C9 /* Pastry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Pastry.m; sourceTree = "<group>"; };
 		4921D71018045BD900BCF1C9 /* PastriesViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PastriesViewModel.h; sourceTree = "<group>"; };
@@ -141,6 +145,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		490BF5921811BE3B000AC62D /* Collection View Controller */ = {
+			isa = PBXGroup;
+			children = (
+				490BF5931811BE95000AC62D /* MLVCCollectionViewController.h */,
+				490BF5941811BE95000AC62D /* MLVCCollectionViewController.m */,
+				490BF5961811C012000AC62D /* MLVCCollectionViewCellAdapter.h */,
+			);
+			name = "Collection View Controller";
+			sourceTree = "<group>";
+		};
 		4926A48617FF69CE000CDBCD /* Table View Controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -226,6 +240,7 @@
 				49A53A59180E3DA30070AA01 /* ReactiveCocoa+MyLittleViewController */,
 				4926A48A17FF6A8B000CDBCD /* Collections */,
 				4926A48617FF69CE000CDBCD /* Table View Controller */,
+				490BF5921811BE3B000AC62D /* Collection View Controller */,
 				49C5621117FB75AD00B6873C /* MyLittleViewController.h */,
 				49C5620F17FB75AD00B6873C /* Supporting Files */,
 			);
@@ -466,6 +481,7 @@
 			files = (
 				4991C07C17FC5C420059DDA3 /* MLVCCollectionController.m in Sources */,
 				49A53A9C18105B7E0070AA01 /* NSObject+RACCollectionChanges.m in Sources */,
+				490BF5951811BE95000AC62D /* MLVCCollectionViewController.m in Sources */,
 				4926A48917FF69F7000CDBCD /* MLVCTableViewController.m in Sources */,
 				4921D7151804638200BCF1C9 /* MLVCCollectionViewModel.m in Sources */,
 			);

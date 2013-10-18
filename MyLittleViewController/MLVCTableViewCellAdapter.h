@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @protocol MLVCTableViewCellAdapter <NSObject>
-- (UITableViewCell *)cellForTableViewController:(UITableViewController *)controller forIndexPath:(NSIndexPath *)indexPath;
+- (UITableViewCell *)tableViewController:(UITableViewController *)controller cellForRowAtIndexPath:(NSIndexPath *)indexPath;
 @end

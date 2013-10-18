@@ -86,7 +86,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     id<MLVCTableViewCellAdapter> cellAdapter = [self.viewModel.collectionController objectAtIndexPath:indexPath];
-    return [cellAdapter cellForTableViewController:self forIndexPath:indexPath];
+    return [cellAdapter tableViewController:self cellForRowAtIndexPath:indexPath];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
