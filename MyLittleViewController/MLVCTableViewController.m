@@ -18,8 +18,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    if ([self.viewModel respondsToSelector:@selector(viewDidLoadForController:)]) {
-        [self.viewModel viewDidLoadForController:self];
+    if ([self.viewModel respondsToSelector:@selector(tableViewControllerViewDidLoad:)]) {
+        [self.viewModel tableViewControllerViewDidLoad:self];
     }
 }
 
@@ -37,7 +37,12 @@
     }
     
     _viewModel = viewModel;
-    [self.tableView reloadData];
+    if (self.tableView) {
+        if ([_viewModel respondsToSelector:@selector(tableViewControllerViewDidLoad:)]) {
+            [_viewModel tableViewControllerViewDidLoad:self];
+        }
+        [self.tableView reloadData];
+    }
     
     [self.viewModel.collectionController.groupsInsertedIndexSetSignal subscribeNext:^(id x) {
         [self.tableView insertSections:x withRowAnimation:UITableViewRowAnimationAutomatic];
@@ -91,7 +96,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self.viewModel cellSelectedAtIndexPath:indexPath inController:self];
+    [self.viewModel tableViewController:self didSelectRowAtIndexPath:indexPath];
 }
 
 @end

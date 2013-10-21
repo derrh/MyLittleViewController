@@ -7,6 +7,10 @@
 //
 
 #import "MLVCCollectionController.h"
-#import "MLVCTableViewController.h"
 #import "MLVCCollectionViewModel.h"
+
+#import "MLVCTableViewController.h"
 #import "MLVCTableViewCellAdapter.h"
+
+#import "MLVCCollectionViewController.h"
+#import "MLVCCollectionViewCellAdapter.h"

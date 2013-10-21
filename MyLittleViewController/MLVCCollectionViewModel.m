@@ -9,8 +9,5 @@
 #import "MLVCCollectionViewModel.h"
 
 @implementation MLVCCollectionViewModel
-- (void)cellSelectedAtIndexPath:(NSIndexPath *)indexPath inController:(UITableViewController *)controller
-{
-    
-}
+
 @end

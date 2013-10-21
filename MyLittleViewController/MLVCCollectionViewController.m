@@ -18,15 +18,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+    if ([self.viewModel respondsToSelector:@selector(collectionViewControllerViewDidLoad:)]) {
+        [self.viewModel collectionViewControllerViewDidLoad:self];
+    }
 }
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 
 - (void)setViewModel:(MLVCCollectionViewModel *)viewModel
 {
@@ -41,6 +36,13 @@
     }];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    if ([self.viewModel respondsToSelector:@selector(refreshViewModelWithCompletionBlock:)]) {
+        [self.viewModel refreshViewModelWithCompletionBlock:nil];
+    }
+}
 
 #pragma mark - UICollectionViewDataSource
 

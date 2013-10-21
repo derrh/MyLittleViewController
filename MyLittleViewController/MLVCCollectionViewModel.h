@@ -11,10 +11,21 @@
 
 @protocol MLVCCollectionViewModel <NSObject>
 @property (nonatomic, readonly) MLVCCollectionController *collectionController;
-- (void)cellSelectedAtIndexPath:(NSIndexPath *)indexPath inController:(UITableViewController *)controller;
 
 @optional
-- (void)viewDidLoadForController:(UITableViewController *)controller;
+
+/**
+ @name UITableView support
+ */
+- (void)tableViewControllerViewDidLoad:(UITableViewController *)tableViewController;
+- (void)tableViewController:(UITableViewController *)tableViewController didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
+
+/**
+ @name UICollectionView support
+ */
+- (void)collectionViewControllerViewDidLoad:(UICollectionViewController *)collectionViewController;
+- (void)collectionViewController:(UICollectionViewController *)controller didSelectItemAtIndexPath:(NSIndexPath *)indexPath;
+
 - (void)refreshViewModelWithCompletionBlock:(void (^)())block;
 @end
 
