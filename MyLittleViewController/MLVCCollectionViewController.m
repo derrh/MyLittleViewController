@@ -31,8 +31,16 @@
         [self.collectionView insertSections:sections];
     }];
     
+    [self.viewModel.collectionController.groupsDeletedIndexSetSignal subscribeNext:^(NSIndexSet *sections) {
+        [self.collectionView deleteSections:sections];
+    }];
+    
     [self.viewModel.collectionController.objectsInsertedIndexPathsSignal subscribeNext:^(NSArray *indexPaths) {
         [self.collectionView insertItemsAtIndexPaths:indexPaths];
+    }];
+    
+    [self.viewModel.collectionController.objectsDeletedIndexPathsSignal subscribeNext:^(NSArray *indexPaths) {
+        [self.collectionView deleteItemsAtIndexPaths:indexPaths];
     }];
 }
 

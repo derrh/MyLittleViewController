@@ -12,11 +12,12 @@
 #import "NSObject+RACCollectionChanges.h"
 
 @interface MLVCCollectionControllerGroup ()
-- (id)initWithID:(id)groupID title:(NSString *)title indexPathsSubject:(RACSubject *)subject;
+- (id)initWithID:(id)groupID title:(NSString *)title insertPathsSubject:(RACSubject *)insertSubject deletePathsSubject:(RACSubject *)deleteSubject;
 @property (nonatomic) NSUInteger index;
 @property (nonatomic) NSMutableArray *groupedObjects;
 
 @property (nonatomic, readonly) RACSignal *objectsInsertedIndexPathsSignal;
+@property (nonatomic, readonly) RACSignal *objectsDeletedIndexPathsSignal;
 @end
 
 @interface MLVCCollectionController ()
@@ -32,7 +33,7 @@
     NSMutableArray *_groups;
     NSMutableDictionary *_groupsByGroupID;
     RACSignal *_groupsInsertedIndexSetSignal, *_groupsDeletedIndexSetSignal;
-    RACSubject *_objectsInsertedIndexPathsSubject;
+    RACSubject *_objectsInsertedIndexPathsSubject, *_objectsDeletedIndexPathsSubject;
 }
 
 - (id)init
@@ -94,6 +95,18 @@
     return self.objectsInsertedIndexPathsSubject;
 }
 
+- (RACSubject *)objectsDeletedIndexPathsSubject {
+    if (_objectsDeletedIndexPathsSubject) {
+        return _objectsDeletedIndexPathsSubject;
+    }
+    
+    return _objectsDeletedIndexPathsSubject = [RACSubject subject];
+}
+
+- (RACSignal *)objectsDeletedIndexPathsSignal {
+    return self.objectsDeletedIndexPathsSubject;
+}
+
 #pragma mark - Querying
 
 - (id)objectAtIndexPath:(NSIndexPath *)indexPath
@@ -110,7 +123,7 @@
 
 - (MLVCCollectionControllerGroup *)insertGroupForObject:(id)object
 {
-    MLVCCollectionControllerGroup *group = [[MLVCCollectionControllerGroup alloc] initWithID:self.groupByBlock(object) title:self.groupTitleBlock(object) indexPathsSubject:self.objectsInsertedIndexPathsSubject];
+    MLVCCollectionControllerGroup *group = [[MLVCCollectionControllerGroup alloc] initWithID:self.groupByBlock(object) title:self.groupTitleBlock(object) insertPathsSubject:self.objectsInsertedIndexPathsSubject deletePathsSubject:self.objectsDeletedIndexPathsSubject];
     _groupsByGroupID[group.id] = group;
     
     NSMutableArray *mutable = [self mutableArrayValueForKey:@"groups"];
@@ -160,6 +173,19 @@
     }
 }
 
+
+- (void)removeObjectAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSMutableArray *mutable = [self[indexPath.section] mutableArrayValueForKey:@"groupedObjects"];
+    [mutable removeObjectAtIndex:indexPath.row];
+}
+
+- (void)removeAllObjectsAndGroups
+{
+    NSMutableArray *mutable = [self mutableArrayValueForKey:@"groups"];
+    [mutable removeAllObjects];
+}
+
 - (NSComparator)comparator
 {
     if (!self.sortDescriptors) {
@@ -184,10 +210,10 @@
 
 
 @implementation MLVCCollectionControllerGroup {
-    RACSignal *_objectsInsertedIndexPathsSignal;
+    RACSignal *_objectsInsertedIndexPathsSignal, *_objectsDeletedIndexPathsSignal;
 }
 
-- (id)initWithID:(id)groupID title:(NSString *)title indexPathsSubject:(RACSubject *)subject
+- (id)initWithID:(id)groupID title:(NSString *)title insertPathsSubject:(RACSubject *)insertSubject deletePathsSubject:(RACSubject *)deleteSubject
 {
     self = [super init];
     if (self) {
@@ -195,7 +221,8 @@
         _id = groupID;
         _title = title;
         
-        [self.objectsInsertedIndexPathsSignal subscribe:subject];
+        [self.objectsInsertedIndexPathsSignal subscribe:insertSubject];
+        [self.objectsDeletedIndexPathsSignal subscribe:deleteSubject];
     }
     return self;
 }
@@ -223,6 +250,22 @@
 
     __weak MLVCCollectionControllerGroup *weakSelf = self;
     return _objectsInsertedIndexPathsSignal = [[self rac_filteredIndexSetsForChangeType:NSKeyValueChangeInsertion forCollectionForKeyPath:@"groupedObjects"] map:^id(NSIndexSet *value) {
+        __block NSMutableArray *array = [NSMutableArray arrayWithCapacity:[value count]];
+        NSUInteger groupIndex = weakSelf.index;
+        [value enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
+            [array addObject:[NSIndexPath indexPathForRow:idx inSection:groupIndex]];
+        }];
+        return array;
+    }];
+}
+
+- (RACSignal *)objectsDeletedIndexPathsSignal {
+    if (_objectsDeletedIndexPathsSignal) {
+        return _objectsDeletedIndexPathsSignal;
+    }
+    
+    __weak MLVCCollectionControllerGroup *weakSelf = self;
+    return _objectsDeletedIndexPathsSignal = [[self rac_filteredIndexSetsForChangeType:NSKeyValueChangeRemoval forCollectionForKeyPath:@"groupedObjects"] map:^id(NSIndexSet *value) {
         __block NSMutableArray *array = [NSMutableArray arrayWithCapacity:[value count]];
         NSUInteger groupIndex = weakSelf.index;
         [value enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {

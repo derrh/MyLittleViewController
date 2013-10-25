@@ -105,6 +105,20 @@
  */
 - (void)insertObjects:(NSArray *)objects;
 
+
+/**
+ Removes object at the given indexPath
+ 
+ @param indexPath the index path of the object to remove.
+ */
+- (void)removeObjectAtIndexPath:(NSIndexPath *)indexPath;
+
+
+/**
+ Remove all objects and groups
+ */
+- (void)removeAllObjectsAndGroups;
+
 @end
 
 /**
