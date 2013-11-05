@@ -71,4 +71,11 @@
     return [item collectionViewController:self cellForItemAtIndexPath:indexPath];
 }
 
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    if ([self.viewModel respondsToSelector:@selector(collectionViewController:didSelectItemAtIndexPath:)]) {
+        [self.viewModel collectionViewController:self didSelectItemAtIndexPath:indexPath];
+    }
+}
+
 @end
