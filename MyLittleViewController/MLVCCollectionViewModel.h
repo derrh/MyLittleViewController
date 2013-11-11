@@ -7,25 +7,26 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "MLVCCollectionController.h"
+
+@class MLVCCollectionController, MLVCTableViewController, MLVCCollectionViewController;
 
 @protocol MLVCCollectionViewModel <NSObject>
 @property (nonatomic, readonly) MLVCCollectionController *collectionController;
-
 @optional
 
 /**
  @name UITableView support
  */
-- (void)tableViewControllerViewDidLoad:(UITableViewController *)tableViewController;
-- (void)tableViewController:(UITableViewController *)tableViewController didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
+- (void)tableViewControllerViewDidLoad:(MLVCTableViewController *)tableViewController;
 
 /**
  @name UICollectionView support
  */
-- (void)collectionViewControllerViewDidLoad:(UICollectionViewController *)collectionViewController;
-- (void)collectionViewController:(UICollectionViewController *)controller didSelectItemAtIndexPath:(NSIndexPath *)indexPath;
+- (void)collectionViewControllerViewDidLoad:(MLVCCollectionViewController *)collectionViewController;
 
+/**
+ called on viewWillAppear and pull to refresh
+ */
 - (void)refreshViewModelWithCompletionBlock:(void (^)())block;
 @end
 

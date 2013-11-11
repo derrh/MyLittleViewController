@@ -13,6 +13,7 @@
 #import "Pastry.h"
 #import "Pastry+TableViewAdapter.h"
 #import "PastriesViewModel.h"
+#import "MLVCCollectionController.h"
 
 @interface MLVCTableViewControllerTests : XCTestCase
 @property (nonatomic) id mockViewModel;

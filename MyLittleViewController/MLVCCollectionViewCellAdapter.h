@@ -9,5 +9,6 @@
 #import <Foundation/Foundation.h>
 
 @protocol MLVCCollectionViewCellAdapter <NSObject>
-- (UICollectionViewCell *)collectionViewController:(UICollectionViewController *)controller cellForItemAtIndexPath:(NSIndexPath *)indexPath;
+- (UICollectionViewCell *)collectionViewController:(MLVCCollectionViewController *)controller cellForItemAtIndexPath:(NSIndexPath *)indexPath;
+- (void)collectionViewController:(MLVCCollectionViewController *)controller didSelectItemAtIndexPath:(NSIndexPath *)indexPath;
 @end

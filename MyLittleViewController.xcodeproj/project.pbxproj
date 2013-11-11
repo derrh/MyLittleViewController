@@ -31,7 +31,6 @@
 		49C5624017FB799F00B6873C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 49C5623E17FB799F00B6873C /* InfoPlist.strings */; };
 		49C5624217FB799F00B6873C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C5624117FB799F00B6873C /* main.m */; };
 		49C5624617FB79A000B6873C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C5624517FB79A000B6873C /* AppDelegate.m */; };
-		49C5624817FB79A000B6873C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 49C5624717FB79A000B6873C /* Images.xcassets */; };
 		49C7224518108FA700C5C5E8 /* MLVCTableViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C7224418108FA600C5C5E8 /* MLVCTableViewControllerTests.m */; };
 /* End PBXBuildFile section */
 
@@ -103,7 +102,6 @@
 		49C5624317FB79A000B6873C /* MyLittleViewControllerTestBundle-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MyLittleViewControllerTestBundle-Prefix.pch"; sourceTree = "<group>"; };
 		49C5624417FB79A000B6873C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		49C5624517FB79A000B6873C /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		49C5624717FB79A000B6873C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		49C7224418108FA600C5C5E8 /* MLVCTableViewControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLVCTableViewControllerTests.m; sourceTree = "<group>"; };
 		6A62193EF4094589B5B3D760 /* Pods-MyLittleViewControllerTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyLittleViewControllerTests.xcconfig"; path = "Pods/Pods-MyLittleViewControllerTests.xcconfig"; sourceTree = "<group>"; };
 		D5AAF0B8BC34436486FEA5D5 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
@@ -280,7 +278,6 @@
 			children = (
 				49C5624417FB79A000B6873C /* AppDelegate.h */,
 				49C5624517FB79A000B6873C /* AppDelegate.m */,
-				49C5624717FB79A000B6873C /* Images.xcassets */,
 				49C5623C17FB799F00B6873C /* Supporting Files */,
 			);
 			path = MyLittleViewControllerTestBundle;
@@ -405,7 +402,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				49C5624017FB799F00B6873C /* InfoPlist.strings in Resources */,
-				49C5624817FB79A000B6873C /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

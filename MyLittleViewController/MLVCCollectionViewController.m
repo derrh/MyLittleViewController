@@ -8,9 +8,10 @@
 
 #import "MLVCCollectionViewController.h"
 #import "MLVCCollectionViewCellAdapter.h"
+#import "MLVCCollectionController.h"
 
 @interface MLVCCollectionViewController ()
-
+@property (nonatomic) RACDisposable *groupInserted, *groupDeleted, *objectInserted, *objectDeleted;
 @end
 
 @implementation MLVCCollectionViewController
@@ -23,25 +24,59 @@
     }
 }
 
+- (void)endObservingCollectionChanges
+{
+    [self.groupInserted dispose];
+    self.groupInserted = nil;
+    
+    [self.groupDeleted dispose];
+    self.groupDeleted = nil;
+    
+    [self.objectInserted dispose];
+    self.objectInserted = nil;
+    
+    [self.objectDeleted dispose];
+    self.objectDeleted = nil;
+}
+
+- (void)beginObservingCollectionChanges
+{
+    __weak MLVCCollectionViewController *weakSelf = self;
+    
+    self.groupInserted = [self.viewModel.collectionController.groupsInsertedIndexSetSignal subscribeNext:^(NSIndexSet *sections) {
+        [weakSelf.collectionView insertSections:sections];
+    }];
+    
+    self.groupDeleted = [self.viewModel.collectionController.groupsDeletedIndexSetSignal subscribeNext:^(NSIndexSet *sections) {
+        [weakSelf.collectionView deleteSections:sections];
+    }];
+    
+    self.objectInserted = [self.viewModel.collectionController.objectsInsertedIndexPathsSignal subscribeNext:^(NSArray *indexPaths) {
+        [weakSelf.collectionView insertItemsAtIndexPaths:indexPaths];
+    }];
+    
+    self.objectDeleted = [self.viewModel.collectionController.objectsDeletedIndexPathsSignal subscribeNext:^(NSArray *indexPaths) {
+        [weakSelf.collectionView deleteItemsAtIndexPaths:indexPaths];
+    }];
+}
+
 - (void)setViewModel:(MLVCCollectionViewModel *)viewModel
 {
+    if (_viewModel == viewModel) {
+        return;
+    }
+    
+    [self endObservingCollectionChanges];
+    
     _viewModel = viewModel;
+    
+    if (self.collectionView) {
+        if ([self.viewModel respondsToSelector:@selector(collectionViewControllerViewDidLoad:)]) {
+            [self.viewModel collectionViewControllerViewDidLoad:self];
+        }
+    }
 
-    [self.viewModel.collectionController.groupsInsertedIndexSetSignal subscribeNext:^(NSIndexSet *sections) {
-        [self.collectionView insertSections:sections];
-    }];
-    
-    [self.viewModel.collectionController.groupsDeletedIndexSetSignal subscribeNext:^(NSIndexSet *sections) {
-        [self.collectionView deleteSections:sections];
-    }];
-    
-    [self.viewModel.collectionController.objectsInsertedIndexPathsSignal subscribeNext:^(NSArray *indexPaths) {
-        [self.collectionView insertItemsAtIndexPaths:indexPaths];
-    }];
-    
-    [self.viewModel.collectionController.objectsDeletedIndexPathsSignal subscribeNext:^(NSArray *indexPaths) {
-        [self.collectionView deleteItemsAtIndexPaths:indexPaths];
-    }];
+    [self beginObservingCollectionChanges];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -73,9 +108,8 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ([self.viewModel respondsToSelector:@selector(collectionViewController:didSelectItemAtIndexPath:)]) {
-        [self.viewModel collectionViewController:self didSelectItemAtIndexPath:indexPath];
-    }
+    id<MLVCCollectionViewCellAdapter> item = [self.viewModel.collectionController objectAtIndexPath:indexPath];
+    [item collectionViewController:self didSelectItemAtIndexPath:indexPath];
 }
 
 @end

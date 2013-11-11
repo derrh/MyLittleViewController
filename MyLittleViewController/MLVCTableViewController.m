@@ -11,6 +11,7 @@
 #import "MLVCTableViewCellAdapter.h"
 
 @interface MLVCTableViewController ()
+@property (nonatomic) RACDisposable *groupInserted, *groupDeleted, *objectInserted, *objectDeleted;
 @end
 
 @implementation MLVCTableViewController
@@ -30,11 +31,50 @@
     }];
 }
 
+- (void)endObservingCollectionChanges
+{
+    [self.groupInserted dispose];
+    self.groupInserted = nil;
+    
+    [self.groupDeleted dispose];
+    self.groupDeleted = nil;
+    
+    [self.objectInserted dispose];
+    self.objectInserted = nil;
+    
+    [self.objectDeleted dispose];
+    self.objectDeleted = nil;
+}
+
+- (void)beginObservingCollectionChanges
+{
+    __weak MLVCTableViewController *weakSelf = self;
+    
+    self.groupInserted = [self.viewModel.collectionController.groupsInsertedIndexSetSignal subscribeNext:^(id x) {
+        [weakSelf.tableView insertSections:x withRowAnimation:UITableViewRowAnimationAutomatic];
+    }];
+    
+    self.groupDeleted = [self.viewModel.collectionController.groupsDeletedIndexSetSignal subscribeNext:^(id x) {
+        [weakSelf.tableView deleteSections:x withRowAnimation:UITableViewRowAnimationAutomatic];
+    }];
+    
+    self.objectInserted = [self.viewModel.collectionController.objectsInsertedIndexPathsSignal subscribeNext:^(id x) {
+        [weakSelf.tableView insertRowsAtIndexPaths:x withRowAnimation:UITableViewRowAnimationAutomatic];
+    }];
+    
+    self.objectDeleted = [self.viewModel.collectionController.objectsDeletedIndexPathsSignal subscribeNext:^(id x) {
+        [weakSelf.tableView deleteRowsAtIndexPaths:x withRowAnimation:UITableViewRowAnimationAutomatic];
+    }];
+    
+}
+
 - (void)setViewModel:(MLVCCollectionViewModel *)viewModel
 {
     if (_viewModel == viewModel) {
         return;
     }
+    
+    [self endObservingCollectionChanges];
     
     _viewModel = viewModel;
     if (self.tableView) {
@@ -44,13 +84,7 @@
         [self.tableView reloadData];
     }
     
-    [self.viewModel.collectionController.groupsInsertedIndexSetSignal subscribeNext:^(id x) {
-        [self.tableView insertSections:x withRowAnimation:UITableViewRowAnimationAutomatic];
-    }];
-    
-    [self.viewModel.collectionController.objectsInsertedIndexPathsSignal subscribeNext:^(id x) {
-        [self.tableView insertRowsAtIndexPaths:x withRowAnimation:UITableViewRowAnimationAutomatic];
-    }];
+    [self beginObservingCollectionChanges];
     
     if ([_viewModel respondsToSelector:@selector(refreshViewModelWithCompletionBlock:)]) {
         self.refreshControl = [[UIRefreshControl alloc] init];
@@ -96,7 +130,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self.viewModel tableViewController:self didSelectRowAtIndexPath:indexPath];
+    id<MLVCTableViewCellAdapter> cellAdapter = [self.viewModel.collectionController objectAtIndexPath:indexPath];
+    [cellAdapter tableViewController:self didSelectRowAtIndexPath:indexPath];
 }
 
 @end

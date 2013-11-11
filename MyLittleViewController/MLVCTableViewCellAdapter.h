@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+@class MLVCTableViewController;
+
 @protocol MLVCTableViewCellAdapter <NSObject>
-- (UITableViewCell *)tableViewController:(UITableViewController *)controller cellForRowAtIndexPath:(NSIndexPath *)indexPath;
+- (UITableViewCell *)tableViewController:(MLVCTableViewController *)controller cellForRowAtIndexPath:(NSIndexPath *)indexPath;
+- (void)tableViewController:(MLVCTableViewController *)controller didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
 @end
