@@ -182,6 +182,7 @@
 
 - (void)removeAllObjectsAndGroups
 {
+    [_groupsByGroupID removeAllObjects];
     NSMutableArray *mutable = [self mutableArrayValueForKey:@"groups"];
     [mutable removeAllObjects];
 }

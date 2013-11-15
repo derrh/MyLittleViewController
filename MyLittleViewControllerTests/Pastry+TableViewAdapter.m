@@ -14,7 +14,7 @@
     return [UITableViewCell new];
 }
 
-- (void)cellSelectedInTableViewController:(UITableViewController *)controller atIndexPath:(NSIndexPath *)indexPath
+- (void)tableViewController:(MLVCTableViewController *)controller didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
 }

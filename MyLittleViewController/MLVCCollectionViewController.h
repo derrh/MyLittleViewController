@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MLVCCollectionViewModel.h"
+#import "MLVCCollectionViewViewModel.h"
 
 @interface MLVCCollectionViewController : UICollectionViewController
-@property (nonatomic) IBOutlet MLVCCollectionViewModel *viewModel;
+@property (nonatomic) IBOutlet id <MLVCCollectionViewViewModel> viewModel;
 @end

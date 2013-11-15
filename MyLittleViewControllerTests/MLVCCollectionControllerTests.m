@@ -48,10 +48,10 @@
     
     [controller insertObjects:@[@"aaa"]];
     
-    int groupCount = [controller.groups count];
+    NSUInteger groupCount = [controller.groups count];
     XCTAssertEqual(1, groupCount, @"There should be one group after inserting");
     
-    int objectCount = [[controller[0] objects] count];
+    NSUInteger objectCount = [[controller[0] objects] count];
     XCTAssertEqual(1, objectCount, @"There should be one object in the one group");
     
     XCTAssertEqualObjects(@"aaa", controller[0][0], @"The only object in the collection should be the one we put there");
@@ -64,7 +64,7 @@
     [controller insertObjects:@[[Pastry pastryNamed:@"Glazed Donut" calories:280 type:PastryTypeGlazed],
                                 [Pastry pastryNamed:@"Lemon Bar" calories:260 type:PastryTypeLemon]]];
     
-    int groupCount = 2;
+    NSUInteger groupCount = 2;
     XCTAssertEqual(2, groupCount, @"There should be 2 groups");
     XCTAssertEqualObjects(@(PastryTypeLemon), [controller[0] id], @"Lemon pastries are the best. They come first.");
     XCTAssertEqualObjects(@"Lemon", [controller[0] title], @"Group title set properly");

@@ -48,7 +48,7 @@ NSString *(^ const pastryTypeNameBlock)(id) = ^(Pastry *pastry) {
 
 - (NSString *)debugDescription
 {
-    return [NSString stringWithFormat:@"pastry (%u) = %@ \"%@\"", self.pastryType, pastryTypeNameBlock(self), self.name];
+    return [NSString stringWithFormat:@"pastry (%u) = %@ \"%@\"", (unsigned)self.pastryType, pastryTypeNameBlock(self), self.name];
 }
 
 @end

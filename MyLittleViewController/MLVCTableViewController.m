@@ -19,8 +19,26 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    if ([self.viewModel respondsToSelector:@selector(viewControllerViewDidLoad:)]) {
+        [self.viewModel viewControllerViewDidLoad:self];
+    }
+    
     if ([self.viewModel respondsToSelector:@selector(tableViewControllerViewDidLoad:)]) {
         [self.viewModel tableViewControllerViewDidLoad:self];
+    }
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    if ([self.viewModel respondsToSelector:@selector(viewController:viewWillAppearAnimated:)]) {
+        [self.viewModel viewController:self viewWillAppearAnimated:animated];
+    }
+    
+    if ([self.viewModel respondsToSelector:@selector(refreshViewModelWithCompletionBlock:)]) {
+        [self.viewModel refreshViewModelWithCompletionBlock:nil];
     }
 }
 
@@ -55,7 +73,7 @@
     }];
     
     self.groupDeleted = [self.viewModel.collectionController.groupsDeletedIndexSetSignal subscribeNext:^(id x) {
-        [weakSelf.tableView deleteSections:x withRowAnimation:UITableViewRowAnimationAutomatic];
+        [weakSelf.tableView deleteSections:x withRowAnimation:UITableViewRowAnimationFade];
     }];
     
     self.objectInserted = [self.viewModel.collectionController.objectsInsertedIndexPathsSignal subscribeNext:^(id x) {
@@ -68,7 +86,7 @@
     
 }
 
-- (void)setViewModel:(MLVCCollectionViewModel *)viewModel
+- (void)setViewModel:(id<MLVCTableViewViewModel>)viewModel
 {
     if (_viewModel == viewModel) {
         return;
@@ -91,15 +109,6 @@
         [self.refreshControl addTarget:self action:@selector(refreshFromRefreshControl:) forControlEvents:UIControlEventValueChanged];
     } else {
         self.refreshControl = nil;
-    }
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    
-    if ([self.viewModel respondsToSelector:@selector(refreshViewModelWithCompletionBlock:)]) {
-        [self.viewModel refreshViewModelWithCompletionBlock:nil];
     }
 }
 

@@ -10,7 +10,7 @@
 #import "MLVCCollectionViewCellAdapter.h"
 #import "MLVCCollectionController.h"
 
-@interface MLVCCollectionViewController ()
+@interface MLVCCollectionViewController () <UICollectionViewDelegateFlowLayout>
 @property (nonatomic) RACDisposable *groupInserted, *groupDeleted, *objectInserted, *objectDeleted;
 @end
 
@@ -19,8 +19,26 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    if ([self.viewModel respondsToSelector:@selector(viewControllerViewDidLoad:)]) {
+        [self.viewModel viewControllerViewDidLoad:self];
+    }
+    
     if ([self.viewModel respondsToSelector:@selector(collectionViewControllerViewDidLoad:)]) {
         [self.viewModel collectionViewControllerViewDidLoad:self];
+    }
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    if ([self.viewModel respondsToSelector:@selector(viewController:viewWillAppearAnimated:)]) {
+        [self.viewModel viewController:self viewWillAppearAnimated:animated];
+    }
+
+    if ([self.viewModel respondsToSelector:@selector(refreshViewModelWithCompletionBlock:)]) {
+        [self.viewModel refreshViewModelWithCompletionBlock:nil];
     }
 }
 
@@ -60,7 +78,7 @@
     }];
 }
 
-- (void)setViewModel:(MLVCCollectionViewModel *)viewModel
+- (void)setViewModel:(id<MLVCCollectionViewViewModel>)viewModel
 {
     if (_viewModel == viewModel) {
         return;
@@ -77,14 +95,6 @@
     }
 
     [self beginObservingCollectionChanges];
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    if ([self.viewModel respondsToSelector:@selector(refreshViewModelWithCompletionBlock:)]) {
-        [self.viewModel refreshViewModelWithCompletionBlock:nil];
-    }
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -111,5 +121,14 @@
     id<MLVCCollectionViewCellAdapter> item = [self.viewModel.collectionController objectAtIndexPath:indexPath];
     [item collectionViewController:self didSelectItemAtIndexPath:indexPath];
 }
+
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
+{
+    NSLog(@"indexPath: %@", indexPath);
+    return [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"FavoritesFooter" forIndexPath:indexPath];
+}
+
+
+#pragma mark - UICollectionViewDelegateFlowLayout
 
 @end
