@@ -66,7 +66,7 @@
     pastryController.viewModel = [OCMockObject partialMockForObject:[PastriesViewModel new]];
     XCTAssertNotNil(pastryController.refreshControl, @"refresh controll should not be nil");
     
-    [[(id)(pastryController.viewModel) expect] refreshViewModelWithCompletionBlock:OCMOCK_ANY];
+    [[(id)(pastryController.viewModel) expect] refreshViewModelForced:YES withCompletionBlock:OCMOCK_ANY];
     
     [pastryController.refreshControl sendActionsForControlEvents:UIControlEventValueChanged];
     [((id)pastryController.viewModel) verify];

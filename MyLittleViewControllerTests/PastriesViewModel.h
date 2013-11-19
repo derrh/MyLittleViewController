@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "MLVCCollectionViewModel.h"
+#import "MyLittleViewController.h"
 
-@interface PastriesViewModel : MLVCCollectionViewModel
-
+@interface PastriesViewModel : NSObject <MLVCCollectionViewModel, MLVCTableViewModel>
+@property (nonatomic) MLVCCollectionController *collectionController;
 @end

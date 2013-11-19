@@ -86,7 +86,7 @@
     
 }
 
-- (void)setViewModel:(id<MLVCTableViewViewModel>)viewModel
+- (void)setViewModel:(id<MLVCTableViewModel>)viewModel
 {
     if (_viewModel == viewModel) {
         return;

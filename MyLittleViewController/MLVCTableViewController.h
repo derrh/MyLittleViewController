@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "MLVCTableViewViewModel.h"
+#import "MLVCTableViewModel.h"
 
 @interface MLVCTableViewController : UITableViewController
-@property (nonatomic) IBOutlet id<MLVCTableViewViewModel> viewModel;
+@property (nonatomic) IBOutlet id<MLVCTableViewModel> viewModel;
 @end

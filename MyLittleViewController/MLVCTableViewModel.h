@@ -1,5 +1,5 @@
 //
-//  MLVCTableViewViewModel.h
+//  MLVCTableViewModel.h
 //  MyLittleViewController
 //
 //  Created by derrick on 11/13/13.
@@ -11,7 +11,7 @@
 
 @class MLVCTableViewController, MLVCCollectionController;
 
-@protocol MLVCTableViewViewModel <MLVCViewModel>
+@protocol MLVCTableViewModel <MLVCViewModel>
 @property (nonatomic) MLVCCollectionController *collectionController;
 
 @optional

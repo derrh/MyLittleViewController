@@ -21,7 +21,7 @@
     return self;
 }
 
-- (void)refreshViewModelWithCompletionBlock:(void (^)())block
+- (void)refreshViewModelForced:(BOOL)forced withCompletionBlock:(void (^)())block
 {
     
 }
