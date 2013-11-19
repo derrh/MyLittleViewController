@@ -2,21 +2,21 @@
 //  MLVCCollectionViewModel.h
 //  MyLittleViewController
 //
-//  Created by derrick on 10/8/13.
+//  Created by derrick on 11/13/13.
 //  Copyright (c) 2013 Instructure. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import "MLVCViewModel.h"
 
-@class MLVCCollectionController;
+@class MLVCCollectionViewController, MLVCCollectionController;
 
 @protocol MLVCCollectionViewModel <MLVCViewModel>
 @property (nonatomic) MLVCCollectionController *collectionController;
+
 @optional
-- (void)refreshViewModelWithCompletionBlock:(void (^)())block;
+- (void)collectionViewControllerViewDidLoad:(MLVCCollectionViewController *)collectionViewController;
+
+- (UICollectionReusableView *)collectionViewController:(UICollectionViewController *)controller viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath;
 @end
 
-@interface MLVCCollectionViewModel : MLVCViewModel <MLVCCollectionViewModel>
-@property (nonatomic) MLVCCollectionController *collectionController;
-@end

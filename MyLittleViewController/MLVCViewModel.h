@@ -9,16 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @protocol MLVCViewModel <NSObject>
-@property (nonatomic) id model;
-@property (nonatomic) NSString *name;
-
 @optional
-- (void)viewControllerViewDidLoad:(UIViewController *)viewController;
-- (void)viewController:(UIViewController *)viewController viewWillAppearAnimated:(BOOL)animated;
-// add more as needed
-@end
+- (void)refreshViewModelForced:(BOOL)forced withCompletionBlock:(void (^)())block;
 
-@interface MLVCViewModel : NSObject
-@property (nonatomic) id model;
-@property (nonatomic) NSString *name;
+- (void)viewControllerViewDidLoad:(UIViewController *)viewController;
+- (void)viewController:(UIViewController *)viewController viewWillAppear:(BOOL)animated;
+// add more as needed
 @end

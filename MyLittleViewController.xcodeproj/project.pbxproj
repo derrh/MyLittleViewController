@@ -12,10 +12,8 @@
 		490BF5951811BE95000AC62D /* MLVCCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 490BF5941811BE95000AC62D /* MLVCCollectionViewController.m */; };
 		4921D70F18045AA100BCF1C9 /* Pastry.m in Sources */ = {isa = PBXBuildFile; fileRef = 4921D70E18045AA100BCF1C9 /* Pastry.m */; };
 		4921D71218045BD900BCF1C9 /* PastriesViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4921D71118045BD900BCF1C9 /* PastriesViewModel.m */; };
-		4921D7151804638200BCF1C9 /* MLVCCollectionViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4921D7141804638200BCF1C9 /* MLVCCollectionViewModel.m */; };
 		4921D71C1804702600BCF1C9 /* Pastry+TableViewAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 4921D71A1804702600BCF1C9 /* Pastry+TableViewAdapter.m */; };
 		4926A48917FF69F7000CDBCD /* MLVCTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4926A48817FF69F7000CDBCD /* MLVCTableViewController.m */; };
-		496E25CF1836AAD90008A0B4 /* MLVCViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 496E25CE1836AAD90008A0B4 /* MLVCViewModel.m */; };
 		496E25D21836ABC90008A0B4 /* MLVCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 496E25D11836ABC90008A0B4 /* MLVCViewController.m */; };
 		4972948318107730004635CA /* MLVCCollectionControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4972948218107730004635CA /* MLVCCollectionControllerTests.m */; };
 		4991C07C17FC5C420059DDA3 /* MLVCCollectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4991C07B17FC5C420059DDA3 /* MLVCCollectionController.m */; };
@@ -75,17 +73,14 @@
 		4921D70E18045AA100BCF1C9 /* Pastry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Pastry.m; sourceTree = "<group>"; };
 		4921D71018045BD900BCF1C9 /* PastriesViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PastriesViewModel.h; sourceTree = "<group>"; };
 		4921D71118045BD900BCF1C9 /* PastriesViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PastriesViewModel.m; sourceTree = "<group>"; };
-		4921D7131804638200BCF1C9 /* MLVCCollectionViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLVCCollectionViewModel.h; sourceTree = "<group>"; };
-		4921D7141804638200BCF1C9 /* MLVCCollectionViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLVCCollectionViewModel.m; sourceTree = "<group>"; };
 		4921D7191804702600BCF1C9 /* Pastry+TableViewAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Pastry+TableViewAdapter.h"; sourceTree = "<group>"; };
 		4921D71A1804702600BCF1C9 /* Pastry+TableViewAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Pastry+TableViewAdapter.m"; sourceTree = "<group>"; };
 		4926A48717FF69F7000CDBCD /* MLVCTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLVCTableViewController.h; sourceTree = "<group>"; };
 		4926A48817FF69F7000CDBCD /* MLVCTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLVCTableViewController.m; sourceTree = "<group>"; };
 		4926A48F17FF7344000CDBCD /* MLVCTableViewCellAdapter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MLVCTableViewCellAdapter.h; sourceTree = "<group>"; };
-		496E25BE18343DB10008A0B4 /* MLVCCollectionViewViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MLVCCollectionViewViewModel.h; sourceTree = "<group>"; };
+		496E25BE18343DB10008A0B4 /* MLVCCollectionViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MLVCCollectionViewModel.h; sourceTree = "<group>"; };
 		496E25BF18343DF30008A0B4 /* MLVCTableViewViewModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MLVCTableViewViewModel.h; sourceTree = "<group>"; };
 		496E25CD1836AAD90008A0B4 /* MLVCViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLVCViewModel.h; sourceTree = "<group>"; };
-		496E25CE1836AAD90008A0B4 /* MLVCViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLVCViewModel.m; sourceTree = "<group>"; };
 		496E25D01836ABC90008A0B4 /* MLVCViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLVCViewController.h; sourceTree = "<group>"; };
 		496E25D11836ABC90008A0B4 /* MLVCViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLVCViewController.m; sourceTree = "<group>"; };
 		4972948218107730004635CA /* MLVCCollectionControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLVCCollectionControllerTests.m; sourceTree = "<group>"; };
@@ -154,7 +149,7 @@
 		490BF5921811BE3B000AC62D /* Collection View Controller */ = {
 			isa = PBXGroup;
 			children = (
-				496E25BE18343DB10008A0B4 /* MLVCCollectionViewViewModel.h */,
+				496E25BE18343DB10008A0B4 /* MLVCCollectionViewModel.h */,
 				490BF5931811BE95000AC62D /* MLVCCollectionViewController.h */,
 				490BF5941811BE95000AC62D /* MLVCCollectionViewController.m */,
 				490BF5961811C012000AC62D /* MLVCCollectionViewCellAdapter.h */,
@@ -178,8 +173,8 @@
 			children = (
 				4991C07917FC5B590059DDA3 /* MLVCCollectionController.h */,
 				4991C07B17FC5C420059DDA3 /* MLVCCollectionController.m */,
-				4921D7131804638200BCF1C9 /* MLVCCollectionViewModel.h */,
-				4921D7141804638200BCF1C9 /* MLVCCollectionViewModel.m */,
+				490BF5921811BE3B000AC62D /* Collection View Controller */,
+				4926A48617FF69CE000CDBCD /* Table View Controller */,
 			);
 			name = Collections;
 			sourceTree = "<group>";
@@ -247,10 +242,7 @@
 			children = (
 				49A53A59180E3DA30070AA01 /* ReactiveCocoa+MyLittleViewController */,
 				4926A48A17FF6A8B000CDBCD /* Collections */,
-				4926A48617FF69CE000CDBCD /* Table View Controller */,
-				490BF5921811BE3B000AC62D /* Collection View Controller */,
 				496E25CD1836AAD90008A0B4 /* MLVCViewModel.h */,
-				496E25CE1836AAD90008A0B4 /* MLVCViewModel.m */,
 				496E25D01836ABC90008A0B4 /* MLVCViewController.h */,
 				496E25D11836ABC90008A0B4 /* MLVCViewController.m */,
 				49C5621117FB75AD00B6873C /* MyLittleViewController.h */,
@@ -489,12 +481,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				496E25CF1836AAD90008A0B4 /* MLVCViewModel.m in Sources */,
 				4991C07C17FC5C420059DDA3 /* MLVCCollectionController.m in Sources */,
 				49A53A9C18105B7E0070AA01 /* NSObject+RACCollectionChanges.m in Sources */,
 				490BF5951811BE95000AC62D /* MLVCCollectionViewController.m in Sources */,
 				4926A48917FF69F7000CDBCD /* MLVCTableViewController.m in Sources */,
-				4921D7151804638200BCF1C9 /* MLVCCollectionViewModel.m in Sources */,
 				496E25D21836ABC90008A0B4 /* MLVCViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

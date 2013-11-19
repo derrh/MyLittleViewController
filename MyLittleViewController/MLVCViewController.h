@@ -10,5 +10,5 @@
 #import "MLVCViewModel.h"
 
 @interface MLVCViewController : UIViewController
-@property (nonatomic) id<MLVCViewModel> viewModel;
+@property (nonatomic) IBOutlet id<MLVCViewModel> viewModel;
 @end

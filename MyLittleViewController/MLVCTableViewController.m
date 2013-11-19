@@ -33,18 +33,18 @@
 {
     [super viewWillAppear:animated];
     
-    if ([self.viewModel respondsToSelector:@selector(viewController:viewWillAppearAnimated:)]) {
-        [self.viewModel viewController:self viewWillAppearAnimated:animated];
+    if ([self.viewModel respondsToSelector:@selector(viewController:viewWillAppear:)]) {
+        [self.viewModel viewController:self viewWillAppear:animated];
     }
     
-    if ([self.viewModel respondsToSelector:@selector(refreshViewModelWithCompletionBlock:)]) {
-        [self.viewModel refreshViewModelWithCompletionBlock:nil];
+    if ([self.viewModel respondsToSelector:@selector(refreshViewModelForced:withCompletionBlock:)]) {
+        [self.viewModel refreshViewModelForced:NO withCompletionBlock:nil];
     }
 }
 
 - (void)refreshFromRefreshControl:(UIRefreshControl *)refreshControl
 {
-    [self.viewModel refreshViewModelWithCompletionBlock:^{
+    [self.viewModel refreshViewModelForced:YES withCompletionBlock:^{
         [refreshControl endRefreshing];
     }];
 }
@@ -95,7 +95,10 @@
     [self endObservingCollectionChanges];
     
     _viewModel = viewModel;
-    if (self.tableView) {
+    if (self.isViewLoaded) {
+        if ([_viewModel respondsToSelector:@selector(viewControllerViewDidLoad:)]) {
+            [_viewModel viewControllerViewDidLoad:self];
+        }
         if ([_viewModel respondsToSelector:@selector(tableViewControllerViewDidLoad:)]) {
             [_viewModel tableViewControllerViewDidLoad:self];
         }
@@ -104,7 +107,7 @@
     
     [self beginObservingCollectionChanges];
     
-    if ([_viewModel respondsToSelector:@selector(refreshViewModelWithCompletionBlock:)]) {
+    if ([_viewModel respondsToSelector:@selector(refreshViewModelForced:withCompletionBlock:)]) {
         self.refreshControl = [[UIRefreshControl alloc] init];
         [self.refreshControl addTarget:self action:@selector(refreshFromRefreshControl:) forControlEvents:UIControlEventValueChanged];
     } else {

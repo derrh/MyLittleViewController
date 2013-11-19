@@ -23,8 +23,26 @@
 {
     [super viewWillAppear:animated];
     
-    if ([self.viewModel respondsToSelector:@selector(viewController:viewWillAppearAnimated:)]) {
-        [self.viewModel viewController:self viewWillAppearAnimated:animated];
+    if ([self.viewModel respondsToSelector:@selector(viewController:viewWillAppear:)]) {
+        [self.viewModel viewController:self viewWillAppear:animated];
+    }
+    
+    if ([self.viewModel respondsToSelector:@selector(refreshViewModelForced:withCompletionBlock:)]) {
+        [self.viewModel refreshViewModelForced:NO withCompletionBlock:nil];
     }
 }
+
+- (void)setViewModel:(id<MLVCViewModel>)viewModel
+{
+    if (_viewModel == viewModel) {
+        return;
+    }
+    
+    _viewModel = viewModel;
+
+    if (self.isViewLoaded && [_viewModel respondsToSelector:@selector(viewControllerViewDidLoad:)]) {
+        [_viewModel viewControllerViewDidLoad:self];
+    }
+}
+
 @end

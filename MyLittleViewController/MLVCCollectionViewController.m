@@ -33,12 +33,12 @@
 {
     [super viewWillAppear:animated];
     
-    if ([self.viewModel respondsToSelector:@selector(viewController:viewWillAppearAnimated:)]) {
-        [self.viewModel viewController:self viewWillAppearAnimated:animated];
+    if ([self.viewModel respondsToSelector:@selector(viewController:viewWillAppear:)]) {
+        [self.viewModel viewController:self viewWillAppear:animated];
     }
-
-    if ([self.viewModel respondsToSelector:@selector(refreshViewModelWithCompletionBlock:)]) {
-        [self.viewModel refreshViewModelWithCompletionBlock:nil];
+    
+    if ([self.viewModel respondsToSelector:@selector(refreshViewModelForced:withCompletionBlock:)]) {
+        [self.viewModel refreshViewModelForced:NO withCompletionBlock:nil];
     }
 }
 
@@ -78,7 +78,7 @@
     }];
 }
 
-- (void)setViewModel:(id<MLVCCollectionViewViewModel>)viewModel
+- (void)setViewModel:(id<MLVCCollectionViewModel>)viewModel
 {
     if (_viewModel == viewModel) {
         return;
@@ -88,10 +88,15 @@
     
     _viewModel = viewModel;
     
-    if (self.collectionView) {
+    if (self.isViewLoaded)
+    {
+        if ([self.viewModel respondsToSelector:@selector(viewControllerViewDidLoad:)]) {
+            [self.viewModel viewControllerViewDidLoad:self];
+        }
         if ([self.viewModel respondsToSelector:@selector(collectionViewControllerViewDidLoad:)]) {
             [self.viewModel collectionViewControllerViewDidLoad:self];
         }
+        [self.collectionView reloadData];
     }
 
     [self beginObservingCollectionChanges];
@@ -124,8 +129,9 @@
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"indexPath: %@", indexPath);
-    return [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"FavoritesFooter" forIndexPath:indexPath];
+    NSAssert([self.viewModel respondsToSelector:@selector(collectionViewController:viewForSupplementaryElementOfKind:atIndexPath:)], @"The view model for your MLVCCollectionViewController must implement this method");
+    
+    return [self.viewModel collectionViewController:self viewForSupplementaryElementOfKind:kind atIndexPath:indexPath];
 }
 
 

@@ -10,12 +10,11 @@
 #import "MLVCViewController.h"
 
 #import "MLVCCollectionController.h"
-#import "MLVCCollectionViewModel.h"
 
 #import "MLVCTableViewController.h"
-#import "MLVCTableViewViewModel.h"
+#import "MLVCTableViewModel.h"
 #import "MLVCTableViewCellAdapter.h"
 
 #import "MLVCCollectionViewController.h"
-#import "MLVCTableViewViewModel.h"
+#import "MLVCCollectionViewModel.h"
 #import "MLVCCollectionViewCellAdapter.h"

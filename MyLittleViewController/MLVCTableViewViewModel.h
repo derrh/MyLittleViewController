@@ -7,17 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "MLVCCollectionViewModel.h"
+#import "MLVCViewModel.h"
 
-@class MLVCTableViewController;
+@class MLVCTableViewController, MLVCCollectionController;
 
-/**
- You should probably just subclass MLVCCollectionViewModel then implement
- the optional methods in here that you want/need.
- 
- @see MLVCCollectionViewModel
- */
-@protocol MLVCTableViewViewModel <MLVCCollectionViewModel>
+@protocol MLVCTableViewViewModel <MLVCViewModel>
+@property (nonatomic) MLVCCollectionController *collectionController;
+
 @optional
 - (void)tableViewControllerViewDidLoad:(MLVCTableViewController *)tableViewController;
 @end
