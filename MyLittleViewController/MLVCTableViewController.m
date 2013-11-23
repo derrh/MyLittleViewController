@@ -143,7 +143,18 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     id<MLVCTableViewCellAdapter> cellAdapter = [self.viewModel.collectionController objectAtIndexPath:indexPath];
-    [cellAdapter tableViewController:self didSelectRowAtIndexPath:indexPath];
+    if ([cellAdapter respondsToSelector:@selector(tableViewController:didSelectRowAtIndexPath:)]) {
+        [cellAdapter tableViewController:self didSelectRowAtIndexPath:indexPath];
+    }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    id<MLVCTableViewCellAdapter> cellAdapter = [self.viewModel.collectionController objectAtIndexPath:indexPath];
+    if ([cellAdapter respondsToSelector:@selector(tableViewController:heightForRowAtIndexPath:)]) {
+        return [cellAdapter tableViewController:self heightForRowAtIndexPath:indexPath];
+    }
+    return tableView.rowHeight;
 }
 
 @end
