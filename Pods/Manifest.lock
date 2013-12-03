@@ -15,4 +15,4 @@ SPEC CHECKSUMS:
   OCMock: 80e4cfbc71a0e1bd28caf10a9fda27da7c4c8402
   ReactiveCocoa: 0142b823f4737effe6100f9fbb0a43bdcb629aae
 
-COCOAPODS: 0.27.1
+COCOAPODS: 0.28.0
