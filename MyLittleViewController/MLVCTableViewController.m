@@ -8,13 +8,16 @@
 
 #import "MLVCTableViewController.h"
 #import "MLVCCollectionController.h"
-#import "MLVCTableViewCellAdapter.h"
+#import "MLVCTableViewCellViewModel.h"
+#import <ReactiveCocoa/ReactiveCocoa.h>
 
 @interface MLVCTableViewController ()
 @property (nonatomic) RACDisposable *groupInserted, *groupDeleted, *objectInserted, *objectDeleted;
 @end
 
-@implementation MLVCTableViewController
+@implementation MLVCTableViewController {
+    RACSubject *_selectedCellViewModelSubject;
+}
 
 - (void)viewDidLoad
 {
@@ -115,6 +118,13 @@
     }
 }
 
+#pragma mark - selection
+
+- (RACSignal *)selectedCellViewModelSignal
+{
+    return _selectedCellViewModelSubject ?: (_selectedCellViewModelSubject = [RACSubject subject]);
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -136,23 +146,24 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    id<MLVCTableViewCellAdapter> cellAdapter = [self.viewModel.collectionController objectAtIndexPath:indexPath];
-    return [cellAdapter tableViewController:self cellForRowAtIndexPath:indexPath];
+    id<MLVCTableViewCellViewModel> cellViewModel = [self.viewModel.collectionController objectAtIndexPath:indexPath];
+    return [cellViewModel tableViewController:self cellForRowAtIndexPath:indexPath];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    id<MLVCTableViewCellAdapter> cellAdapter = [self.viewModel.collectionController objectAtIndexPath:indexPath];
-    if ([cellAdapter respondsToSelector:@selector(tableViewController:didSelectRowAtIndexPath:)]) {
-        [cellAdapter tableViewController:self didSelectRowAtIndexPath:indexPath];
+    id<MLVCTableViewCellViewModel> cellViewModel = [self.viewModel.collectionController objectAtIndexPath:indexPath];
+    if ([cellViewModel respondsToSelector:@selector(tableViewController:didSelectRowAtIndexPath:)]) {
+        [cellViewModel tableViewController:self didSelectRowAtIndexPath:indexPath];
     }
+    [_selectedCellViewModelSubject sendNext:cellViewModel];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    id<MLVCTableViewCellAdapter> cellAdapter = [self.viewModel.collectionController objectAtIndexPath:indexPath];
-    if ([cellAdapter respondsToSelector:@selector(tableViewController:heightForRowAtIndexPath:)]) {
-        return [cellAdapter tableViewController:self heightForRowAtIndexPath:indexPath];
+    id<MLVCTableViewCellViewModel> cellViewModel = [self.viewModel.collectionController objectAtIndexPath:indexPath];
+    if ([cellViewModel respondsToSelector:@selector(tableViewController:heightForRowAtIndexPath:)]) {
+        return [cellViewModel tableViewController:self heightForRowAtIndexPath:indexPath];
     }
     return tableView.rowHeight;
 }

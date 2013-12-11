@@ -13,8 +13,8 @@
 
 #import "MLVCTableViewController.h"
 #import "MLVCTableViewModel.h"
-#import "MLVCTableViewCellAdapter.h"
+#import "MLVCTableViewCellViewModel.h"
 
 #import "MLVCCollectionViewController.h"
 #import "MLVCCollectionViewModel.h"
-#import "MLVCCollectionViewCellAdapter.h"
+#import "MLVCCollectionViewCellViewModel.h"

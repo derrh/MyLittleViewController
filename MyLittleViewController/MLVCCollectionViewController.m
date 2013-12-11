@@ -7,7 +7,7 @@
 //
 
 #import "MLVCCollectionViewController.h"
-#import "MLVCCollectionViewCellAdapter.h"
+#import "MLVCCollectionViewCellViewModel.h"
 #import "MLVCCollectionController.h"
 
 @interface MLVCCollectionViewController () <UICollectionViewDelegateFlowLayout>
@@ -117,13 +117,13 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    id<MLVCCollectionViewCellAdapter> item = [self.viewModel.collectionController objectAtIndexPath:indexPath];
+    id<MLVCCollectionViewCellViewModel> item = [self.viewModel.collectionController objectAtIndexPath:indexPath];
     return [item collectionViewController:self cellForItemAtIndexPath:indexPath];
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    id<MLVCCollectionViewCellAdapter> item = [self.viewModel.collectionController objectAtIndexPath:indexPath];
+    id<MLVCCollectionViewCellViewModel> item = [self.viewModel.collectionController objectAtIndexPath:indexPath];
     [item collectionViewController:self didSelectItemAtIndexPath:indexPath];
 }
 

@@ -9,6 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "MLVCTableViewModel.h"
 
+@class RACSignal;
+
 @interface MLVCTableViewController : UITableViewController
 @property (nonatomic) IBOutlet id<MLVCTableViewModel> viewModel;
+
+@property (nonatomic, readonly) RACSignal *selectedCellViewModelSignal;
 @end

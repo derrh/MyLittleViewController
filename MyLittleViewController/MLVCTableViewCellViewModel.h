@@ -1,5 +1,5 @@
 //
-//  MLVCTableViewCellAdapter.h
+//  MLVCTableViewCellViewModel.h
 //  MyLittleViewController
 //
 //  Created by derrick on 10/4/13.
@@ -10,7 +10,7 @@
 
 @class MLVCTableViewController;
 
-@protocol MLVCTableViewCellAdapter <NSObject>
+@protocol MLVCTableViewCellViewModel <NSObject>
 - (UITableViewCell *)tableViewController:(MLVCTableViewController *)controller cellForRowAtIndexPath:(NSIndexPath *)indexPath;
 
 @optional

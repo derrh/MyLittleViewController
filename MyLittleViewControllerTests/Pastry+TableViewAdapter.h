@@ -7,7 +7,7 @@
 //
 
 #import "Pastry.h"
-#import "MLVCTableViewCellAdapter.h"
+#import "MLVCTableViewCellViewModel.h"
 
-@interface Pastry (TableViewAdapter) <MLVCTableViewCellAdapter>
+@interface Pastry (TableViewAdapter) <MLVCTableViewCellViewModel>
 @end
