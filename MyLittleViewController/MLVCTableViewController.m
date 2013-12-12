@@ -30,6 +30,8 @@
     if ([self.viewModel respondsToSelector:@selector(tableViewControllerViewDidLoad:)]) {
         [self.viewModel tableViewControllerViewDidLoad:self];
     }
+
+    [_selectedCellViewModelSubject sendNext:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -157,6 +159,11 @@
         [cellViewModel tableViewController:self didSelectRowAtIndexPath:indexPath];
     }
     [_selectedCellViewModelSubject sendNext:cellViewModel];
+}
+
+- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [_selectedCellViewModelSubject sendNext:nil];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
