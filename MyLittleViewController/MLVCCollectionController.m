@@ -222,8 +222,12 @@
         _id = groupID;
         _title = title;
         
-        [self.objectsInsertedIndexPathsSignal subscribe:insertSubject];
-        [self.objectsDeletedIndexPathsSignal subscribe:deleteSubject];
+        [self.objectsInsertedIndexPathsSignal subscribeNext:^(NSArray *indexPaths) {
+            [insertSubject sendNext:indexPaths];
+        }];
+        [self.objectsDeletedIndexPathsSignal subscribeNext:^(NSArray *indexPaths) {
+            [deleteSubject sendNext:indexPaths];
+        }];
     }
     return self;
 }
