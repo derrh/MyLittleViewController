@@ -9,9 +9,9 @@
 #import "MLVCCollectionViewController.h"
 #import "MLVCCollectionViewCellViewModel.h"
 #import "MLVCCollectionController.h"
+#import "UICollectionView+MyLittleViewController.h"
 
 @interface MLVCCollectionViewController () <UICollectionViewDelegateFlowLayout>
-@property (nonatomic) RACDisposable *groupInserted, *groupDeleted, *objectInserted, *objectDeleted;
 @end
 
 @implementation MLVCCollectionViewController
@@ -27,6 +27,10 @@
     if ([self.viewModel respondsToSelector:@selector(collectionViewControllerViewDidLoad:)]) {
         [self.viewModel collectionViewControllerViewDidLoad:self];
     }
+    
+    if (self.viewModel) {
+        [self.collectionView mlvc_observeCollectionController:_viewModel.collectionController];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -36,55 +40,18 @@
     if ([self.viewModel respondsToSelector:@selector(viewController:viewWillAppear:)]) {
         [self.viewModel viewController:self viewWillAppear:animated];
     }
-    
-    if ([self.viewModel respondsToSelector:@selector(refreshViewModelForced:withCompletionBlock:)]) {
-        [self.viewModel refreshViewModelForced:NO withCompletionBlock:nil];
+
+    if ([self.viewModel respondsToSelector:@selector(refreshViewModelSignalForced:)]) {
+        [self.viewModel refreshViewModelSignalForced:NO];
     }
 }
 
-- (void)endObservingCollectionChanges
-{
-    [self.groupInserted dispose];
-    self.groupInserted = nil;
-    
-    [self.groupDeleted dispose];
-    self.groupDeleted = nil;
-    
-    [self.objectInserted dispose];
-    self.objectInserted = nil;
-    
-    [self.objectDeleted dispose];
-    self.objectDeleted = nil;
-}
-
-- (void)beginObservingCollectionChanges
-{
-    __weak MLVCCollectionViewController *weakSelf = self;
-    
-    self.groupInserted = [self.viewModel.collectionController.groupsInsertedIndexSetSignal subscribeNext:^(NSIndexSet *sections) {
-        [weakSelf.collectionView insertSections:sections];
-    }];
-    
-    self.groupDeleted = [self.viewModel.collectionController.groupsDeletedIndexSetSignal subscribeNext:^(NSIndexSet *sections) {
-        [weakSelf.collectionView deleteSections:sections];
-    }];
-    
-    self.objectInserted = [self.viewModel.collectionController.objectsInsertedIndexPathsSignal subscribeNext:^(NSArray *indexPaths) {
-        [weakSelf.collectionView insertItemsAtIndexPaths:indexPaths];
-    }];
-    
-    self.objectDeleted = [self.viewModel.collectionController.objectsDeletedIndexPathsSignal subscribeNext:^(NSArray *indexPaths) {
-        [weakSelf.collectionView deleteItemsAtIndexPaths:indexPaths];
-    }];
-}
 
 - (void)setViewModel:(id<MLVCCollectionViewModel>)viewModel
 {
     if (_viewModel == viewModel) {
         return;
     }
-    
-    [self endObservingCollectionChanges];
     
     _viewModel = viewModel;
     
@@ -96,10 +63,10 @@
         if ([self.viewModel respondsToSelector:@selector(collectionViewControllerViewDidLoad:)]) {
             [self.viewModel collectionViewControllerViewDidLoad:self];
         }
+
+        [self.collectionView mlvc_observeCollectionController:_viewModel.collectionController];
         [self.collectionView reloadData];
     }
-
-    [self beginObservingCollectionChanges];
 }
 
 #pragma mark - UICollectionViewDataSource
@@ -134,7 +101,10 @@
     return [self.viewModel collectionViewController:self viewForSupplementaryElementOfKind:kind atIndexPath:indexPath];
 }
 
-
-#pragma mark - UICollectionViewDelegateFlowLayout
+- (UICollectionViewTransitionLayout *)collectionView:(UICollectionView *)collectionView transitionLayoutForOldLayout:(UICollectionViewLayout *)fromLayout newLayout:(UICollectionViewLayout *)toLayout
+{
+    UICollectionViewTransitionLayout *transitionLayout = [[UICollectionViewTransitionLayout alloc] initWithCurrentLayout:fromLayout nextLayout:toLayout];
+    return transitionLayout;
+}
 
 @end

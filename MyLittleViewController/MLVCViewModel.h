@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <ReactiveCocoa/ReactiveCocoa.h>
 
 @protocol MLVCViewModel <NSObject>
 @optional
-- (void)refreshViewModelForced:(BOOL)forced withCompletionBlock:(void (^)())block;
+- (RACSignal *)refreshViewModelSignalForced:(BOOL)forced;
 
 - (void)viewControllerViewDidLoad:(UIViewController *)viewController;
 - (void)viewController:(UIViewController *)viewController viewWillAppear:(BOOL)animated;

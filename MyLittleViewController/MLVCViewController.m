@@ -27,8 +27,8 @@
         [self.viewModel viewController:self viewWillAppear:animated];
     }
     
-    if ([self.viewModel respondsToSelector:@selector(refreshViewModelForced:withCompletionBlock:)]) {
-        [self.viewModel refreshViewModelForced:NO withCompletionBlock:nil];
+    if ([self.viewModel respondsToSelector:@selector(refreshViewModelSignalForced:)]) {
+        [self.viewModel refreshViewModelSignalForced:NO];
     }
 }
 

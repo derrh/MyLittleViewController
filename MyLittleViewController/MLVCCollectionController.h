@@ -119,6 +119,12 @@
  */
 - (void)removeAllObjectsAndGroups;
 
+
+/**
+ Remove just the group of objects with the given group id object
+ */
+- (void)removeGroupWithGroupID:(id)groupID;
+
 @end
 
 /**

@@ -42,16 +42,23 @@
         [self.viewModel viewController:self viewWillAppear:animated];
     }
     
-    if ([self.viewModel respondsToSelector:@selector(refreshViewModelForced:withCompletionBlock:)]) {
-        [self.viewModel refreshViewModelForced:NO withCompletionBlock:nil];
+    if ([self.viewModel respondsToSelector:@selector(refreshViewModelSignalForced:)]) {
+        RACSignal *refreshSignal = [self.viewModel refreshViewModelSignalForced:NO];
+        [self.refreshControl beginRefreshing];
+        [self.tableView scrollRectToVisible:self.refreshControl.frame animated:NO];
+        [refreshSignal subscribeCompleted:^{
+            [self.refreshControl endRefreshing];
+        }];
     }
 }
 
 - (void)refreshFromRefreshControl:(UIRefreshControl *)refreshControl
 {
-    [self.viewModel refreshViewModelForced:YES withCompletionBlock:^{
-        [refreshControl endRefreshing];
-    }];
+    if ([self.viewModel respondsToSelector:@selector(refreshViewModelSignalForced:)]) {
+        [[self.viewModel refreshViewModelSignalForced:YES] subscribeCompleted:^{
+            [refreshControl endRefreshing];
+        }];
+    }
 }
 
 - (void)endObservingCollectionChanges
@@ -112,7 +119,7 @@
     
     [self beginObservingCollectionChanges];
     
-    if ([_viewModel respondsToSelector:@selector(refreshViewModelForced:withCompletionBlock:)]) {
+    if ([_viewModel respondsToSelector:@selector(refreshViewModelSignalForced:)]) {
         self.refreshControl = [[UIRefreshControl alloc] init];
         [self.refreshControl addTarget:self action:@selector(refreshFromRefreshControl:) forControlEvents:UIControlEventValueChanged];
     } else {
