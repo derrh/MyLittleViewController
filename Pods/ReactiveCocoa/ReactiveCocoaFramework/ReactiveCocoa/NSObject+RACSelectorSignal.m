@@ -7,6 +7,7 @@
 //
 
 #import "NSObject+RACSelectorSignal.h"
+#import "RACEXTRuntimeExtensions.h"
 #import "NSInvocation+RACTypeParsing.h"
 #import "NSObject+RACDeallocating.h"
 #import "RACCompoundDisposable.h"
@@ -85,6 +86,70 @@ static void RACSwizzleForwardInvocation(Class class) {
 	};
 
 	class_replaceMethod(class, forwardInvocationSEL, imp_implementationWithBlock(newForwardInvocation), "v@:@");
+}
+
+static void RACSwizzleRespondsToSelector(Class class) {
+	SEL respondsToSelectorSEL = @selector(respondsToSelector:);
+
+	// Preserve existing implementation of -respondsToSelector:.
+	Method respondsToSelectorMethod = class_getInstanceMethod(class, respondsToSelectorSEL);
+	BOOL (*originalRespondsToSelector)(id, SEL, SEL) = (__typeof__(originalRespondsToSelector))method_getImplementation(respondsToSelectorMethod);
+
+	// Set up a new version of -respondsToSelector: that returns YES for methods
+	// added by -rac_signalForSelector:.
+	//
+	// If the selector has a method defined on the receiver's actual class, and
+	// if that method's implementation is _objc_msgForward, then returns whether
+	// the instance has a signal for the selector.
+	// Otherwise, call the original -respondsToSelector:.
+	id newRespondsToSelector = ^ BOOL (id self, SEL selector) {
+		Method method = rac_getImmediateInstanceMethod(object_getClass(self), selector);
+
+		if (method != NULL && method_getImplementation(method) == _objc_msgForward) {
+			SEL aliasSelector = RACAliasForSelector(selector);
+			return objc_getAssociatedObject(self, aliasSelector) != nil;
+		}
+
+		return originalRespondsToSelector(self, respondsToSelectorSEL, selector);
+	};
+
+	class_replaceMethod(class, respondsToSelectorSEL, imp_implementationWithBlock(newRespondsToSelector), method_getTypeEncoding(respondsToSelectorMethod));
+}
+
+static void RACSwizzleGetClass(Class class, Class statedClass) {
+	SEL selector = @selector(class);
+	Method method = class_getInstanceMethod(class, selector);
+	IMP newIMP = imp_implementationWithBlock(^(id self) {
+		return statedClass;
+	});
+	class_replaceMethod(class, selector, newIMP, method_getTypeEncoding(method));
+}
+
+static void RACSwizzleMethodSignatureForSelector(Class class) {
+	SEL selector = @selector(methodSignatureForSelector:);
+	Method methodSignatureForSelectorMethod = class_getInstanceMethod(class, selector);
+	IMP newIMP = imp_implementationWithBlock(^(id self, SEL selector) {
+		// Don't send the -class message to the receiver because we've changed
+		// that to return the original class.
+		Class actualClass = object_getClass(self);
+		Method method = class_getInstanceMethod(actualClass, selector);
+		if (method == NULL) {
+			// Messages that the original class dynamically implements fall
+			// here.
+			//
+			// Call the original class' -methodSignatureForSelector:.
+			struct objc_super target = {
+				.super_class = class_getSuperclass(actualClass),
+				.receiver = self,
+			};
+			NSMethodSignature * (*messageSend)(struct objc_super *, SEL) = (__typeof__(messageSend))objc_msgSendSuper;
+			return messageSend(&target, @selector(methodSignatureForSelector:));
+		}
+
+		char const *encoding = method_getTypeEncoding(method);
+		return [NSMethodSignature signatureWithObjCTypes:encoding];
+	});
+	class_replaceMethod(class, selector, newIMP, method_getTypeEncoding(methodSignatureForSelectorMethod));
 }
 
 // It's hard to tell which struct return types use _objc_msgForward, and
@@ -201,9 +266,16 @@ static Class RACSwizzleClass(NSObject *self) {
 		// Just swizzle -forwardInvocation: in-place. Since the object's class
 		// was almost certainly dynamically changed, we shouldn't see another of
 		// these classes in the hierarchy.
+		//
+		// Additionally, swizzle -respondsToSelector: because the default
+		// implementation may be ignorant of methods added to this class.
 		@synchronized (swizzledClasses()) {
 			if (![swizzledClasses() containsObject:className]) {
 				RACSwizzleForwardInvocation(baseClass);
+				RACSwizzleRespondsToSelector(baseClass);
+				RACSwizzleGetClass(baseClass, statedClass);
+				RACSwizzleGetClass(object_getClass(baseClass), statedClass);
+				RACSwizzleMethodSignatureForSelector(baseClass);
 				[swizzledClasses() addObject:className];
 			}
 		}
@@ -219,6 +291,13 @@ static Class RACSwizzleClass(NSObject *self) {
 		if (subclass == nil) return nil;
 
 		RACSwizzleForwardInvocation(subclass);
+		RACSwizzleRespondsToSelector(subclass);
+
+		RACSwizzleGetClass(subclass, statedClass);
+		RACSwizzleGetClass(object_getClass(subclass), statedClass);
+
+		RACSwizzleMethodSignatureForSelector(subclass);
+
 		objc_registerClassPair(subclass);
 	}
 

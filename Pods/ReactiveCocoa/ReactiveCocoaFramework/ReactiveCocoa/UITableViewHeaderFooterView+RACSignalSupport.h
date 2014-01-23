@@ -1,8 +1,8 @@
 //
-//  UICollectionViewCell+RACSignalSupport.h
+//  UITableViewHeaderFooterView+RACSignalSupport.h
 //  ReactiveCocoa
 //
-//  Created by Kent Wong on 2013-10-04.
+//  Created by Syo Ikeda on 12/30/13.
 //  Copyright (c) 2013 GitHub, Inc. All rights reserved.
 //
 
@@ -11,7 +11,7 @@
 @class RACSignal;
 
 // This category is only applicable to iOS >= 6.0.
-@interface UICollectionViewCell (RACSignalSupport)
+@interface UITableViewHeaderFooterView (RACSignalSupport)
 
 /// A signal which will send a RACUnit whenever -prepareForReuse is invoked upon
 /// the receiver.

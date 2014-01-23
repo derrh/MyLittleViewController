@@ -297,11 +297,62 @@ extern const NSInteger RACSignalErrorNoMatchingCase;
 /// will send `completed`.
 - (RACSignal *)takeUntil:(RACSignal *)signalTrigger;
 
+/// Take `next`s until the `replacement` sends an event.
+///
+/// replacement - The signal which replaces the receiver as soon as it sends an
+///               event.
+///
+/// Returns a signal which passes through `next`s and `error` from the receiver
+/// until `replacement` sends an event, at which point the returned signal will
+/// send that event and switch to passing through events from `replacement`
+/// instead, regardless of whether the receiver has sent events already.
+- (RACSignal *)takeUntilReplacement:(RACSignal *)replacement;
+
 /// Subscribe to the returned signal when an error occurs.
 - (RACSignal *)catch:(RACSignal * (^)(NSError *error))catchBlock;
 
 /// Subscribe to the given signal when an error occurs.
 - (RACSignal *)catchTo:(RACSignal *)signal;
+
+/// Runs `tryBlock` against each of the receiver's values, passing values
+/// until `tryBlock` returns NO, or the receiver completes.
+///
+/// tryBlock - An action to run against each of the receiver's values.
+///            The block should return YES to indicate that the action was
+///            successful. This block must not be nil.
+///
+/// Example:
+///
+///   // The returned signal will send an error if data values cannot be
+///   // written to `someFileURL`.
+///   [signal try:^(NSData *data, NSError **errorPtr) {
+///       return [data writeToURL:someFileURL options:NSDataWritingAtomic error:errorPtr];
+///   }];
+///
+/// Returns a signal which passes through all the values of the receiver. If
+/// `tryBlock` fails for any value, the returned signal will error using the
+/// `NSError` passed out from the block.
+- (RACSignal *)try:(BOOL (^)(id value, NSError **errorPtr))tryBlock;
+
+/// Runs `mapBlock` against each of the receiver's values, mapping values until
+/// `mapBlock` returns nil, or the receiver completes.
+///
+/// mapBlock - An action to map each of the receiver's values. The block should
+///            return a non-nil value to indicate that the action was successful.
+///            This block must not be nil.
+///
+/// Example:
+///
+///   // The returned signal will send an error if data cannot be read from
+///   // `fileURL`.
+///   [signal tryMap:^(NSURL *fileURL, NSError **errorPtr) {
+///       return [NSData dataWithContentsOfURL:fileURL options:0 error:errorPtr];
+///   }];
+///
+/// Returns a signal which transforms all the values of the receiver. If
+/// `mapBlock` returns nil for any value, the returned signal will error using
+/// the `NSError` passed out from the block.
+- (RACSignal *)tryMap:(id (^)(id value, NSError **errorPtr))mapBlock;
 
 /// Returns the first `next`. Note that this is a blocking call.
 - (id)first;
@@ -491,7 +542,8 @@ extern const NSInteger RACSignalErrorNoMatchingCase;
 
 /// Sends the latest value from the receiver only when `sampler` sends a value.
 /// The returned signal could repeat values if `sampler` fires more often than
-/// the receiver.
+/// the receiver. Values from `sampler` are ignored before the receiver sends
+/// its first value.
 ///
 /// sampler - The signal that controls when the latest value from the receiver
 ///           is sent. Cannot be nil.

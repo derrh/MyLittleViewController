@@ -11,6 +11,7 @@
 #import "RACPassthroughSubscriber.h"
 #import "RACScheduler+Private.h"
 #import "RACSubscriber.h"
+#import "RACCompoundDisposable.h"
 #import <libkern/OSAtomic.h>
 
 // Retains dynamic signals while they wait for subscriptions.
@@ -176,10 +177,10 @@ static void RACCheckActiveSignals(void) {
 	if (self.didSubscribe != NULL) {
 		RACDisposable *schedulingDisposable = [RACScheduler.subscriptionScheduler schedule:^{
 			RACDisposable *innerDisposable = self.didSubscribe(subscriber);
-			if (innerDisposable != nil) [disposable addDisposable:innerDisposable];
+			[disposable addDisposable:innerDisposable];
 		}];
 
-		if (schedulingDisposable != nil) [disposable addDisposable:schedulingDisposable];
+		[disposable addDisposable:schedulingDisposable];
 	}
 	
 	return disposable;
