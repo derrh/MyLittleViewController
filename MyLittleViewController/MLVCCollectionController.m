@@ -77,7 +77,7 @@
     return _groupsDeletedIndexSetSignal = [self rac_filteredIndexSetsForChangeType:NSKeyValueChangeRemoval forCollectionForKeyPath:@"groups"];
 }
 
-- (RACSignal *)signalForIndexPathsOfObjectsChangesOfType:(NSKeyValueChange)changeType {
+- (RACSignal *)signalForIndexPathsOfObjectChangesOfType:(NSKeyValueChange)changeType {
     return [[self groupsInsertedIndexSetSignal] flattenMap:^RACStream *(NSIndexSet *insertedGroups) {
         NSArray *groups = [self.groups objectsAtIndexes:insertedGroups];
         
@@ -97,11 +97,11 @@
 }
 
 - (RACSignal *)objectsInsertedIndexPathsSignal {
-    return [self signalForIndexPathsOfObjectsChangesOfType:NSKeyValueChangeInsertion];
+    return [self signalForIndexPathsOfObjectChangesOfType:NSKeyValueChangeInsertion];
 }
 
 - (RACSignal *)objectsDeletedIndexPathsSignal {
-    return [self signalForIndexPathsOfObjectsChangesOfType:NSKeyValueChangeRemoval];
+    return [self signalForIndexPathsOfObjectChangesOfType:NSKeyValueChangeRemoval];
 }
 
 #pragma mark - Querying
