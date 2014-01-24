@@ -113,6 +113,13 @@
  */
 - (void)removeObjectAtIndexPath:(NSIndexPath *)indexPath;
 
+/**
+ Removes a list of items from the collection
+ 
+ @param array of NSIndexPath corresponding to the objects to remove
+ */
+- (void)removeObjectsAtIndexPaths:(NSArray *)indexPaths;
+
 
 /**
  Remove all objects and groups

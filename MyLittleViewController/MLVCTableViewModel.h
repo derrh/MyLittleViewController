@@ -15,6 +15,7 @@
 @property (nonatomic) MLVCCollectionController *collectionController;
 
 @optional
+@property (nonatomic, readonly) BOOL allowsMultipleSelectionDuringEditing;
 - (void)tableViewControllerViewDidLoad:(MLVCTableViewController *)tableViewController;
 @end
 

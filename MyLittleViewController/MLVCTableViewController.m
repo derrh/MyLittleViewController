@@ -52,6 +52,14 @@
     }
 }
 
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated
+{
+    if ([self.viewModel respondsToSelector:@selector(allowsMultipleSelectionDuringEditing)] && self.viewModel.allowsMultipleSelectionDuringEditing) {
+        self.tableView.allowsMultipleSelectionDuringEditing = editing;
+    }
+    [super setEditing:editing animated:animated];
+}
+
 - (void)refreshFromRefreshControl:(UIRefreshControl *)refreshControl
 {
     if ([self.viewModel respondsToSelector:@selector(refreshViewModelSignalForced:)]) {
@@ -180,6 +188,32 @@
         return [cellViewModel tableViewController:self heightForRowAtIndexPath:indexPath];
     }
     return tableView.rowHeight;
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    id<MLVCTableViewCellViewModel> cellViewModel = [self.viewModel.collectionController objectAtIndexPath:indexPath];
+    if ([cellViewModel respondsToSelector:@selector(tableViewController:canEditRowAtIndexPath:)]) {
+        return [cellViewModel tableViewController:self canEditRowAtIndexPath:indexPath];
+    }
+    return NO;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    id<MLVCTableViewCellViewModel> cellViewModel = [self.viewModel.collectionController objectAtIndexPath:indexPath];
+    if ([cellViewModel respondsToSelector:@selector(tableViewController:commitEditingStyle:forRowAtIndexPath:)]) {
+        [cellViewModel tableViewController:self commitEditingStyle:editingStyle forRowAtIndexPath:indexPath];
+    }
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    id<MLVCTableViewCellViewModel> cellViewModel = [self.viewModel.collectionController objectAtIndexPath:indexPath];
+    if ([cellViewModel respondsToSelector:@selector(tableViewController:titleForDeleteConfirmationButtonForRowAtIndexPath:)]) {
+        return [cellViewModel tableViewController:self titleForDeleteConfirmationButtonForRowAtIndexPath:indexPath];
+    }
+    return NSLocalizedString(@"Delete", @"Default delete button MLVC");
 }
 
 @end

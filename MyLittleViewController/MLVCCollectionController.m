@@ -177,6 +177,29 @@
     [mutable removeObjectAtIndex:indexPath.row];
 }
 
+- (void)removeObjectsAtIndexPaths:(NSArray *)indexPaths
+{
+    NSMutableIndexSet *indexesToRemoveFromCurrentGroup = nil;
+    NSInteger currentGroupIndex = NSNotFound;
+    
+    NSArray *orderedPaths = [indexPaths sortedArrayUsingSelector:@selector(compare:)];
+    for (NSIndexPath *indexPath in orderedPaths) {
+        if (currentGroupIndex != indexPath.section) {
+            if ([indexesToRemoveFromCurrentGroup count]) {
+                [[self[currentGroupIndex] mutableArrayValueForKey:@"groupedObjects"] removeObjectsAtIndexes:indexesToRemoveFromCurrentGroup];
+            }
+            
+            indexesToRemoveFromCurrentGroup = [NSMutableIndexSet indexSet];
+            currentGroupIndex = indexPath.section;
+        }
+        
+        [indexesToRemoveFromCurrentGroup addIndex:indexPath.row];
+    }
+    if ([indexesToRemoveFromCurrentGroup count]) {
+        [[self[currentGroupIndex] mutableArrayValueForKey:@"groupedObjects"] removeObjectsAtIndexes:indexesToRemoveFromCurrentGroup];
+    }
+}
+
 - (void)removeAllObjectsAndGroups
 {
     [_groupsByGroupID removeAllObjects];
