@@ -209,13 +209,12 @@
 
 - (void)removeGroupWithGroupID:(id)groupID
 {
-    NSMutableArray *mutable = [self mutableArrayValueForKey:@"groups"];
-    NSUInteger index = [mutable indexOfObject:groupID inSortedRange:NSMakeRange(0, mutable.count) options:NSBinarySearchingFirstEqual usingComparator:^NSComparisonResult(id obj1, id obj2) {
+    NSUInteger index = [[self.groups valueForKey:@"id"] indexOfObject:groupID inSortedRange:NSMakeRange(0, self.groups.count) options:NSBinarySearchingFirstEqual usingComparator:^NSComparisonResult(id obj1, id obj2) {
         return [obj1 compare:obj2];
     }];
     if (index != NSNotFound) {
         [_groupsByGroupID removeObjectForKey:groupID];
-        [mutable removeObjectAtIndex:index];
+        [[self mutableArrayValueForKey:@"groups"] removeObjectAtIndex:index];
     }
 }
 
