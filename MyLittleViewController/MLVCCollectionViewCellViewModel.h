@@ -11,4 +11,5 @@
 @protocol MLVCCollectionViewCellViewModel <NSObject>
 - (UICollectionViewCell *)collectionViewController:(MLVCCollectionViewController *)controller cellForItemAtIndexPath:(NSIndexPath *)indexPath;
 - (void)collectionViewController:(MLVCCollectionViewController *)controller didSelectItemAtIndexPath:(NSIndexPath *)indexPath;
+- (BOOL)collectionViewController:(MLVCCollectionViewController *)controller shouldDeselectItemAtIndexPath:(NSIndexPath *)indexPaht;
 @end

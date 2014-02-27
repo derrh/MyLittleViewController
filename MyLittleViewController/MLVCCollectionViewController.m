@@ -47,6 +47,16 @@
 }
 
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    if ([self.viewModel respondsToSelector:@selector(viewController:viewWillDisappear:)]) {
+        [self.viewModel viewController:self viewWillDisappear:animated];
+    }
+}
+
+
 - (void)setViewModel:(id<MLVCCollectionViewModel>)viewModel
 {
     if (_viewModel == viewModel) {
@@ -99,6 +109,17 @@
     NSAssert([self.viewModel respondsToSelector:@selector(collectionViewController:viewForSupplementaryElementOfKind:atIndexPath:)], @"The view model for your MLVCCollectionViewController must implement this method");
     
     return [self.viewModel collectionViewController:self viewForSupplementaryElementOfKind:kind atIndexPath:indexPath];
+}
+
+- (BOOL)collectionView:(UICollectionView *)collectionView shouldDeselectItemAtIndexPath:(NSIndexPath *)indexPaht
+{
+    id<MLVCCollectionViewCellViewModel> item = [self.viewModel.collectionController objectAtIndexPath:indexPaht];
+
+    if ([item respondsToSelector:@selector(collectionViewController:shouldDeselectItemAtIndexPath:)]) {
+        return [item collectionViewController:self shouldDeselectItemAtIndexPath:indexPaht];
+    }
+    
+    return YES;
 }
 
 - (UICollectionViewTransitionLayout *)collectionView:(UICollectionView *)collectionView transitionLayoutForOldLayout:(UICollectionViewLayout *)fromLayout newLayout:(UICollectionViewLayout *)toLayout

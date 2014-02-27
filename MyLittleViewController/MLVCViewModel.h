@@ -15,5 +15,5 @@
 
 - (void)viewControllerViewDidLoad:(UIViewController *)viewController;
 - (void)viewController:(UIViewController *)viewController viewWillAppear:(BOOL)animated;
-// add more as needed
+- (void)viewController:(UIViewController *)viewController viewWillDisappear:(BOOL)animated;
 @end

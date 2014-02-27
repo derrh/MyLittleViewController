@@ -28,6 +28,7 @@
     NSMutableArray *_groups;
     NSMutableDictionary *_groupsByGroupID;
     RACSignal *_groupsInsertedIndexSetSignal, *_groupsDeletedIndexSetSignal;
+    RACSubject *_beginUpdatesSignal, *_endUpdatesSignal;
 }
 
 - (id)init
@@ -36,6 +37,8 @@
     if (self) {
         _groups = [NSMutableArray array];
         _groupsByGroupID = [NSMutableDictionary dictionary];
+        _beginUpdatesSignal = [RACSubject subject];
+        _endUpdatesSignal = [RACSubject subject];
     }
     return self;
 }
@@ -144,8 +147,15 @@
         group = [self insertGroupForObject:object];
     }
     NSMutableArray *mutable = [group mutableArrayValueForKey:@"groupedObjects"];
-    NSUInteger objectIndex = [mutable indexOfObject:object inSortedRange:NSMakeRange(0, group.objects.count) options:NSBinarySearchingInsertionIndex usingComparator:self.comparator];
-    [mutable insertObject:object atIndex:objectIndex];
+    NSRange range = NSMakeRange(0, group.objects.count);
+    NSInteger insertionIndex;
+    insertionIndex = [mutable indexOfObject:object inSortedRange:range options:NSBinarySearchingLastEqual usingComparator:self.comparator];
+    if (insertionIndex != NSNotFound) {
+        ++insertionIndex;
+    } else {
+        insertionIndex = [mutable indexOfObject:object inSortedRange:range options:NSBinarySearchingInsertionIndex usingComparator:self.comparator];
+    }
+    [mutable insertObject:object atIndex:insertionIndex];
 }
 
 - (void)insertObjects:(NSArray *)objects
@@ -165,9 +175,11 @@
         }];
     }
     
+    [_beginUpdatesSignal sendNext:[RACUnit defaultUnit]];
     for (id object in objects) {
         [self insertObject:object];
     }
+    [_endUpdatesSignal sendNext:[RACUnit defaultUnit]];
 }
 
 
@@ -183,6 +195,7 @@
     NSInteger currentGroupIndex = NSNotFound;
     
     NSArray *orderedPaths = [indexPaths sortedArrayUsingSelector:@selector(compare:)];
+    [_beginUpdatesSignal sendNext:[RACUnit defaultUnit]];
     for (NSIndexPath *indexPath in orderedPaths) {
         if (currentGroupIndex != indexPath.section) {
             if ([indexesToRemoveFromCurrentGroup count]) {
@@ -198,13 +211,16 @@
     if ([indexesToRemoveFromCurrentGroup count]) {
         [[self[currentGroupIndex] mutableArrayValueForKey:@"groupedObjects"] removeObjectsAtIndexes:indexesToRemoveFromCurrentGroup];
     }
+    [_endUpdatesSignal sendNext:[RACUnit defaultUnit]];
 }
 
 - (void)removeAllObjectsAndGroups
 {
     [_groupsByGroupID removeAllObjects];
     NSMutableArray *mutable = [self mutableArrayValueForKey:@"groups"];
+    [_beginUpdatesSignal sendNext:[RACUnit defaultUnit]];
     [mutable removeAllObjects];
+    [_endUpdatesSignal sendNext:[RACUnit defaultUnit]];
 }
 
 - (void)removeGroupWithGroupID:(id)groupID
@@ -212,10 +228,13 @@
     NSUInteger index = [[self.groups valueForKey:@"id"] indexOfObject:groupID inSortedRange:NSMakeRange(0, self.groups.count) options:NSBinarySearchingFirstEqual usingComparator:^NSComparisonResult(id obj1, id obj2) {
         return [obj1 compare:obj2];
     }];
+    
+    [_beginUpdatesSignal sendNext:[RACUnit defaultUnit]];
     if (index != NSNotFound) {
         [_groupsByGroupID removeObjectForKey:groupID];
         [[self mutableArrayValueForKey:@"groups"] removeObjectAtIndex:index];
     }
+    [_endUpdatesSignal sendNext:[RACUnit defaultUnit]];
 }
 
 - (NSComparator)comparator
@@ -232,6 +251,10 @@
             if (result != NSOrderedSame) {
                 break;
             }
+        }
+        
+        if (result == NSOrderedSame) {
+            return (NSComparisonResult)MAX(-1, MIN(1, (NSInteger)right - (NSInteger)left));
         }
         
         return result;

@@ -24,7 +24,7 @@ objc_setAssociatedObject(self, @selector(getter), object, objcAssociation);\
 SYNTHESIZE_NONATOMIC(class, getter, setter, OBJC_ASSOCIATION_RETAIN)
 
 @interface UICollectionView (MyLittleViewControllerInternal)
-@property (nonatomic) RACDisposable *insert, *delete, *insertGroup, *deleteGroup;
+@property (nonatomic) RACDisposable *beginUpdates, *insert, *delete, *insertGroup, *deleteGroup, *endUpdates;
 @property (nonatomic, weak) MLVCCollectionController *observedCollectionController;
 @end
 
@@ -34,10 +34,18 @@ SYNTHESIZE_STRONG_NONATOMIC(RACDisposable, insert, setInsert)
 SYNTHESIZE_STRONG_NONATOMIC(RACDisposable, delete, setDelete)
 SYNTHESIZE_STRONG_NONATOMIC(RACDisposable, insertGroup, setInsertGroup)
 SYNTHESIZE_STRONG_NONATOMIC(RACDisposable, deleteGroup, setDeleteGroup)
+SYNTHESIZE_STRONG_NONATOMIC(RACDisposable, endUpdates, setEndUpdates)
+SYNTHESIZE_STRONG_NONATOMIC(RACDisposable, beginUpdates, setBeginUpdates)
 SYNTHESIZE_NONATOMIC(MLVCCollectionController, observedCollectionController, setObservedCollectionController, OBJC_ASSOCIATION_ASSIGN);
 
 - (void)endObservingCollectionChanges
 {
+    [self.beginUpdates dispose];
+    self.beginUpdates = nil;
+    
+    [self.endUpdates dispose];
+    self.endUpdates = nil;
+    
     [self.insertGroup dispose];
     self.insertGroup = nil;
     
@@ -59,25 +67,72 @@ SYNTHESIZE_NONATOMIC(MLVCCollectionController, observedCollectionController, set
         return;
     }
     [self endObservingCollectionChanges];
-    @weakify(self)
+    
+    NSMutableArray *changes = [NSMutableArray array];
+    __block BOOL performingBatchUpdates = NO;
+    
+    self.beginUpdates = [collectionController.beginUpdatesSignal subscribeNext:^(id x) {
+        performingBatchUpdates = YES;
+    }];
+    
+    @weakify(self);
+    self.endUpdates = [collectionController.endUpdatesSignal subscribeNext:^(id x) {
+        @strongify(self);
+        [self performBatchUpdates:^{
+            for (void (^collectionViewUpdateBlock)(UICollectionView *) in changes) {
+                collectionViewUpdateBlock(self);
+            }
+            [changes removeAllObjects];
+            performingBatchUpdates = NO;
+        } completion:nil];
+    }];
+    
     self.insertGroup = [collectionController.groupsInsertedIndexSetSignal subscribeNext:^(NSIndexSet *sections) {
-        @strongify(self)
-        [self insertSections:sections];
+        @strongify(self);
+        if (performingBatchUpdates) {
+            [changes addObject:^() {
+                @strongify(self);
+                [self insertSections:sections];
+            }];
+        } else {
+            [self insertSections:sections];
+        }
     }];
     
     self.deleteGroup = [collectionController.groupsDeletedIndexSetSignal subscribeNext:^(NSIndexSet *sections) {
-        @strongify(self)
-        [self deleteSections:sections];
+        @strongify(self);
+        if (performingBatchUpdates) {
+            [changes addObject:^() {
+                @strongify(self);
+                [self deleteSections:sections];
+            }];
+        } else {
+            [self deleteSections:sections];
+        }
     }];
     
     self.insert = [collectionController.objectsInsertedIndexPathsSignal subscribeNext:^(NSArray *indexPaths) {
-        @strongify(self)
-        [self insertItemsAtIndexPaths:indexPaths];
+        @strongify(self);
+        if (performingBatchUpdates) {
+            [changes addObject:^() {
+                @strongify(self);
+                [self insertItemsAtIndexPaths:indexPaths];
+            }];
+        } else {
+            [self insertItemsAtIndexPaths:indexPaths];
+        }
     }];
     
     self.delete = [collectionController.objectsDeletedIndexPathsSignal subscribeNext:^(NSArray *indexPaths) {
-        @strongify(self)
-        [self deleteItemsAtIndexPaths:indexPaths];
+        @strongify(self);
+        if (performingBatchUpdates) {
+            [changes addObject:^() {
+                @strongify(self);
+                [self deleteItemsAtIndexPaths:indexPaths];
+            }];
+        } else {
+            [self deleteItemsAtIndexPaths:indexPaths];
+        }
     }];
     
     self.observedCollectionController = collectionController;

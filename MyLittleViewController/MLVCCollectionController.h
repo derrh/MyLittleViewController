@@ -53,6 +53,8 @@
  @name Reacting
  */
 
+@property (nonatomic, readonly) RACSignal *beginUpdatesSignal;
+
 @property (nonatomic, readonly) RACSignal *groupsInsertedIndexSetSignal;
 
 @property (nonatomic, readonly) RACSignal *groupsDeletedIndexSetSignal;
@@ -60,6 +62,8 @@
 @property (nonatomic, readonly) RACSignal *objectsInsertedIndexPathsSignal;
 
 @property (nonatomic, readonly) RACSignal *objectsDeletedIndexPathsSignal;
+
+@property (nonatomic, readonly) RACSignal *endUpdatesSignal;
 
 /**
  @name Querying

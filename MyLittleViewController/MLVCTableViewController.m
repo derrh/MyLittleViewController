@@ -12,7 +12,7 @@
 #import <ReactiveCocoa/ReactiveCocoa.h>
 
 @interface MLVCTableViewController ()
-@property (nonatomic) RACDisposable *groupInserted, *groupDeleted, *objectInserted, *objectDeleted;
+@property (nonatomic) RACDisposable *beginUpdates, *endUpdates, *groupInserted, *groupDeleted, *objectInserted, *objectDeleted;
 @end
 
 @implementation MLVCTableViewController {
@@ -52,6 +52,16 @@
     }
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    if ([self.viewModel respondsToSelector:@selector(viewController:viewWillDisappear:)]) {
+        [self.viewModel viewController:self viewWillDisappear:animated];
+    }
+}
+
+
 - (void)setEditing:(BOOL)editing animated:(BOOL)animated
 {
     if ([self.viewModel respondsToSelector:@selector(allowsMultipleSelectionDuringEditing)] && self.viewModel.allowsMultipleSelectionDuringEditing) {
@@ -71,6 +81,9 @@
 
 - (void)endObservingCollectionChanges
 {
+    [self.beginUpdates dispose];
+    [self.endUpdates dispose];
+    
     [self.groupInserted dispose];
     self.groupInserted = nil;
     
@@ -88,8 +101,16 @@
 {
     __weak MLVCTableViewController *weakSelf = self;
     
+    self.beginUpdates = [self.viewModel.collectionController.beginUpdatesSignal subscribeNext:^(id x) {
+        [weakSelf.tableView beginUpdates];
+    }];
+    
+    self.endUpdates = [self.viewModel.collectionController.endUpdatesSignal subscribeNext:^(id x) {
+        [weakSelf.tableView endUpdates];
+    }];
+    
     self.groupInserted = [self.viewModel.collectionController.groupsInsertedIndexSetSignal subscribeNext:^(id x) {
-        [weakSelf.tableView insertSections:x withRowAnimation:UITableViewRowAnimationAutomatic];
+        [weakSelf.tableView insertSections:x withRowAnimation:UITableViewRowAnimationTop];
     }];
     
     self.groupDeleted = [self.viewModel.collectionController.groupsDeletedIndexSetSignal subscribeNext:^(id x) {
@@ -97,11 +118,11 @@
     }];
     
     self.objectInserted = [self.viewModel.collectionController.objectsInsertedIndexPathsSignal subscribeNext:^(id x) {
-        [weakSelf.tableView insertRowsAtIndexPaths:x withRowAnimation:UITableViewRowAnimationAutomatic];
+        [weakSelf.tableView insertRowsAtIndexPaths:x withRowAnimation:UITableViewRowAnimationTop];
     }];
     
     self.objectDeleted = [self.viewModel.collectionController.objectsDeletedIndexPathsSignal subscribeNext:^(id x) {
-        [weakSelf.tableView deleteRowsAtIndexPaths:x withRowAnimation:UITableViewRowAnimationAutomatic];
+        [weakSelf.tableView deleteRowsAtIndexPaths:x withRowAnimation:UITableViewRowAnimationFade];
     }];
     
 }

@@ -32,6 +32,15 @@
     }
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    if ([self.viewModel respondsToSelector:@selector(viewController:viewWillDisappear:)]) {
+        [self.viewModel viewController:self viewWillDisappear:animated];
+    }
+}
+
 - (void)setViewModel:(id<MLVCViewModel>)viewModel
 {
     if (_viewModel == viewModel) {
