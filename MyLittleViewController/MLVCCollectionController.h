@@ -130,6 +130,10 @@
  */
 - (void)removeAllObjectsAndGroups;
 
+/**
+ Add group with the given id and title
+ */
+- (id<MLVCCollectionControllerGroup>)insertGroupWithGroupID:(id)groupID title:(NSString *)title;
 
 /**
  Remove just the group of objects with the given group id object

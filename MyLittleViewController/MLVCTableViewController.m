@@ -197,6 +197,25 @@
     [_selectedCellViewModelSubject sendNext:cellViewModel];
 }
 
+- (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    id<MLVCTableViewCellViewModel> cellViewModel = [self.viewModel.collectionController objectAtIndexPath:indexPath];
+    if ([cellViewModel respondsToSelector:@selector(tableViewController:shouldHighlightRowAtIndexPath:)]) {
+        return [cellViewModel tableViewController:self shouldHighlightRowAtIndexPath:indexPath];
+    }
+    return YES;
+}
+
+- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    id<MLVCTableViewCellViewModel> cellViewModel = [self.viewModel.collectionController objectAtIndexPath:indexPath];
+    if ([cellViewModel respondsToSelector:@selector(tableViewController:willSelectRowAtIndexPath:)]) {
+        return [cellViewModel tableViewController:self willSelectRowAtIndexPath:indexPath];
+    }
+    
+    return indexPath;
+}
+
 - (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [_selectedCellViewModelSubject sendNext:nil];

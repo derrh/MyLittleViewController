@@ -123,7 +123,12 @@
 
 - (MLVCCollectionControllerGroup *)insertGroupForObject:(id)object
 {
-    MLVCCollectionControllerGroup *group = [[MLVCCollectionControllerGroup alloc] initWithID:self.groupByBlock(object) title:self.groupTitleBlock(object)];
+    return [self insertGroupWithGroupID:self.groupByBlock(object) title:self.groupTitleBlock(object)];
+}
+
+- (MLVCCollectionControllerGroup *)insertGroupWithGroupID:(id)groupID title:(NSString *)title
+{
+    MLVCCollectionControllerGroup *group = [[MLVCCollectionControllerGroup alloc] initWithID:groupID title:title];
     _groupsByGroupID[group.id] = group;
     
     NSMutableArray *mutable = [self mutableArrayValueForKey:@"groups"];

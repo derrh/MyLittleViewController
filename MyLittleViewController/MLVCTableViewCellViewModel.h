@@ -14,6 +14,10 @@
 - (UITableViewCell *)tableViewController:(MLVCTableViewController *)controller cellForRowAtIndexPath:(NSIndexPath *)indexPath;
 
 @optional
+- (BOOL)tableViewController:(MLVCTableViewController *)controller shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath;
+
+- (NSIndexPath *)tableViewController:(MLVCTableViewController *)controller willSelectRowAtIndexPath:(NSIndexPath *)indexPath;
+
 - (void)tableViewController:(MLVCTableViewController *)controller didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
 
 - (CGFloat)tableViewController:(MLVCTableViewController *)controller heightForRowAtIndexPath:(NSIndexPath *)indexPath;
