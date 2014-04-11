@@ -256,4 +256,9 @@
     return NSLocalizedString(@"Delete", @"Default delete button MLVC");
 }
 
+- (void)dealloc
+{
+    [self endObservingCollectionChanges];
+}
+
 @end
