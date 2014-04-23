@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@class MLVCCollectionController;
+@protocol MLVCCollectionController;
 
 @interface UICollectionView (MyLittleViewController)
-- (void)mlvc_observeCollectionController:(MLVCCollectionController *)collectionController;
+- (void)mlvc_observeCollectionController:(id<MLVCCollectionController>)collectionController;
 @end

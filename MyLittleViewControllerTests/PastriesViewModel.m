@@ -7,7 +7,7 @@
 //
 
 #import "PastriesViewModel.h"
-#import "MLVCCollectionController.h"
+#import "MLVCManualCollectionController.h"
 #import "Pastry.h"
 
 @implementation PastriesViewModel
@@ -16,7 +16,7 @@
 {
     self = [super init];
     if (self) {
-        self.collectionController = [MLVCCollectionController collectionControllerGroupingByBlock:pastryTypeBlock groupTitleBlock:pastryTypeNameBlock sortDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]]];
+        self.collectionController = [MLVCManualCollectionController collectionControllerGroupingByBlock:pastryTypeBlock groupTitleBlock:pastryTypeNameBlock sortDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]]];
     }
     return self;
 }

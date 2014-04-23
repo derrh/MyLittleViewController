@@ -88,7 +88,7 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    MLVCCollectionControllerGroup *group = self.viewModel.collectionController[section];
+    id<MLVCCollectionControllerGroup> group = self.viewModel.collectionController[section];
     return [group.objects count];
 }
 

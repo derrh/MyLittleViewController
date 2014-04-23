@@ -19,7 +19,7 @@
 {
     NSString *(^testBlock)(id object) = ^(id object) { return @"Hello, world!"; };
     NSArray *sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"cats" ascending:YES]];
-    MLVCCollectionController *controller = [MLVCCollectionController collectionControllerGroupingByBlock:testBlock groupTitleBlock:testBlock sortDescriptors:sortDescriptors];
+    id<MLVCCollectionController>controller = [MLVCCollectionController collectionControllerGroupingByBlock:testBlock groupTitleBlock:testBlock sortDescriptors:sortDescriptors];
 
     XCTAssertEqual(testBlock, controller.groupByBlock, @"groupByBlock should be set");
     XCTAssertEqual(testBlock, controller.groupTitleBlock, @"groupTitleBlock should equal the test block");
@@ -29,7 +29,7 @@
 - (void)test_creating_with_nil_block_params
 {
     NSArray *sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"cats" ascending:YES]];
-    MLVCCollectionController *controller = [MLVCCollectionController collectionControllerGroupingByBlock:nil groupTitleBlock:nil sortDescriptors:sortDescriptors];
+    id<MLVCCollectionController>controller = [MLVCCollectionController collectionControllerGroupingByBlock:nil groupTitleBlock:nil sortDescriptors:sortDescriptors];
     
     XCTAssertNotNil(controller.groupByBlock, @"a default group by block should be provided");
     XCTAssertNotNil(controller.groupTitleBlock, @"a default title block should be provided");
@@ -44,7 +44,7 @@
 
 - (void)test_inserting_objects_with_no_grouping
 {
-    MLVCCollectionController *controller = [MLVCCollectionController collectionControllerGroupingByBlock:nil groupTitleBlock:nil sortDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"length" ascending:YES]]];
+    id<MLVCCollectionController>controller = [MLVCCollectionController collectionControllerGroupingByBlock:nil groupTitleBlock:nil sortDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"length" ascending:YES]]];
     
     [controller insertObjects:@[@"aaa"]];
     
@@ -59,7 +59,7 @@
 
 
 - (void)test_grouping_pastries {
-    MLVCCollectionController *controller = [MLVCCollectionController collectionControllerGroupingByBlock:pastryTypeBlock groupTitleBlock:pastryTypeNameBlock sortDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"pastryType" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]]];
+    id<MLVCCollectionController>controller = [MLVCCollectionController collectionControllerGroupingByBlock:pastryTypeBlock groupTitleBlock:pastryTypeNameBlock sortDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"pastryType" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]]];
 
     [controller insertObjects:@[[Pastry pastryNamed:@"Glazed Donut" calories:280 type:PastryTypeGlazed],
                                 [Pastry pastryNamed:@"Lemon Bar" calories:260 type:PastryTypeLemon]]];
@@ -85,7 +85,7 @@
     __block BOOL groupInserted = NO;
     __block BOOL objectInserted = NO;
     
-    MLVCCollectionController *controller = [MLVCCollectionController collectionControllerGroupingByBlock:nil groupTitleBlock:nil sortDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"length" ascending:YES]]];
+    id<MLVCCollectionController>controller = [MLVCCollectionController collectionControllerGroupingByBlock:nil groupTitleBlock:nil sortDescriptors:@[[NSSortDescriptor sortDescriptorWithKey:@"length" ascending:YES]]];
     
     [controller.groupsInsertedIndexSetSignal subscribeNext:^(id x) {
         groupInserted = YES;

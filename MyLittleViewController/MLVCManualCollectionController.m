@@ -6,30 +6,31 @@
 //  Copyright (c) 2013 Instructure. All rights reserved.
 //
 
-#import "MLVCCollectionController.h"
+#import "MLVCManualCollectionController.h"
 #import <UIKit/UIKit.h>
 #import <ReactiveCocoa/ReactiveCocoa.h>
 #import "NSObject+RACCollectionChanges.h"
 #import <Mantle/EXTScope.h>
 
-@interface MLVCCollectionControllerGroup ()
+@interface MLVCManualCollectionControllerGroup ()
 - (id)initWithID:(id)groupID title:(NSString *)title;
 @property (nonatomic) NSUInteger index;
 @property (nonatomic) NSMutableArray *groupedObjects;
 @end
 
-@interface MLVCCollectionController ()
+@interface MLVCManualCollectionController ()
 @property (nonatomic, copy, readwrite) id (^groupByBlock)(id object);
 @property (nonatomic, copy, readwrite) NSString *(^groupTitleBlock)(id object);
 @property (nonatomic, copy, readwrite) NSArray *sortDescriptors;
 @end
 
-@implementation MLVCCollectionController {
+@implementation MLVCManualCollectionController {
     NSMutableArray *_groups;
     NSMutableDictionary *_groupsByGroupID;
     RACSignal *_groupsInsertedIndexSetSignal, *_groupsDeletedIndexSetSignal;
     RACSubject *_beginUpdatesSignal, *_endUpdatesSignal;
 }
+@synthesize groups=_groups, beginUpdatesSignal=_beginUpdatesSignal, endUpdatesSignal=_endUpdatesSignal;
 
 - (id)init
 {
@@ -45,7 +46,7 @@
 
 + (instancetype)collectionControllerGroupingByBlock:(id (^)(id object))groupByBlock groupTitleBlock:(NSString *(^)(id object))groupTitleBlock sortDescriptors:(NSArray *)sortDescriptors
 {
-    MLVCCollectionController *me = [[self alloc] init];
+    MLVCManualCollectionController *me = [[self alloc] init];
     
     me.groupByBlock = groupByBlock ?: ^(id object) {
         return (id)@(0);
@@ -83,14 +84,13 @@
 - (RACSignal *)signalForIndexPathsOfObjectChangesOfType:(NSKeyValueChange)changeType {
     @weakify(self);
     RACSignal *newGroups = [[self groupsInsertedIndexSetSignal] map:^id(NSIndexSet *insertedGroups) {
+        @strongify(self);
         NSArray *groups = [self.groups objectsAtIndexes:insertedGroups];
         return groups;
     }];
     
     return [[[RACSignal return:self.groups] concat:newGroups] flattenMap:^RACStream *(NSArray *groups) {
-        @strongify(self);
-        
-        NSArray *insertionSignalsForGroups = [[groups.rac_sequence map:^id(MLVCCollectionControllerGroup *group) {
+        NSArray *insertionSignalsForGroups = [[groups.rac_sequence map:^id(MLVCManualCollectionControllerGroup *group) {
             @weakify(group);
             return [[group rac_filteredIndexSetsForChangeType:changeType forCollectionForKeyPath:@"groupedObjects"] map:^id(NSIndexSet *indexes) {
                 @strongify(group);
@@ -127,14 +127,14 @@
 
 #pragma mark - inserting and removing
 
-- (MLVCCollectionControllerGroup *)insertGroupForObject:(id)object
+- (MLVCManualCollectionControllerGroup *)insertGroupForObject:(id)object
 {
-    return [self insertGroupWithGroupID:self.groupByBlock(object) title:self.groupTitleBlock(object)];
+    return (MLVCManualCollectionControllerGroup *)[self insertGroupWithGroupID:self.groupByBlock(object) title:self.groupTitleBlock(object)];
 }
 
-- (MLVCCollectionControllerGroup *)insertGroupWithGroupID:(id)groupID title:(NSString *)title
+- (MLVCManualCollectionControllerGroup *)insertGroupWithGroupID:(id)groupID title:(NSString *)title
 {
-    MLVCCollectionControllerGroup *group = [[MLVCCollectionControllerGroup alloc] initWithID:groupID title:title];
+    MLVCManualCollectionControllerGroup *group = [[MLVCManualCollectionControllerGroup alloc] initWithID:groupID title:title];
     _groupsByGroupID[group.id] = group;
     
     NSMutableArray *mutable = [self mutableArrayValueForKey:@"groups"];
@@ -145,7 +145,7 @@
     group.index = index;
     [mutable insertObject:group atIndex:index];
     for (NSInteger higherIndex = index + 1; higherIndex < [mutable count]; ++higherIndex) {
-        MLVCCollectionControllerGroup *laterGroup = mutable[higherIndex];
+        MLVCManualCollectionControllerGroup *laterGroup = mutable[higherIndex];
         laterGroup.index = higherIndex;
     }
     return group;
@@ -153,7 +153,7 @@
 
 - (void)insertObject:(id)object
 {
-    MLVCCollectionControllerGroup *group = _groupsByGroupID[_groupByBlock(object)];
+    MLVCManualCollectionControllerGroup *group = _groupsByGroupID[_groupByBlock(object)];
     if (group == nil) {
         group = [self insertGroupForObject:object];
     }
@@ -275,7 +275,8 @@
 @end
 
 
-@implementation MLVCCollectionControllerGroup
+@implementation MLVCManualCollectionControllerGroup
+@synthesize name=_name, indexTitle;
 
 - (id)initWithID:(id)groupID title:(NSString *)title
 {
@@ -283,13 +284,18 @@
     if (self) {
         self.groupedObjects = [NSMutableArray array];
         _id = groupID;
-        _title = title;
+        _name = title;
     }
     return self;
 }
 
 - (NSArray *)objects {
     return self.groupedObjects;
+}
+
+- (NSUInteger)numberOfObjects
+{
+    return self.groupedObjects.count;
 }
 
 /**
@@ -301,6 +307,6 @@
 
 - (NSString *)debugDescription
 {
-    return [NSString stringWithFormat:@"%@ \"%@\" [[\n%@\n]]", self.id, self.title, self.groupedObjects];
+    return [NSString stringWithFormat:@"%@ \"%@\" [[\n%@\n]]", self.id, self.name, self.groupedObjects];
 }
 @end

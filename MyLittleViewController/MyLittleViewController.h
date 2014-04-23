@@ -10,6 +10,7 @@
 #import "MLVCViewController.h"
 
 #import "MLVCCollectionController.h"
+#import "MLVCManualCollectionController.h"
 
 #import "MLVCTableViewController.h"
 #import "MLVCTableViewModel.h"

@@ -172,13 +172,13 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    MLVCCollectionControllerGroup *group = self.viewModel.collectionController[section];
-    return group.title;
+    id<MLVCCollectionControllerGroup> group = self.viewModel.collectionController[section];
+    return group.name;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    MLVCCollectionControllerGroup *group = self.viewModel.collectionController[section];
+    id<MLVCCollectionControllerGroup> group = self.viewModel.collectionController[section];
     return [group.objects count];
 }
 

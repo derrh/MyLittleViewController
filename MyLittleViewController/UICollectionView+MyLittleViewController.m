@@ -12,11 +12,11 @@
 #import <Mantle/EXTScope.h>
 
 #define SYNTHESIZE_NONATOMIC(class, getter, setter, objcAssociation) \
-- (class *)getter { \
+- (class)getter { \
 return objc_getAssociatedObject(self, _cmd); \
 } \
 \
-- (void)setter:(class *)object { \
+- (void)setter:(class)object { \
 objc_setAssociatedObject(self, @selector(getter), object, objcAssociation);\
 }
 
@@ -25,18 +25,18 @@ SYNTHESIZE_NONATOMIC(class, getter, setter, OBJC_ASSOCIATION_RETAIN)
 
 @interface UICollectionView (MyLittleViewControllerInternal)
 @property (nonatomic) RACDisposable *beginUpdates, *insert, *delete, *insertGroup, *deleteGroup, *endUpdates;
-@property (nonatomic, weak) MLVCCollectionController *observedCollectionController;
+@property (nonatomic, weak) id<MLVCCollectionController> observedCollectionController;
 @end
 
 @implementation UICollectionView (MyLittleViewController)
 
-SYNTHESIZE_STRONG_NONATOMIC(RACDisposable, insert, setInsert)
-SYNTHESIZE_STRONG_NONATOMIC(RACDisposable, delete, setDelete)
-SYNTHESIZE_STRONG_NONATOMIC(RACDisposable, insertGroup, setInsertGroup)
-SYNTHESIZE_STRONG_NONATOMIC(RACDisposable, deleteGroup, setDeleteGroup)
-SYNTHESIZE_STRONG_NONATOMIC(RACDisposable, endUpdates, setEndUpdates)
-SYNTHESIZE_STRONG_NONATOMIC(RACDisposable, beginUpdates, setBeginUpdates)
-SYNTHESIZE_NONATOMIC(MLVCCollectionController, observedCollectionController, setObservedCollectionController, OBJC_ASSOCIATION_ASSIGN);
+SYNTHESIZE_STRONG_NONATOMIC(RACDisposable *, insert, setInsert)
+SYNTHESIZE_STRONG_NONATOMIC(RACDisposable *, delete, setDelete)
+SYNTHESIZE_STRONG_NONATOMIC(RACDisposable *, insertGroup, setInsertGroup)
+SYNTHESIZE_STRONG_NONATOMIC(RACDisposable *, deleteGroup, setDeleteGroup)
+SYNTHESIZE_STRONG_NONATOMIC(RACDisposable *, endUpdates, setEndUpdates)
+SYNTHESIZE_STRONG_NONATOMIC(RACDisposable *, beginUpdates, setBeginUpdates)
+SYNTHESIZE_NONATOMIC(id<MLVCCollectionController>, observedCollectionController, setObservedCollectionController, OBJC_ASSOCIATION_ASSIGN);
 
 - (void)endObservingCollectionChanges
 {
@@ -61,7 +61,7 @@ SYNTHESIZE_NONATOMIC(MLVCCollectionController, observedCollectionController, set
     self.observedCollectionController = nil;
 }
 
-- (void)mlvc_observeCollectionController:(MLVCCollectionController *)collectionController
+- (void)mlvc_observeCollectionController:(id<MLVCCollectionController>)collectionController
 {
     if (collectionController == self.observedCollectionController) {
         return;

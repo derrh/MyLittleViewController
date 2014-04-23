@@ -9,10 +9,11 @@
 #import <Foundation/Foundation.h>
 #import "MLVCViewModel.h"
 
-@class MLVCTableViewController, MLVCCollectionController;
+@class MLVCTableViewController;
+@protocol MLVCCollectionController;
 
 @protocol MLVCTableViewModel <MLVCViewModel>
-@property (nonatomic) MLVCCollectionController *collectionController;
+@property (nonatomic) id<MLVCCollectionController> collectionController;
 
 @optional
 @property (nonatomic, readonly) BOOL allowsMultipleSelectionDuringEditing;

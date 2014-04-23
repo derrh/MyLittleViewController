@@ -9,10 +9,11 @@
 #import <Foundation/Foundation.h>
 #import "MLVCViewModel.h"
 
-@class MLVCCollectionViewController, MLVCCollectionController;
+@class MLVCCollectionViewController;
+@protocol MLVCCollectionController;
 
 @protocol MLVCCollectionViewModel <MLVCViewModel>
-@property (nonatomic) MLVCCollectionController *collectionController;
+@property (nonatomic) id<MLVCCollectionController> collectionController;
 
 @optional
 - (void)collectionViewControllerViewDidLoad:(MLVCCollectionViewController *)collectionViewController;
