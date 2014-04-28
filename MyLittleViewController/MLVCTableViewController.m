@@ -30,7 +30,7 @@
     if ([self.viewModel respondsToSelector:@selector(tableViewControllerViewDidLoad:)]) {
         [self.viewModel tableViewControllerViewDidLoad:self];
     }
-
+    
     [_selectedCellViewModelSubject sendNext:nil];
 }
 
@@ -45,9 +45,11 @@
     if ([self.viewModel respondsToSelector:@selector(refreshViewModelSignalForced:)]) {
         RACSignal *refreshSignal = [self.viewModel refreshViewModelSignalForced:NO];
         [self.refreshControl beginRefreshing];
+        [self.customRefreshControl beginRefreshing];
         [self.tableView scrollRectToVisible:self.refreshControl.frame animated:NO];
         [refreshSignal subscribeCompleted:^{
             [self.refreshControl endRefreshing];
+            [self.customRefreshControl endRefreshing];
         }];
     }
 }
@@ -70,11 +72,12 @@
     [super setEditing:editing animated:animated];
 }
 
-- (void)refreshFromRefreshControl:(UIRefreshControl *)refreshControl
+- (void)refreshFromRefreshControl:(id)refreshControl
 {
     if ([self.viewModel respondsToSelector:@selector(refreshViewModelSignalForced:)]) {
         [[self.viewModel refreshViewModelSignalForced:YES] subscribeCompleted:^{
             [refreshControl endRefreshing];
+            [self.customRefreshControl endRefreshing];
         }];
     }
 }
@@ -254,6 +257,16 @@
         return [cellViewModel tableViewController:self titleForDeleteConfirmationButtonForRowAtIndexPath:indexPath];
     }
     return NSLocalizedString(@"Delete", @"Default delete button MLVC");
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+	[self.customRefreshControl scrollViewDidScroll:scrollView];
+}
+
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset
+{
+	[self.customRefreshControl scrollViewWillEndDragging:scrollView withVelocity:velocity targetContentOffset:targetContentOffset];
 }
 
 - (void)dealloc
