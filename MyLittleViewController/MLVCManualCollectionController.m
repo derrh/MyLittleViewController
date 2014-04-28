@@ -10,7 +10,7 @@
 #import <UIKit/UIKit.h>
 #import <ReactiveCocoa/ReactiveCocoa.h>
 #import "NSObject+RACCollectionChanges.h"
-#import <Mantle/EXTScope.h>
+#import <ReactiveCocoa/RACEXTScope.h>
 
 @interface MLVCManualCollectionControllerGroup ()
 - (id)initWithID:(id)groupID title:(NSString *)title;

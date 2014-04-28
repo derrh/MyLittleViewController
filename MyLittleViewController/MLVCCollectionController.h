@@ -11,23 +11,6 @@
 #import <CoreData/CoreData.h>
 
 @protocol MLVCCollectionController <NSObject>
-
-/**
- @name Reacting
- */
-
-@property (nonatomic, readonly) RACSignal *beginUpdatesSignal;
-
-@property (nonatomic, readonly) RACSignal *groupsInsertedIndexSetSignal;
-
-@property (nonatomic, readonly) RACSignal *groupsDeletedIndexSetSignal;
-
-@property (nonatomic, readonly) RACSignal *objectsInsertedIndexPathsSignal;
-
-@property (nonatomic, readonly) RACSignal *objectsDeletedIndexPathsSignal;
-
-@property (nonatomic, readonly) RACSignal *endUpdatesSignal;
-
 /**
  @name Querying
  */
@@ -49,12 +32,26 @@
 
 
 /**
- Returns the id<MLVCCollectionControllerGroup> at the given subscript
- 
- @param groupIndex Index for the group of interest
+ @name Reacting
  */
-- (id)objectAtIndexedSubscript:(NSUInteger)groupIndex;
 
+@property (nonatomic, readonly) RACSignal *beginUpdatesSignal;
+
+@property (nonatomic, readonly) RACSignal *groupsInsertedIndexSetSignal;
+
+@property (nonatomic, readonly) RACSignal *groupsDeletedIndexSetSignal;
+
+@property (nonatomic, readonly) RACSignal *objectsInsertedIndexPathsSignal;
+
+@property (nonatomic, readonly) RACSignal *objectsDeletedIndexPathsSignal;
+
+@property (nonatomic, readonly) RACSignal *endUpdatesSignal;
+
+
+@optional
+@property (nonatomic, readonly) RACSignal *objectsUpdatedIndexPathsSignal;
+
+@property (nonatomic, readonly) RACSignal *objectMovedFromIndexPathToIndexPathSignal;
 
 @end
 

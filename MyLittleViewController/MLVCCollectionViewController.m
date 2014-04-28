@@ -88,13 +88,15 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    id<MLVCCollectionControllerGroup> group = self.viewModel.collectionController[section];
+    id<MLVCCollectionControllerGroup> group = self.viewModel.collectionController.groups[section];
+    
     return [group.objects count];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     id<MLVCCollectionViewCellViewModel> item = [self.viewModel.collectionController objectAtIndexPath:indexPath];
+    
     return [item collectionViewController:self cellForItemAtIndexPath:indexPath];
 }
 
@@ -120,6 +122,17 @@
     }
     
     return YES;
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewFlowLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    id<MLVCCollectionViewCellViewModel> item = [self.viewModel.collectionController objectAtIndexPath:indexPath];
+    
+    if ([item respondsToSelector:@selector(collectionViewController:layout:sizeForItemAtIndexPath:)]) {
+        return [item collectionViewController:self layout:collectionViewLayout sizeForItemAtIndexPath:indexPath];
+    }
+    
+    return collectionViewLayout.itemSize;
 }
 
 - (UICollectionViewTransitionLayout *)collectionView:(UICollectionView *)collectionView transitionLayoutForOldLayout:(UICollectionViewLayout *)fromLayout newLayout:(UICollectionViewLayout *)toLayout

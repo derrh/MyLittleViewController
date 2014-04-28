@@ -8,8 +8,8 @@
 
 #import "UICollectionView+MyLittleViewController.h"
 #import "MLVCCollectionController.h"
+#import <ReactiveCocoa/RACEXTScope.h>
 #import <objc/runtime.h>
-#import <Mantle/EXTScope.h>
 
 #define SYNTHESIZE_NONATOMIC(class, getter, setter, objcAssociation) \
 - (class)getter { \

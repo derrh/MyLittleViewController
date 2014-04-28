@@ -100,7 +100,7 @@
 - (void)beginObservingCollectionChanges
 {
     __weak MLVCTableViewController *weakSelf = self;
-    
+
     self.beginUpdates = [self.viewModel.collectionController.beginUpdatesSignal subscribeNext:^(id x) {
         [weakSelf.tableView beginUpdates];
     }];
@@ -172,13 +172,13 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    id<MLVCCollectionControllerGroup> group = self.viewModel.collectionController[section];
+    id<MLVCCollectionControllerGroup> group = self.viewModel.collectionController.groups[section];
     return group.name;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    id<MLVCCollectionControllerGroup> group = self.viewModel.collectionController[section];
+    id<MLVCCollectionControllerGroup> group = self.viewModel.collectionController.groups[section];
     return [group.objects count];
 }
 

@@ -11,6 +11,7 @@
 
 #import "MLVCCollectionController.h"
 #import "MLVCManualCollectionController.h"
+#import "MLVCFetchedCollectionController.h"
 
 #import "MLVCTableViewController.h"
 #import "MLVCTableViewModel.h"
