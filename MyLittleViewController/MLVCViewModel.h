@@ -14,6 +14,7 @@
 - (RACSignal *)refreshViewModelSignalForced:(BOOL)forced;
 
 - (void)viewControllerViewDidLoad:(UIViewController *)viewController;
+- (void)viewController:(UIViewController *)viewController viewDidAppear:(BOOL)animated;
 - (void)viewController:(UIViewController *)viewController viewWillAppear:(BOOL)animated;
 - (void)viewController:(UIViewController *)viewController viewWillDisappear:(BOOL)animated;
 @end

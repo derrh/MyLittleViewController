@@ -34,6 +34,15 @@
     [_selectedCellViewModelSubject sendNext:nil];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    if ([self.viewModel respondsToSelector:@selector(viewController:viewDidAppear:)]) {
+        [self.viewModel viewController:self viewDidAppear:animated];
+    }
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
