@@ -59,6 +59,9 @@
         [refreshSignal subscribeCompleted:^{
             [self.refreshControl endRefreshing];
             [self.customRefreshControl endRefreshing];
+            if (self.viewModel.tableviewRefreshCompleted){
+                self.viewModel.tableviewRefreshCompleted();
+            }
         }];
     }
 }
