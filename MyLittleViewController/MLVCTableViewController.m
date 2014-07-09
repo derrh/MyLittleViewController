@@ -17,6 +17,7 @@
 
 @implementation MLVCTableViewController {
     RACSubject *_selectedCellViewModelSubject;
+    RACSubject *_tableViewDidAppearSubject;
 }
 
 - (void)viewDidLoad
@@ -41,6 +42,8 @@
     if ([self.viewModel respondsToSelector:@selector(viewController:viewDidAppear:)]) {
         [self.viewModel viewController:self viewDidAppear:animated];
     }
+    
+    [_tableViewDidAppearSubject sendNext:self];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -176,6 +179,11 @@
 - (RACSignal *)selectedCellViewModelSignal
 {
     return _selectedCellViewModelSubject ?: (_selectedCellViewModelSubject = [RACSubject subject]);
+}
+
+- (RACSignal *)tableViewDidAppearSignal
+{
+    return _tableViewDidAppearSubject ?: (_tableViewDidAppearSubject = [RACSubject subject]);
 }
 
 #pragma mark - Table view data source

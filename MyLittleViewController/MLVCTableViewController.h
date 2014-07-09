@@ -14,6 +14,7 @@
 @property (nonatomic) IBOutlet id<MLVCTableViewModel> viewModel;
 
 @property (nonatomic, readonly) RACSignal *selectedCellViewModelSignal;
+@property (nonatomic, readonly) RACSignal *tableViewDidAppearSignal;
 @property (nonatomic, strong) id customRefreshControl;
 
 - (void)refreshFromRefreshControl:(id)refreshControl;
