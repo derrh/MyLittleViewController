@@ -67,6 +67,11 @@
             }
         }];
     }
+    
+    // fix for refresh control not visible when initially refreshing tableviews appear
+    if (self.refreshControl.isRefreshing && self.tableView.contentOffset.y <= 0.0) {
+        [self.tableView setContentOffset:CGPointMake(0, -self.refreshControl.bounds.size.height) animated:YES];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
