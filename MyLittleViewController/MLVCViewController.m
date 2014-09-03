@@ -10,6 +10,22 @@
 
 @implementation MLVCViewController
 
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    RAC(self, title) = RACObserve(self, viewModel.viewControllerTitle);
+}
+
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        RAC(self, title) = RACObserve(self, viewModel.viewControllerTitle);
+    }
+    return self;
+}
+
+
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];

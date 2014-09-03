@@ -20,6 +20,20 @@
     RACSubject *_tableViewDidAppearSubject;
 }
 
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    RAC(self, title) = RACObserve(self, viewModel.viewControllerTitle);
+}
+
+- (instancetype)initWithStyle:(UITableViewStyle)style
+{
+    self = [super initWithStyle:style];
+    if (self) {
+        RAC(self, title) = RACObserve(self, viewModel.viewControllerTitle);
+    }
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];

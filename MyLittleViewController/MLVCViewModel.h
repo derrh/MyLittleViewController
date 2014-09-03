@@ -10,6 +10,8 @@
 #import <ReactiveCocoa/ReactiveCocoa.h>
 
 @protocol MLVCViewModel <NSObject>
+@property (nonatomic) NSString *viewControllerTitle;
+
 @optional
 - (RACSignal *)refreshViewModelSignalForced:(BOOL)forced;
 
